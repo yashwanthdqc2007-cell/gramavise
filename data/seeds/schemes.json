@@ -1,0 +1,49 @@
+[
+  {
+    "scheme_code": "PMEGP",
+    "scheme_name": "Prime Minister Employment Generation Programme",
+    "ministry_or_dept": "Ministry of MSME",
+    "max_loan_amount": 5000000.0,
+    "subsidy_percentage_general": 25.0,
+    "subsidy_percentage_special": 35.0,
+    "interest_subvention_pct": 0.0,
+    "eligibility_criteria": {
+      "min_age": 18,
+      "min_education": "8th Pass for projects > ₹10L in Mfg",
+      "sector": ["Manufacturing", "Services"]
+    },
+    "required_documents": ["Aadhaar", "PAN", "Project Report", "Rural Certificate", "Educational Certificate"],
+    "official_portal_url": "https://www.kviconline.gov.in/pmegpeportal"
+  },
+  {
+    "scheme_code": "MUDRA_KISHORE",
+    "scheme_name": "Pradhan Mantri MUDRA Yojana (Kishore)",
+    "ministry_or_dept": "Ministry of Finance",
+    "max_loan_amount": 500000.0,
+    "subsidy_percentage_general": 0.0,
+    "subsidy_percentage_special": 0.0,
+    "interest_subvention_pct": 2.0,
+    "eligibility_criteria": {
+      "min_age": 18,
+      "max_loan": 500000.0,
+      "collateral_required": false
+    },
+    "required_documents": ["Aadhaar", "Voter ID / Driving License", "Business Quotations", "Bank Statement (6 months)"],
+    "official_portal_url": "https://www.mudra.org.in"
+  },
+  {
+    "scheme_code": "PMFME",
+    "scheme_name": "PM Formalisation of Micro Food Processing Enterprises Scheme",
+    "ministry_or_dept": "Ministry of Food Processing Industries",
+    "max_loan_amount": 1000000.0,
+    "subsidy_percentage_general": 35.0,
+    "subsidy_percentage_special": 35.0,
+    "interest_subvention_pct": 3.0,
+    "eligibility_criteria": {
+      "sector": ["Food Processing", "Agro Processing", "Milling", "Dairy Products"],
+      "max_subsidy": 1000000.0
+    },
+    "required_documents": ["Aadhaar", "FSSAI (can be applied post sanction)", "Bank Passbook", "Quotation of Machinery"],
+    "official_portal_url": "https://pmfme.mofpi.gov.in"
+  }
+]
