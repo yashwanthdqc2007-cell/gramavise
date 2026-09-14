@@ -1,20 +1,34 @@
-from typing import List, Optional
+"""Business profile persistence repository."""
+from typing import Optional, List
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 from app.models.business import BusinessProfile
+from app.repositories.base import AbstractRepository
 
 
-class BusinessRepository:
-    def __init__(self, db: Session):
-        self.db = db
+class BusinessProfileRepository(AbstractRepository[BusinessProfile]):
+    """Encapsulates database access and queries for BusinessProfile records."""
 
     def get_by_id(self, business_id: str) -> Optional[BusinessProfile]:
-        return self.db.query(BusinessProfile).filter(BusinessProfile.id == business_id).first()
+        stmt = select(BusinessProfile).where(BusinessProfile.id == business_id)
+        return self.session.scalar(stmt)
+
+    def list_for_user(self, user_id: str) -> List[BusinessProfile]:
+        stmt = select(BusinessProfile).where(BusinessProfile.user_id == user_id).order_by(BusinessProfile.created_at.desc())
+        return list(self.session.scalars(stmt).all())
 
     def list_by_user(self, user_id: str) -> List[BusinessProfile]:
-        return self.db.query(BusinessProfile).filter(BusinessProfile.user_id == user_id).all()
+        """Alias for list_for_user."""
+        return self.list_for_user(user_id)
+
+    def add(self, business: BusinessProfile) -> BusinessProfile:
+        self.session.add(business)
+        return business
 
     def create(self, business: BusinessProfile) -> BusinessProfile:
-        self.db.add(business)
-        self.db.commit()
-        self.db.refresh(business)
-        return business
+        """Alias for add(). Transaction commit is governed by the Unit of Work."""
+        return self.add(business)
+
+
+# Retain alias for backwards compatibility
+BusinessRepository = BusinessProfileRepository

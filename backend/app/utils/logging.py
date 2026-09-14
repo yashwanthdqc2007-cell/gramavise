@@ -1,12 +1,15 @@
 import logging
 import sys
+from app.config import settings
 
 
 def setup_logger(name: str = "gramavise") -> logging.Logger:
-    """Configure structured console logger."""
+    """Configure structured console logger honoring configured log level."""
     logger = logging.getLogger(name)
+    level = getattr(logging, settings.LOG_LEVEL.upper(), logging.INFO)
+    logger.setLevel(level)
+
     if not logger.handlers:
-        logger.setLevel(logging.INFO)
         handler = logging.StreamHandler(sys.stdout)
         formatter = logging.Formatter(
             "[%(asctime)s] [%(levelname)s] [%(name)s]: %(message)s",

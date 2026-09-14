@@ -4,12 +4,15 @@ import React from "react";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { RiskFactor } from "@/lib/types";
+import { useTranslation } from "@/lib/i18n";
 
 interface RiskSectionProps {
   risks: RiskFactor[];
 }
 
 export const RiskSection: React.FC<RiskSectionProps> = ({ risks }) => {
+  const { t } = useTranslation();
+
   const severityBadge = (sev: "HIGH" | "MEDIUM" | "LOW") => {
     switch (sev) {
       case "HIGH":
@@ -23,9 +26,9 @@ export const RiskSection: React.FC<RiskSectionProps> = ({ risks }) => {
 
   return (
     <Card>
-      <h3 className="text-lg font-bold text-gray-900 mb-4">Risk Factors & Suggested Mitigations</h3>
+      <h3 className="text-lg font-bold text-gray-900 mb-4">{t("results.risks.title")}</h3>
       {risks.length === 0 ? (
-        <p className="text-sm text-gray-500">No major operational risk red flags identified.</p>
+        <p className="text-sm text-gray-500">{t("results.risks.noCriticalRisks")}</p>
       ) : (
         <div className="space-y-3">
           {risks.map((risk, index) => (
@@ -35,7 +38,7 @@ export const RiskSection: React.FC<RiskSectionProps> = ({ risks }) => {
                 {severityBadge(risk.severity)}
               </div>
               <p className="text-xs text-gray-600">
-                <strong>Mitigation:</strong> {risk.mitigation}
+                <strong>{t("results.risks.mitigation")}:</strong> {risk.mitigation}
               </p>
             </div>
           ))}

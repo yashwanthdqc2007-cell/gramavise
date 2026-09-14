@@ -6,6 +6,8 @@ from app.schemas.financial import FinancialAssumptionsInput, FinancialResultResp
 from app.schemas.market import MarketResultResponse
 from app.schemas.scheme import SchemeMatchResult
 from app.schemas.ai import AIExplanationResponse
+from app.schemas.evidence import EvidenceType, EvidenceItem, VerificationCheckItem
+from app.schemas.action_plan import ActionPlan, DocumentReadiness, BankReadiness
 
 
 class RecommendationStatus(str, Enum):
@@ -14,23 +16,38 @@ class RecommendationStatus(str, Enum):
     RECONSIDER = "RECONSIDER"
 
 
-class EvidenceType(str, Enum):
-    OBSERVED = "OBSERVED"
-    CALCULATED = "CALCULATED"
-    MODELLED = "MODELLED"
-    ASSUMED = "ASSUMED"
-    NEEDS_VERIFICATION = "NEEDS_VERIFICATION"
+class RuleResult(str, Enum):
+    PASS = "PASS"
+    FAIL = "FAIL"
+    WARNING = "WARNING"
+    INFO = "INFO"
 
 
-class EvidenceItem(BaseModel):
-    indicator: str
-    value: str
-    unit: Optional[str] = None
-    evidence_type: EvidenceType
-    confidence: float = Field(1.0, ge=0.0, le=1.0)
-    source: Optional[str] = None
-    source_url: Optional[str] = None
-    notes: Optional[str] = None
+class RuleSeverity(str, Enum):
+    CRITICAL = "CRITICAL"
+    WARNING = "WARNING"
+    INFO = "INFO"
+
+
+class RuleEvaluation(BaseModel):
+    """Deterministic rule condition evaluation record for transparency."""
+    rule_id: str
+    rule_name: str
+    condition: str
+    result: str = Field(..., description="PASS, FAIL, WARNING, INFO")
+    severity: str = Field(..., description="CRITICAL, WARNING, INFO")
+    explanation: str
+    source: str = "FeasibilityRules"
+
+
+class DecisionTrace(BaseModel):
+    """Complete transparent trail of deterministic rules and evidence behind the recommendation verdict."""
+    recommendation_status: RecommendationStatus
+    summary: str
+    rule_evaluations: List[RuleEvaluation] = Field(default_factory=list)
+    key_positive_factors: List[str] = Field(default_factory=list)
+    key_caution_factors: List[str] = Field(default_factory=list)
+    authority: str = "FeasibilityRules"
 
 
 class RiskFactor(BaseModel):
@@ -48,10 +65,18 @@ class AnalysisRequest(BaseModel):
 class AnalysisResultResponse(BaseModel):
     analysis_id: str
     recommendation_status: RecommendationStatus
+    overall_verdict: Optional[RecommendationStatus] = None
     confidence_score: float = Field(..., ge=0.0, le=1.0)
     financial_result: FinancialResultResponse
     market_result: MarketResultResponse
     scheme_result: SchemeMatchResult
     risk_factors: List[RiskFactor] = Field(default_factory=list)
     evidence_list: List[EvidenceItem] = Field(default_factory=list)
+    evidence_ledger: Optional[List[EvidenceItem]] = None
+    decision_trace: Optional[DecisionTrace] = None
+    verification_checklist: List[VerificationCheckItem] = Field(default_factory=list)
+    action_plan: Optional[ActionPlan] = None
+    document_readiness: Optional[DocumentReadiness] = None
+    bank_readiness: Optional[BankReadiness] = None
     ai_explanation: Optional[AIExplanationResponse] = None
+

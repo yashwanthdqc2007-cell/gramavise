@@ -7,8 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test:i18n": "node scripts/test_i18n.js",
+    "test:validation": "node scripts/test_step3_validation.js",
+    "test:scenario": "node scripts/test_scenario_persistence.js"
   },
+
   "dependencies": {
     "clsx": "^2.1.1",
     "lucide-react": "^0.395.0",

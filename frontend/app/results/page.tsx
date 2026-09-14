@@ -2,155 +2,239 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { FeasibilityCard } from "@/components/dashboard/FeasibilityCard";
+import { DecisionHero } from "@/components/dashboard/DecisionHero";
+import { WhyThisDecision } from "@/components/dashboard/WhyThisDecision";
+import { NumbersAtAGlance } from "@/components/dashboard/NumbersAtAGlance";
+import { BeforeYouBorrow } from "@/components/dashboard/BeforeYouBorrow";
+import { LocalMarketSays } from "@/components/dashboard/LocalMarketSays";
 import { FinancialSummary } from "@/components/dashboard/FinancialSummary";
-import { MarketSnapshot } from "@/components/dashboard/MarketSnapshot";
-import { RiskSection } from "@/components/dashboard/RiskSection";
+import { BreakEvenChart } from "@/components/financial/BreakEvenChart";
+import { ExplainNumberModal } from "@/components/financial/ExplainNumberModal";
+import { ScenarioLabSection } from "@/components/dashboard/ScenarioLabSection";
 import { SchemeSection } from "@/components/dashboard/SchemeSection";
+import { PreLoanActionPlanSection } from "@/components/dashboard/PreLoanActionPlanSection";
 import { RecommendationCard } from "@/components/dashboard/RecommendationCard";
 import { EvidenceDrawer } from "@/components/evidence/EvidenceDrawer";
-import { BreakEvenChart } from "@/components/financial/BreakEvenChart";
 import { Button } from "@/components/ui/Button";
-import { AnalysisResult } from "@/lib/types";
+import { Card } from "@/components/ui/Card";
+import { AnalysisResult, FinancialAssumptions, NumberExplanation } from "@/lib/types";
+import { useTranslation } from "@/lib/i18n";
+import { useNetworkStatus } from "@/hooks/useNetworkStatus";
+import { Printer, RotateCcw, AlertCircle } from "lucide-react";
 
 export default function ResultsPage() {
-  const [data, setData] = useState<AnalysisResult | null>(null);
+  const { t } = useTranslation();
+  const { isOnline } = useNetworkStatus();
+  const [result, setResult] = useState<AnalysisResult | null>(null);
+  const [financialAssumptions, setFinancialAssumptions] = useState<FinancialAssumptions | null>(null);
+  const [resultTimestamp, setResultTimestamp] = useState<string | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [activeExplanation, setActiveExplanation] = useState<NumberExplanation | null>(null);
 
   useEffect(() => {
-    // TODO [Frontend Lead]: Hydrate from API / URL params or session storage
     if (typeof window !== "undefined") {
-      const stored = sessionStorage.getItem("gramavise_latest_result");
-      if (stored) {
-        try {
-          setData(JSON.parse(stored));
-        } catch (e) {
-          console.error("Failed to parse stored results", e);
+      try {
+        const storedResult = sessionStorage.getItem("gramavise_latest_result");
+        const storedFinancials = sessionStorage.getItem("gramavise_financials");
+        const storedTime = sessionStorage.getItem("gramavise_result_timestamp");
+
+        if (storedResult) {
+          const parsed: AnalysisResult = JSON.parse(storedResult);
+          if (parsed && parsed.analysis_id && parsed.financial_result && parsed.recommendation_status) {
+            setResult(parsed);
+          }
         }
+
+        if (storedFinancials) {
+          setFinancialAssumptions(JSON.parse(storedFinancials));
+        }
+
+        if (storedTime) {
+          setResultTimestamp(storedTime);
+        }
+      } catch (err) {
+        console.error("Failed to load cached analysis result:", err);
+      } finally {
+        setIsLoaded(true);
       }
     }
   }, []);
 
-  // Fallback placeholder structure for skeleton presentation
-  const result: AnalysisResult = data || {
-    analysis_id: "preview-id",
-    recommendation_status: "PROCEED",
-    confidence_score: 0.88,
-    financial_result: {
-      total_capex: 120000,
-      required_loan_amount: 90000,
-      monthly_revenue: 39000,
-      monthly_variable_cost: 13650,
-      monthly_gross_profit: 25350,
-      monthly_fixed_cost: 6000,
-      monthly_emi: 2925,
-      monthly_net_profit: 16425,
-      net_profit_margin_pct: 42.1,
-      break_even_revenue_monthly: 13730,
-      break_even_units_daily: 9,
-      dscr: 3.2,
-      is_financially_viable: true,
-    },
-    market_result: {
-      location_summary: "Rampur, Varanasi, Uttar Pradesh",
-      competitor_count: 2,
-      competitor_list: [
-        { name: "Gupta Atta Chakki", distance_km: 1.4, category: "Flour Mill" },
-        { name: "Kisan Grain Services", distance_km: 3.1, category: "Flour Mill" },
-      ],
-      demand_indicator: "HIGH",
-      notes: "Catchment village exhibits strong demand for local packaging.",
-    },
-    scheme_result: {
-      eligible_schemes_count: 2,
-      schemes: [
-        {
-          scheme_code: "PMEGP",
-          scheme_name: "Prime Minister Employment Generation Programme",
-          subsidy_eligible_amount: 42000,
-          own_contribution_required: 6000,
-          max_bank_loan: 90000,
-          eligibility_status: "ELIGIBLE",
-          reasons: ["Rural special category subsidy rate applied (35%)."],
-          portal_url: "https://www.kviconline.gov.in/pmegpeportal",
-        },
-      ],
-      total_potential_subsidy: 42000,
-    },
-    risk_factors: [
-      {
-        factor: "Raw grain price surge during off-season",
-        severity: "MEDIUM",
-        mitigation: "Establish procurement tie-ups with local farmer producer organizations (FPOs).",
-      },
-    ],
-    evidence_list: [
-      {
-        indicator: "Projected Operating Margin",
-        value: "42.1% net profit",
-        evidence_type: "CALCULATED",
-        confidence: 1.0,
-      },
-      {
-        indicator: "Nearby Category Competitors",
-        value: "2 units within 5km",
-        evidence_type: "OBSERVED",
-        confidence: 0.85,
-        source: "OpenStreetMap",
-      },
-    ],
-    ai_explanation: {
-      language: "en",
-      summary: "This enterprise has strong operating viability with a low break-even threshold and good eligibility for PMEGP subsidy.",
-      strengths: ["DSCR of 3.2 exceeds banking safety standard of 1.5.", "Break-even is just 9 customers/day."],
-      cautions_and_risks: ["Ensure consistent electricity supply at site."],
-      actionable_next_steps: ["Apply for PMEGP loan subsidy.", "Obtain quotations for 10HP mill."],
-      disclaimer: "Guidance is based on mathematical modeling and local indicators. Please consult a bank officer before financial commitments.",
-    },
-  };
+  if (!isLoaded) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-20 text-center">
+        <div className="animate-spin w-9 h-9 border-4 border-emerald-600 border-t-transparent rounded-full mx-auto mb-4" />
+        <p className="text-slate-400 text-sm font-medium">{t("results.loadingText")}</p>
+      </div>
+    );
+  }
 
-  return (
-    <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h2 className="text-2xl font-black text-gray-900">Business Advisory & Structuring Report</h2>
-          <p className="text-sm text-gray-500">Analysis ID: {result.analysis_id}</p>
-        </div>
-        <div className="flex gap-2">
-          <Link href="/onboarding">
-            <Button variant="outline" size="sm">
-              New Assessment
+  if (!result) {
+    return (
+      <div className="max-w-md mx-auto px-4 py-20 text-center">
+        <Card className="space-y-5 p-8 border border-slate-800 shadow-sm">
+          <div className="w-14 h-14 bg-amber-500/10 text-amber-300 border border-amber-500/20 rounded-2xl flex items-center justify-center mx-auto text-2xl">
+            📋
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-white">{t("results.empty.title")}</h2>
+            <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
+              {t("results.empty.desc")}
+            </p>
+          </div>
+          <Link href="/onboarding" className="block pt-2">
+            <Button className="w-full font-bold py-2.5 rounded-xl shadow-xs">
+              {t("results.empty.cta")}
             </Button>
           </Link>
-          <Button size="sm" onClick={() => window.print()}>
-            Print / Save Report ⎙
+        </Card>
+      </div>
+    );
+  }
+
+  const expectedDailyCustomers = financialAssumptions?.customers_per_day;
+  const formattedDate = resultTimestamp
+    ? new Date(resultTimestamp).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" })
+    : "";
+
+  const handleExplainNumber = (metricId: string) => {
+    const exp = result?.financial_result?.explanations?.[metricId] || null;
+    setActiveExplanation(exp);
+  };
+
+  const businessTitle = result.business_input_snapshot?.category || result.business_input_snapshot?.business_name
+    ? `${result.business_input_snapshot.business_name || result.business_input_snapshot.category} Evaluation`
+    : "Enterprise Evaluation";
+
+  return (
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-10">
+      {/* Historical / Offline Snapshot Notice */}
+      {(!isOnline || resultTimestamp) && (
+        <div
+          role="status"
+          className="bg-slate-900/70 border border-slate-800 rounded-xl p-3.5 sm:p-4 flex items-start gap-3 text-xs sm:text-sm text-slate-300 shadow-2xs"
+        >
+          <span className="text-base sm:text-lg shrink-0">🕒</span>
+          <div>
+            <span className="font-bold text-white mr-1.5">
+              [{t("results.header.historicalBadge")}]
+            </span>
+            <span>
+              {t("results.header.historicalNotice")}
+              {formattedDate && ` (${formattedDate})`}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* 1. Page Header & Actions */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-800 pb-5">
+        <div>
+          <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-300 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/30 inline-block mb-2">
+            Decision Briefing
+          </span>
+          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            {businessTitle}
+          </h1>
+          <p className="text-xs text-slate-400 mt-1 font-mono">
+            {t("results.header.analysisId")}: {result.analysis_id}
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2.5 self-stretch sm:self-auto">
+          <Link href="/onboarding" className="flex-1 sm:flex-none">
+            <Button variant="secondary" size="sm" className="w-full flex items-center justify-center gap-1.5">
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>{t("results.header.newAssessment")}</span>
+            </Button>
+          </Link>
+          <Button
+            size="sm"
+            onClick={() => window.print()}
+            className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold"
+          >
+            <Printer className="w-3.5 h-3.5" />
+            <span>{t("results.header.printReport")}</span>
           </Button>
         </div>
       </div>
 
-      <FeasibilityCard
+      {/* 2. Decision Hero (Primary Visual Anchor - Viewport 1) */}
+      <DecisionHero
         status={result.recommendation_status}
         confidence={result.confidence_score}
-        summary={result.ai_explanation?.summary}
+        businessName={result.business_input_snapshot?.business_name || "Rural Enterprise"}
+        businessCategory={result.business_input_snapshot?.category}
+        locationSummary={result.market_result?.location_summary || "Local Rural Catchment"}
+        summary={result.ai_explanation?.summary || result.decision_trace?.summary}
+        evidenceList={result.evidence_ledger || result.evidence_list || []}
+        assessmentDate={formattedDate}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
-          <FinancialSummary financials={result.financial_result} />
-          <BreakEvenChart
-            breakEvenUnitsDaily={result.financial_result.break_even_units_daily}
-            expectedDailyUnits={25}
-          />
-          <SchemeSection schemeResult={result.scheme_result} />
-        </div>
+      {/* 3. Why This Decision? (Deterministic Rule Evidence) */}
+      <WhyThisDecision
+        decisionTrace={result.decision_trace}
+      />
 
-        <div className="space-y-6">
-          <RecommendationCard explanation={result.ai_explanation} />
-          <MarketSnapshot market={result.market_result} />
-          <RiskSection risks={result.risk_factors} />
-        </div>
+      {/* 4. Numbers At A Glance (Key Financial Metrics with Micro-Context) */}
+      <NumbersAtAGlance
+        financials={result.financial_result}
+        onExplainNumber={handleExplainNumber}
+      />
+
+      {/* 5. Before You Borrow (High Priority Verification Checklist) */}
+      <BeforeYouBorrow
+        checklist={result.verification_checklist || []}
+      />
+
+      {/* 6. What The Local Market Says (Demand, Competition, Pricing) */}
+      <LocalMarketSays
+        market={result.market_result}
+        evidenceList={result.evidence_ledger || result.evidence_list || []}
+      />
+
+      {/* 7. Financial Picture & Break-Even Chart */}
+      <div className="space-y-6">
+        <FinancialSummary
+          financials={result.financial_result}
+          assumptions={financialAssumptions}
+          recommendationStatus={result.recommendation_status}
+        />
+
+        <BreakEvenChart
+          breakEvenUnitsDaily={result.financial_result.break_even_units_daily}
+          expectedDailyUnits={expectedDailyCustomers}
+        />
       </div>
 
-      <EvidenceDrawer evidenceList={result.evidence_list} />
+      {/* 8. What If Things Don't Go As Planned? (Scenario Lab) */}
+      <ScenarioLabSection
+        result={result}
+        baselineFinancials={financialAssumptions}
+      />
+
+      {/* 9. Government Scheme Options */}
+      <SchemeSection schemeResult={result.scheme_result} />
+
+      {/* 10. Your Next Steps (Roadmap & Bank Readiness) */}
+      <PreLoanActionPlanSection
+        actionPlan={result.action_plan}
+        documentReadiness={result.document_readiness}
+        bankReadiness={result.bank_readiness}
+      />
+
+      {/* 11. Plain-Language Explanation (AI-Assisted Editorial) */}
+      <RecommendationCard explanation={result.ai_explanation} />
+
+      {/* 12. Evidence & Audit Trail (Collapsed for Evaluators/Judges) */}
+      <EvidenceDrawer evidenceList={result.evidence_ledger || result.evidence_list || []} />
+
+      {/* Number Inspector Modal */}
+      <ExplainNumberModal
+        explanation={activeExplanation}
+        isOpen={activeExplanation !== null}
+        onClose={() => setActiveExplanation(null)}
+      />
     </div>
   );
 }

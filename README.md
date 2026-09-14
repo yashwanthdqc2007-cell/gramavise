@@ -176,6 +176,10 @@ Refer to [`docs/TEAM_WORKFLOW.md`](docs/TEAM_WORKFLOW.md) for branch strategy, c
 
 ## 9. Verification & Health Checks
 
-* Check Backend Health: `GET http://localhost:8000/api/health`
-* Run Backend Tests: `cd backend && pytest`
-* Run Frontend Build Check: `cd frontend && npm run build`
+* **Process Liveness Probe**: `GET http://localhost:8000/health` (or `http://localhost:8000/api/health`)
+* **Readiness Probe**: `GET http://localhost:8000/ready` (or `http://localhost:8000/api/ready`)
+* **Run Database Migrations**: `cd backend && alembic upgrade head`
+* **Seed Scheme Catalog**: `cd backend && python scripts/seed_schemes.py`
+* **Run Backend Test Suite**: `cd backend && pytest`
+* **Verify Frontend Types & i18n**: `cd frontend && npm run type-check && npm run test:i18n`
+* **Run Frontend Production Build**: `cd frontend && npm run build`

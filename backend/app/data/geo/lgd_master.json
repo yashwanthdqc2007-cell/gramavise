@@ -1,0 +1,159 @@
+{
+  "source_metadata": {
+    "source_title": "Local Government Directory (LGD) — Administrative Master Registry",
+    "source_url": "https://lgdirectory.gov.in/",
+    "nodal_ministry": "Ministry of Panchayati Raj, Government of India",
+    "catalog_url": "https://data.gov.in/catalog/local-government-directory-lgd",
+    "snapshot_coverage": "Checked-in verified snapshot/sample of official LGD entities",
+    "publication_version": "LGD Administrative Directory 2024 Snapshot",
+    "source_last_verified": "2024-09",
+    "evidence_type": "OBSERVED",
+    "confidence": 1.0,
+    "verification_status": "VERIFIED_SOURCE"
+  },
+  "records": [
+    {
+      "state_name": "Madhya Pradesh",
+      "state_lgd_code": "23",
+      "district_name": "Ujjain",
+      "district_lgd_code": "421",
+      "sub_district_name": "Nagda",
+      "sub_district_lgd_code": "03498",
+      "village_name": "Nagda",
+      "village_lgd_code": "472146",
+      "hierarchy_level": "VILLAGE"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "state_lgd_code": "23",
+      "district_name": "Ujjain",
+      "district_lgd_code": "421",
+      "sub_district_name": "Nagda",
+      "sub_district_lgd_code": "03498",
+      "village_name": "Bhatisuda",
+      "village_lgd_code": "472152",
+      "hierarchy_level": "VILLAGE"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "state_lgd_code": "23",
+      "district_name": "Ujjain",
+      "district_lgd_code": "421",
+      "sub_district_name": "Nagda",
+      "sub_district_lgd_code": "03498",
+      "village_name": "Padlya",
+      "village_lgd_code": "472158",
+      "hierarchy_level": "VILLAGE"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "state_lgd_code": "23",
+      "district_name": "Indore",
+      "district_lgd_code": "390",
+      "sub_district_name": "Mhow",
+      "sub_district_lgd_code": "03541",
+      "village_name": "Hasalpur",
+      "village_lgd_code": "475280",
+      "hierarchy_level": "VILLAGE"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "state_lgd_code": "23",
+      "district_name": "Dindori",
+      "district_lgd_code": "403",
+      "sub_district_name": "Samnapur",
+      "sub_district_lgd_code": "03612",
+      "village_name": "Samnapur",
+      "village_lgd_code": "465812",
+      "hierarchy_level": "VILLAGE"
+    },
+    {
+      "state_name": "Maharashtra",
+      "state_lgd_code": "27",
+      "district_name": "Pune",
+      "district_lgd_code": "492",
+      "sub_district_name": "Baramati",
+      "sub_district_lgd_code": "04179",
+      "village_name": "Malegaon Bk",
+      "village_lgd_code": "555893",
+      "hierarchy_level": "VILLAGE"
+    },
+    {
+      "state_name": "Maharashtra",
+      "state_lgd_code": "27",
+      "district_name": "Pune",
+      "district_lgd_code": "492",
+      "sub_district_name": "Baramati",
+      "sub_district_lgd_code": "04179",
+      "village_name": "Karkhel",
+      "village_lgd_code": "555899",
+      "hierarchy_level": "VILLAGE"
+    },
+    {
+      "state_name": "Maharashtra",
+      "state_lgd_code": "27",
+      "district_name": "Nashik",
+      "district_lgd_code": "487",
+      "sub_district_name": "Niphad",
+      "sub_district_lgd_code": "04112",
+      "village_name": "Pimpalgaon Baswant",
+      "village_lgd_code": "550731",
+      "hierarchy_level": "VILLAGE"
+    },
+    {
+      "state_name": "Uttar Pradesh",
+      "state_lgd_code": "09",
+      "district_name": "Varanasi",
+      "district_lgd_code": "177",
+      "sub_district_name": "Pindra",
+      "sub_district_lgd_code": "00982",
+      "village_name": "Shivpur",
+      "village_lgd_code": "209012",
+      "hierarchy_level": "VILLAGE"
+    },
+    {
+      "state_name": "Uttar Pradesh",
+      "state_lgd_code": "09",
+      "district_name": "Varanasi",
+      "district_lgd_code": "177",
+      "sub_district_name": "Pindra",
+      "sub_district_lgd_code": "00982",
+      "village_name": "Babatpur",
+      "village_lgd_code": "209018",
+      "hierarchy_level": "VILLAGE"
+    },
+    {
+      "state_name": "Bihar",
+      "state_lgd_code": "10",
+      "district_name": "Muzaffarpur",
+      "district_lgd_code": "208",
+      "sub_district_name": "Kanti",
+      "sub_district_lgd_code": "01188",
+      "village_name": "Damodarpur",
+      "village_lgd_code": "228945",
+      "hierarchy_level": "VILLAGE"
+    },
+    {
+      "state_name": "Rajasthan",
+      "state_lgd_code": "08",
+      "district_name": "Jaipur",
+      "district_lgd_code": "101",
+      "sub_district_name": "Chomu",
+      "sub_district_lgd_code": "00539",
+      "village_name": "Morija",
+      "village_lgd_code": "079812",
+      "hierarchy_level": "VILLAGE"
+    },
+    {
+      "state_name": "Karnataka",
+      "state_lgd_code": "29",
+      "district_name": "Mandya",
+      "district_lgd_code": "544",
+      "sub_district_name": "Maddur",
+      "sub_district_lgd_code": "05548",
+      "village_name": "Besagarahalli",
+      "village_lgd_code": "614210",
+      "hierarchy_level": "VILLAGE"
+    }
+  ]
+}

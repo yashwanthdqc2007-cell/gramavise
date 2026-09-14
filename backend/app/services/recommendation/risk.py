@@ -12,7 +12,7 @@ def assess_business_risks(financials: FinancialResultResponse, market: MarketRes
     risks: List[RiskFactor] = []
 
     # 1. Debt Service Risk
-    if financials.dscr < 1.5:
+    if financials.monthly_emi > 0 and financials.dscr < 1.5:
         risks.append(RiskFactor(
             factor="Tight Loan Repayment Cushion",
             severity="HIGH" if financials.dscr < 1.1 else "MEDIUM",

@@ -18,5 +18,13 @@ def test_run_sensitivity_analysis():
     req = FinancialCalculationRequest(own_capital=20000.0, desired_loan=60000.0, financials=assumptions)
     res = run_sensitivity_analysis(req)
 
-    assert len(res.scenarios) == 3
+    assert len(res.scenarios) == 4
     assert res.resilience_rating in ["HIGH", "MODERATE", "LOW"]
+    scenario_names = [s.scenario_name for s in res.scenarios]
+    assert any("Demand Dip" in name for name in scenario_names)
+    assert any("Price Compression" in name for name in scenario_names)
+    assert any("Cost Escalation" in name for name in scenario_names)
+    assert any("Combined Worst Case" in name for name in scenario_names)
+    for s in res.scenarios:
+        assert s.status in ["VIABLE", "STRESSED", "INSOLVENT"]
+

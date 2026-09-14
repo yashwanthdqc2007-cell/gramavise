@@ -1,0 +1,78 @@
+{
+  "scheme_id": "PMMY",
+  "scheme_name": "Pradhan Mantri MUDRA Yojana (PMMY)",
+  "ministry": "Department of Financial Services, Ministry of Finance",
+  "description": "Collateral-free institutional credit up to ₹20 Lakh to non-corporate, non-farm small and micro enterprises.",
+  "source_url": "https://financialservices.gov.in/pradhan-mantri-mudra-yojana-pmmy",
+  "source_title": "Department of Financial Services — Pradhan Mantri MUDRA Yojana Guidelines",
+  "source_last_verified": "2024-09",
+  "applicable_states": ["ALL_INDIA"],
+  "eligible_business_types": ["MANUFACTURING", "TRADING", "SERVICES", "AGRO_ALLIED"],
+  "eligible_enterprise_types": ["MICRO", "SMALL"],
+  "new_or_existing": "BOTH",
+  "minimum_age": 18,
+  "maximum_project_cost": 2000000.0,
+  "maximum_loan_amount": 2000000.0,
+  "tiers": {
+    "SHISHU": {
+      "scheme_code": "MUDRA_SHISHU",
+      "scheme_name": "Pradhan Mantri MUDRA Yojana (Shishu)",
+      "min_loan": 0.0,
+      "max_loan": 50000.0,
+      "margin_pct": 0.0,
+      "collateral_required": false
+    },
+    "KISHORE": {
+      "scheme_code": "MUDRA_KISHORE",
+      "scheme_name": "Pradhan Mantri MUDRA Yojana (Kishore)",
+      "min_loan": 50001.0,
+      "max_loan": 500000.0,
+      "margin_pct": 15.0,
+      "collateral_required": false
+    },
+    "TARUN": {
+      "scheme_code": "MUDRA_TARUN",
+      "scheme_name": "Pradhan Mantri MUDRA Yojana (Tarun)",
+      "min_loan": 500001.0,
+      "max_loan": 1000000.0,
+      "margin_pct": 15.0,
+      "collateral_required": false
+    },
+    "TARUN_PLUS": {
+      "scheme_code": "MUDRA_TARUN_PLUS",
+      "scheme_name": "Pradhan Mantri MUDRA Yojana (Tarun Plus)",
+      "min_loan": 1000001.0,
+      "max_loan": 2000000.0,
+      "margin_pct": 15.0,
+      "collateral_required": false,
+      "requires_prior_tarun_repayment": true
+    }
+  },
+  "subsidy_rate": 0.0,
+  "subsidy_max_amount": 0.0,
+  "beneficiary_contribution": {
+    "SHISHU": 0.0,
+    "KISHORE": 15.0,
+    "TARUN": 15.0,
+    "TARUN_PLUS": 15.0
+  },
+  "collateral_required": false,
+  "categories_supported": ["ALL"],
+  "geography_conditions": "Available across all rural and urban areas in India.",
+  "special_conditions": [
+    "Tarun Plus (loans >₹10 Lakh up to ₹20 Lakh) is exclusively for entrepreneurs who have availed and successfully repaid previous loans under the Tarun category.",
+    "Non-farm micro enterprise engaged in income-generating manufacturing, trading or service activities."
+  ],
+  "exclusions": [
+    "Direct agricultural crop farming (allied activities like dairy, poultry, bee-keeping, grading, processing are eligible)."
+  ],
+  "matching_reasons": [
+    "Non-farm enterprise engaged in micro business / trade.",
+    "Loan requirement falls within institutional credit tier limits without requiring third-party collateral."
+  ],
+  "verification_required": [
+    "Prior Tarun loan completion record (if applying for Tarun Plus > ₹10 Lakh).",
+    "Valid KYC, business quotation, and bank track record."
+  ],
+  "evidence_type": "OBSERVED"
+}

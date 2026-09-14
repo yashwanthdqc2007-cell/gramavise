@@ -7,10 +7,24 @@ export interface AnalyzePayload {
   preferred_language: string;
 }
 
-export async function runAnalysis(payload: AnalyzePayload): Promise<AnalysisResult> {
-  // TODO [Frontend Lead]: Add analytics tracking and cache layer
+export async function runAnalysis(
+  payload: AnalyzePayload,
+  idempotencyKey?: string
+): Promise<AnalysisResult> {
+  const headers: Record<string, string> = {};
+  if (idempotencyKey) {
+    headers["Idempotency-Key"] = idempotencyKey;
+  }
   return apiClient<AnalysisResult>("/analyze", {
     method: "POST",
+    headers,
     body: JSON.stringify(payload),
   });
 }
+
+export async function getHistoricalAnalysis(analysisId: string): Promise<AnalysisResult> {
+  return apiClient<AnalysisResult>(`/analyze/${encodeURIComponent(analysisId)}`, {
+    method: "GET",
+  });
+}
+

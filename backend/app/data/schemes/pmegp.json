@@ -1,0 +1,55 @@
+{
+  "scheme_id": "PMEGP",
+  "scheme_name": "Prime Minister's Employment Generation Programme",
+  "ministry": "Ministry of Micro, Small and Medium Enterprises (MSME)",
+  "description": "Credit-linked subsidy programme to generate continuous and sustainable employment opportunities in rural and urban areas through setting up of new micro-enterprises.",
+  "source_url": "https://www.pmegp.msme.gov.in/",
+  "source_title": "KVIC PMEGP Official Portal & Operational Guidelines, Ministry of MSME",
+  "source_last_verified": "2024-09",
+  "applicable_states": ["ALL_INDIA"],
+  "eligible_business_types": ["MANUFACTURING", "SERVICES", "BUSINESS"],
+  "eligible_enterprise_types": ["MICRO"],
+  "new_or_existing": "NEW",
+  "minimum_age": 18,
+  "maximum_project_cost": {
+    "MANUFACTURING": 5000000.0,
+    "SERVICES": 2000000.0
+  },
+  "maximum_loan_amount": 5000000.0,
+  "subsidy_rate": {
+    "general_rural": 25.0,
+    "general_urban": 15.0,
+    "special_rural": 35.0,
+    "special_urban": 25.0
+  },
+  "subsidy_max_amount": null,
+  "beneficiary_contribution": {
+    "general": 10.0,
+    "special": 5.0
+  },
+  "collateral_required": false,
+  "categories_supported": ["General", "SC", "ST", "OBC", "Minorities", "Women", "Ex-Servicemen", "Differently-Abled", "NER/Hill/Border"],
+  "geography_conditions": "Rural projects receive higher subsidy rate (25%-35%) vs Urban (15%-25%).",
+  "special_conditions": [
+    "Educational qualification: At least 8th standard pass for project costs above ₹10 Lakh in manufacturing and above ₹5 Lakh in services.",
+    "Applicant category (General vs Special) must be verified via official certificate for 35% margin money rate.",
+    "First assistance is strictly for new enterprise establishment (Greenfield)."
+  ],
+  "exclusions": [
+    "Meat/slaughtering processing or retail shops.",
+    "Alcohol, beedi, pan, cigars, cigarettes and intoxicants.",
+    "Pashmina wool manufacturing or products.",
+    "Rural transport vehicles (except auto rickshaw, taxicab, boat in designated tourist/island areas).",
+    "Polythene bags thinner than 50 microns."
+  ],
+  "matching_reasons": [
+    "New micro-enterprise setup meets Greenfield requirement.",
+    "Project cost falls within the statutory ceiling of ₹50 Lakh (Mfg) / ₹20 Lakh (Service)."
+  ],
+  "verification_required": [
+    "Applicant social category certificate (for 35% Special category subsidy rate).",
+    "8th standard pass certificate if project cost exceeds ₹10L (Mfg) / ₹5L (Services).",
+    "Rural area certificate issued by Gram Panchayat / Block Development Officer."
+  ],
+  "evidence_type": "OBSERVED"
+}

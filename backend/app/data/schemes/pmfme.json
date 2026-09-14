@@ -1,0 +1,41 @@
+{
+  "scheme_id": "PMFME",
+  "scheme_name": "PM Formalisation of Micro Food Processing Enterprises Scheme",
+  "ministry": "Ministry of Food Processing Industries (MoFPI)",
+  "description": "Credit-linked capital subsidy scheme to upgrade existing micro food processing units and establish new micro food processing enterprises with ODOP clustering.",
+  "source_url": "https://pmfme.mofpi.gov.in/",
+  "source_title": "Ministry of Food Processing Industries — PMFME Operational Guidelines",
+  "source_last_verified": "2024-09",
+  "applicable_states": ["ALL_INDIA"],
+  "eligible_business_types": ["FOOD_PROCESSING", "AGRO_PROCESSING"],
+  "eligible_enterprise_types": ["MICRO"],
+  "new_or_existing": "BOTH",
+  "minimum_age": 18,
+  "maximum_project_cost": null,
+  "maximum_loan_amount": null,
+  "subsidy_rate": 35.0,
+  "subsidy_max_amount": 1000000.0,
+  "beneficiary_contribution": 10.0,
+  "collateral_required": false,
+  "categories_supported": ["ALL"],
+  "geography_conditions": "All States/UTs. Special focus on One District One Product (ODOP) clusters.",
+  "special_conditions": [
+    "Enterprise must be engaged in food processing (e.g. grain milling, spice grinding, dairy/chilling, fruit/veg processing, bakery, oil extraction, snacks).",
+    "Credit-linked capital subsidy at 35% of the eligible project cost, with maximum ceiling of ₹10 Lakh per unit.",
+    "Minimum 10% beneficiary contribution; balance amount financed by bank loan.",
+    "Preference given to District ODOP produce; non-ODOP units eligible under cluster guidelines."
+  ],
+  "exclusions": [
+    "Trading-only enterprises without processing/value addition (e.g. general Kirana retail resale).",
+    "Non-food manufacturing or service establishments."
+  ],
+  "matching_reasons": [
+    "Business category involves food/agro-produce value addition or processing.",
+    "Credit-linked capital subsidy eligible at 35% of project cost (max ₹10 Lakh)."
+  ],
+  "verification_required": [
+    "District One District One Product (ODOP) alignment or eligible non-ODOP cluster approval.",
+    "FSSAI food safety registration / Udyam registration compliance."
+  ],
+  "evidence_type": "OBSERVED"
+}

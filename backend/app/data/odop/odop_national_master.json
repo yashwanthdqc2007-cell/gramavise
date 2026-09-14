@@ -1,0 +1,192 @@
+{
+  "source_metadata": {
+    "source_title": "Ministry of Food Processing Industries — PMFME Approved One District One Product (ODOP) Master Registry",
+    "source_url": "https://pmfme.mofpi.gov.in/",
+    "nodal_ministry": "Ministry of Food Processing Industries (MoFPI)",
+    "scheme": "Pradhan Mantri Formalisation of Micro Food Processing Enterprises (PMFME)",
+    "publication_version": "National ODOP Gazette 2024",
+    "source_last_verified": "2024-09",
+    "evidence_type": "OBSERVED",
+    "confidence": 1.0,
+    "statutory_note": "ODOP alignment is an eligibility and prioritization signal under PMFME guidelines. Existing individual micro-units producing other products may also be supported, while new individual/group units are supported only for ODOP products. Sanction is subject to commercial bank loan appraisal and statutory guidelines."
+  },
+  "records": [
+    {
+      "state": "Madhya Pradesh",
+      "district": "Ujjain",
+      "odop_product": "Onion & Garlic Processing",
+      "category": "FRUITS_VEGETABLES",
+      "keywords": ["onion", "garlic", "dehydration", "paste", "powder", "food", "processing"]
+    },
+    {
+      "state": "Madhya Pradesh",
+      "district": "Indore",
+      "odop_product": "Potato Processing & Snacks",
+      "category": "FRUITS_VEGETABLES",
+      "keywords": ["potato", "chips", "wafers", "namkeen", "snack", "food", "processing"]
+    },
+    {
+      "state": "Madhya Pradesh",
+      "district": "Bhopal",
+      "odop_product": "Guava & Fruit Processing",
+      "category": "FRUITS_VEGETABLES",
+      "keywords": ["guava", "fruit", "juice", "pulp", "jelly", "jam", "food"]
+    },
+    {
+      "state": "Madhya Pradesh",
+      "district": "Nagda",
+      "district_normalized": "Ujjain",
+      "odop_product": "Onion & Garlic Processing",
+      "category": "FRUITS_VEGETABLES",
+      "keywords": ["onion", "garlic", "paste", "spices", "food"]
+    },
+    {
+      "state": "Maharashtra",
+      "district": "Pune",
+      "odop_product": "Tomato & Pomegranate Processing",
+      "category": "FRUITS_VEGETABLES",
+      "keywords": ["tomato", "ketchup", "puree", "sauce", "pomegranate", "juice", "arils", "food"]
+    },
+    {
+      "state": "Maharashtra",
+      "district": "Baramati",
+      "district_normalized": "Pune",
+      "odop_product": "Sugarcane / Jaggery & Dairy Products",
+      "category": "DAIRY_SWEETS",
+      "keywords": ["sugarcane", "jaggery", "dairy", "milk", "chilling", "paneer", "ghee", "sweets", "food"]
+    },
+    {
+      "state": "Maharashtra",
+      "district": "Nagpur",
+      "odop_product": "Citrus / Mandarin Orange Products",
+      "category": "FRUITS_VEGETABLES",
+      "keywords": ["orange", "mandarin", "citrus", "juice", "squash", "concentrate", "food"]
+    },
+    {
+      "state": "Maharashtra",
+      "district": "Nashik",
+      "odop_product": "Grapes, Raisins & Onion Processing",
+      "category": "FRUITS_VEGETABLES",
+      "keywords": ["grape", "raisin", "wine", "onion", "dehydration", "food"]
+    },
+    {
+      "state": "Maharashtra",
+      "district": "Kolhapur",
+      "odop_product": "Sugarcane Jaggery & Dairy Products",
+      "category": "DAIRY_SWEETS",
+      "keywords": ["jaggery", "gur", "dairy", "milk", "butter", "cheese", "food"]
+    },
+    {
+      "state": "Uttar Pradesh",
+      "district": "Varanasi",
+      "odop_product": "Chilli & Red Pepper Products",
+      "category": "SPICES",
+      "keywords": ["chilli", "pepper", "spice", "grinding", "milling", "powder", "food"]
+    },
+    {
+      "state": "Uttar Pradesh",
+      "district": "Agra",
+      "odop_product": "Petha & Confectionery Products",
+      "category": "SWEETS_CONFECTIONERY",
+      "keywords": ["petha", "ash gourd", "sweets", "confectionery", "candy", "food"]
+    },
+    {
+      "state": "Uttar Pradesh",
+      "district": "Lucknow",
+      "odop_product": "Mango Products & Bakery",
+      "category": "FRUITS_VEGETABLES",
+      "keywords": ["mango", "dasheri", "pulp", "pickle", "bakery", "food"]
+    },
+    {
+      "state": "Bihar",
+      "district": "Muzaffarpur",
+      "odop_product": "Litchi Processing & Pulping",
+      "category": "FRUITS_VEGETABLES",
+      "keywords": ["litchi", "shahi litchi", "pulp", "squash", "beverage", "food"]
+    },
+    {
+      "state": "Bihar",
+      "district": "Patna",
+      "odop_product": "Bakery & Cereal Products",
+      "category": "GRAIN_MILLING",
+      "keywords": ["bakery", "bread", "biscuit", "flour", "wheat", "atta", "chakki", "food"]
+    },
+    {
+      "state": "Rajasthan",
+      "district": "Jaipur",
+      "odop_product": "Aonla (Indian Gooseberry) Products",
+      "category": "FRUITS_VEGETABLES",
+      "keywords": ["aonla", "amla", "candy", "juice", "murabba", "powder", "food"]
+    },
+    {
+      "state": "Gujarat",
+      "district": "Anand",
+      "odop_product": "Dairy Products & Milk Sweets",
+      "category": "DAIRY",
+      "keywords": ["dairy", "milk", "chilling", "curd", "ghee", "butter", "cheese", "sweets", "food"]
+    },
+    {
+      "state": "Telangana",
+      "district": "Nizamabad",
+      "odop_product": "Turmeric Processing & Milling",
+      "category": "SPICES",
+      "keywords": ["turmeric", "haldi", "spice", "curcumin", "milling", "powder", "food"]
+    },
+    {
+      "state": "Tamil Nadu",
+      "district": "Salem",
+      "odop_product": "Tapioca / Sago & Mango Processing",
+      "category": "PLANTATION",
+      "keywords": ["tapioca", "sago", "cassava", "starch", "mango", "pulp", "food"]
+    },
+    {
+      "state": "Tamil Nadu",
+      "district": "Coimbatore",
+      "odop_product": "Coconut & Coir Allied Food Products",
+      "category": "PLANTATION",
+      "keywords": ["coconut", "oil", "desiccated coconut", "milk powder", "neera", "food"]
+    },
+    {
+      "state": "Karnataka",
+      "district": "Shivamogga",
+      "odop_product": "Arecanut & Pineapple Processing",
+      "category": "PLANTATION",
+      "keywords": ["pineapple", "juice", "jam", "arecanut", "food"]
+    },
+    {
+      "state": "Punjab",
+      "district": "Ludhiana",
+      "odop_product": "Bakery & Grain Value Addition",
+      "category": "GRAIN_MILLING",
+      "keywords": ["bakery", "biscuit", "flour", "grain", "milling", "atta", "chakki", "food"]
+    },
+    {
+      "state": "Haryana",
+      "district": "Karnal",
+      "odop_product": "Basmati Rice & Cereal Processing",
+      "category": "GRAIN_MILLING",
+      "keywords": ["rice", "basmati", "paddy", "milling", "poha", "flaking", "cereal", "food"]
+    },
+    {
+      "state": "Andhra Pradesh",
+      "district": "Guntur",
+      "odop_product": "Chilli & Spices Processing",
+      "category": "SPICES",
+      "keywords": ["chilli", "mirchi", "spice", "grinding", "powder", "oleoresin", "food"]
+    },
+    {
+      "state": "Kerala",
+      "district": "Ernakulam",
+      "odop_product": "Pineapple & Marine Food Processing",
+      "category": "FRUITS_VEGETABLES",
+      "keywords": ["pineapple", "vazhakulam", "canning", "fish", "marine", "food"]
+    },
+    {
+      "state": "West Bengal",
+      "district": "Malda",
+      "odop_product": "Mango Processing & Jams",
+      "category": "FRUITS_VEGETABLES",
+      "keywords": ["mango", "fazli", "pulp", "jam", "jelly", "pickle", "food"]
+    }
+  ]
+}

@@ -18,7 +18,33 @@ from app.schemas.analysis import (
     EvidenceItem,
     AnalysisRequest,
     AnalysisResultResponse,
-    RiskFactor
+    RiskFactor,
+    RuleResult,
+    RuleSeverity,
+    RuleEvaluation,
+    DecisionTrace
+)
+from app.schemas.action_plan import (
+    ActionPriority,
+    ActionCategory,
+    ActionStatus,
+    ActionSource,
+    ActionItem,
+    ActionPlan,
+    DocumentStatus,
+    DocumentItem,
+    DocumentReadiness,
+    ReadinessStatus,
+    BankReadinessCategory,
+    BankReadiness
+)
+from app.schemas.scenario import (
+    ComparisonDirection,
+    MetricComparison,
+    RuleComparison,
+    RecommendationChange,
+    ScenarioEvaluationRequest,
+    ScenarioEvaluationResponse
 )
 
 __all__ = [
@@ -48,4 +74,28 @@ __all__ = [
     "AnalysisRequest",
     "AnalysisResultResponse",
     "RiskFactor",
+    "RuleResult",
+    "RuleSeverity",
+    "RuleEvaluation",
+    "DecisionTrace",
+    "ActionPriority",
+    "ActionCategory",
+    "ActionStatus",
+    "ActionSource",
+    "ActionItem",
+    "ActionPlan",
+    "DocumentStatus",
+    "DocumentItem",
+    "DocumentReadiness",
+    "ReadinessStatus",
+    "BankReadinessCategory",
+    "BankReadiness",
+    "ComparisonDirection",
+    "MetricComparison",
+    "RuleComparison",
+    "RecommendationChange",
+    "ScenarioEvaluationRequest",
+    "ScenarioEvaluationResponse"
 ]
+
+

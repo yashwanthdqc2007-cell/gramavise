@@ -1,5 +1,36 @@
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from pydantic import BaseModel, Field
+from app.schemas.evidence import EvidenceType
+
+
+class NumberInputParameter(BaseModel):
+    """Declarative input parameter breakdown for explainability."""
+    name: str = Field(..., description="Machine identifier (e.g. customers_per_day)")
+    label: str = Field(..., description="Human-readable parameter label")
+    raw_value: Any = Field(..., description="Raw numerical or string value")
+    formatted_value: str = Field(..., description="Display formatted value with units")
+    provenance: EvidenceType = Field(..., description="ASSUMED, CALCULATED, MODELLED, OBSERVED")
+    source_description: str = Field(..., description="Origin narrative (e.g. User onboarding profile)")
+    related_evidence_id: Optional[str] = None
+
+
+class NumberExplanation(BaseModel):
+    """Declarative, render-ready metadata explaining how a financial metric was computed."""
+    metric_id: str = Field(..., description="Unique metric key (e.g. monthly_revenue, dscr)")
+    metric_name: str = Field(..., description="Human-readable title")
+    plain_meaning: str = Field(..., description="Everyday explanation for micro-entrepreneurs")
+    displayed_value: str = Field(..., description="Formatted value with currency/unit")
+    numeric_value: float = Field(..., description="Exact raw numerical value")
+    unit: str = Field("INR", description="INR, ratio, customers/day, %, etc.")
+    provenance: EvidenceType = Field(..., description="CALCULATED or ASSUMED")
+    formula_label: str = Field(..., description="High-level verbal formula description")
+    formula_expression: str = Field(..., description="Algebraic formula notation")
+    substituted_expression: str = Field(..., description="Formula with substituted input values")
+    inputs: List[NumberInputParameter] = Field(default_factory=list)
+    calculation_steps: List[str] = Field(default_factory=list)
+    related_evidence_ids: List[str] = Field(default_factory=list)
+    limitations: List[str] = Field(default_factory=list)
+    is_debt_free: bool = False
 
 
 class FinancialAssumptionsInput(BaseModel):
@@ -32,10 +63,11 @@ class FinancialResultResponse(BaseModel):
     monthly_emi: float = Field(..., description="Estimated monthly loan repayment (INR)")
     monthly_net_profit: float = Field(..., description="Net disposable profit after all costs and EMI (INR)")
     net_profit_margin_pct: float = Field(..., description="Net profit as percentage of monthly revenue")
-    break_even_revenue_monthly: float = Field(..., description="Minimum monthly revenue to avoid loss (INR)")
+    break_even_revenue_monthly: float = Field(..., description="Minimum monthly revenue to cover fixed costs + EMI (INR)")
     break_even_units_daily: int = Field(..., description="Daily customer count / units needed to break even")
-    dscr: float = Field(..., description="Debt Service Coverage Ratio")
-    is_financially_viable: bool = Field(..., description="Deterministic boolean check of profitability & DSCR >= 1.25")
+    dscr: float = Field(..., description="Debt Service Coverage Ratio (0.0 if debt-free / EMI=0)")
+    is_financially_viable: bool = Field(..., description="Deterministic boolean check of profitability & debt repayment capacity")
+    explanations: Optional[Dict[str, NumberExplanation]] = Field(default=None, description="Declarative explanation metadata for all financial metrics")
 
 
 class SensitivityScenario(BaseModel):

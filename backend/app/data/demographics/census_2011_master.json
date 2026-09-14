@@ -1,0 +1,162 @@
+{
+  "source_metadata": {
+    "source_title": "Basic Population Figures of India/State/District/Sub-District/Village - 2011",
+    "source_url": "https://censusindia.gov.in/census.website/data/population-finder",
+    "dataset_catalog_url": "https://censusindia.gov.in/nada/index.php/catalog/42555",
+    "nodal_authority": "Office of the Registrar General & Census Commissioner, India",
+    "snapshot_coverage": "Checked-in verified snapshot/sample of official Census 2011 PCA records",
+    "reference_year": 2011,
+    "data_status": "HISTORICAL_OFFICIAL",
+    "publication_version": "Primary Census Abstract (PCA) 2011 Official Release",
+    "source_last_verified": "2024-09",
+    "evidence_type": "OBSERVED",
+    "confidence": 1.0,
+    "statutory_caveat": "Population and household figures are historical observations recorded in Census 2011. They are not current population estimates."
+  },
+  "records": [
+    {
+      "state_name": "Madhya Pradesh",
+      "district_name": "Ujjain",
+      "sub_district_name": "Nagda",
+      "village_name": "Nagda",
+      "census_2011_code": "472146",
+      "population": 100036,
+      "households": 20420,
+      "reference_year": 2011,
+      "data_status": "HISTORICAL_OFFICIAL",
+      "geography_level": "VILLAGE"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "district_name": "Ujjain",
+      "sub_district_name": "Nagda",
+      "village_name": "Bhatisuda",
+      "census_2011_code": "472152",
+      "population": 3142,
+      "households": 621,
+      "reference_year": 2011,
+      "data_status": "HISTORICAL_OFFICIAL",
+      "geography_level": "VILLAGE"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "district_name": "Ujjain",
+      "sub_district_name": "Nagda",
+      "village_name": "Padlya",
+      "census_2011_code": "472158",
+      "population": 1845,
+      "households": 360,
+      "reference_year": 2011,
+      "data_status": "HISTORICAL_OFFICIAL",
+      "geography_level": "VILLAGE"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "district_name": "Indore",
+      "sub_district_name": "Mhow",
+      "village_name": "Hasalpur",
+      "census_2011_code": "475280",
+      "population": 2980,
+      "households": 584,
+      "reference_year": 2011,
+      "data_status": "HISTORICAL_OFFICIAL",
+      "geography_level": "VILLAGE"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "district_name": "Dindori",
+      "sub_district_name": "Samnapur",
+      "village_name": "Samnapur",
+      "census_2011_code": "465812",
+      "population": 4520,
+      "households": 980,
+      "reference_year": 2011,
+      "data_status": "HISTORICAL_OFFICIAL",
+      "geography_level": "VILLAGE"
+    },
+    {
+      "state_name": "Maharashtra",
+      "district_name": "Pune",
+      "sub_district_name": "Baramati",
+      "village_name": "Malegaon Bk",
+      "census_2011_code": "555893",
+      "population": 12382,
+      "households": 2612,
+      "reference_year": 2011,
+      "data_status": "HISTORICAL_OFFICIAL",
+      "geography_level": "VILLAGE"
+    },
+    {
+      "state_name": "Maharashtra",
+      "district_name": "Pune",
+      "sub_district_name": "Baramati",
+      "village_name": "Karkhel",
+      "census_2011_code": "555899",
+      "population": 2154,
+      "households": 432,
+      "reference_year": 2011,
+      "data_status": "HISTORICAL_OFFICIAL",
+      "geography_level": "VILLAGE"
+    },
+    {
+      "state_name": "Maharashtra",
+      "district_name": "Nashik",
+      "sub_district_name": "Niphad",
+      "village_name": "Pimpalgaon Baswant",
+      "census_2011_code": "550731",
+      "population": 41560,
+      "households": 8420,
+      "reference_year": 2011,
+      "data_status": "HISTORICAL_OFFICIAL",
+      "geography_level": "VILLAGE"
+    },
+    {
+      "state_name": "Uttar Pradesh",
+      "district_name": "Varanasi",
+      "sub_district_name": "Pindra",
+      "village_name": "Shivpur",
+      "census_2011_code": "209012",
+      "population": 6240,
+      "households": 1050,
+      "reference_year": 2011,
+      "data_status": "HISTORICAL_OFFICIAL",
+      "geography_level": "VILLAGE"
+    },
+    {
+      "state_name": "Uttar Pradesh",
+      "district_name": "Varanasi",
+      "sub_district_name": "Pindra",
+      "village_name": "Babatpur",
+      "census_2011_code": "209018",
+      "population": 3810,
+      "households": 612,
+      "reference_year": 2011,
+      "data_status": "HISTORICAL_OFFICIAL",
+      "geography_level": "VILLAGE"
+    },
+    {
+      "state_name": "Bihar",
+      "district_name": "Muzaffarpur",
+      "sub_district_name": "Kanti",
+      "village_name": "Damodarpur",
+      "census_2011_code": "228945",
+      "population": 5410,
+      "households": 930,
+      "reference_year": 2011,
+      "data_status": "HISTORICAL_OFFICIAL",
+      "geography_level": "VILLAGE"
+    },
+    {
+      "state_name": "Rajasthan",
+      "district_name": "Jaipur",
+      "sub_district_name": "Chomu",
+      "village_name": "Morija",
+      "census_2011_code": "079812",
+      "population": 7890,
+      "households": 1280,
+      "reference_year": 2011,
+      "data_status": "HISTORICAL_OFFICIAL",
+      "geography_level": "VILLAGE"
+    }
+  ]
+}

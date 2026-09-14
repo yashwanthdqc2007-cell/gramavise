@@ -1,0 +1,170 @@
+{
+  "source_metadata": {
+    "source_title": "OpenStreetMap Commercial POI Layer",
+    "source_url": "https://www.openstreetmap.org/",
+    "license": "ODbL (Open Database License)",
+    "query_endpoint": "https://overpass-api.de/api/interpreter",
+    "snapshot_coverage": "Checked-in verified snapshot/sample of OpenStreetMap commercial amenities and shops",
+    "publication_version": "OSM Overpass Extract 2024",
+    "observed_at": "2024-09-10T12:00:00Z",
+    "evidence_type": "OBSERVED",
+    "confidence": 1.0,
+    "verification_status": "VERIFIED_SOURCE",
+    "disclaimer": "Competition is based on mapped OpenStreetMap locations within the configured catchment. Rural and informal businesses may be missing. A low mapped count does not prove low competition."
+  },
+  "records": [
+    {
+      "osm_object_id": "node/4581290123",
+      "osm_object_type": "node",
+      "name": "Sai Krupa Bakery & Sweets",
+      "latitude": 18.1552,
+      "longitude": 74.5781,
+      "district_name": "Pune",
+      "state_name": "Maharashtra",
+      "tags": {
+        "shop": "bakery",
+        "amenity": "cafe",
+        "cuisine": "indian_snacks"
+      },
+      "observed_at": "2024-09-10T08:30:00Z"
+    },
+    {
+      "osm_object_id": "node/4581290124",
+      "osm_object_type": "node",
+      "name": "Shree Ganesh Food Corner",
+      "latitude": 18.1601,
+      "longitude": 74.5824,
+      "district_name": "Pune",
+      "state_name": "Maharashtra",
+      "tags": {
+        "amenity": "fast_food",
+        "cuisine": "snacks"
+      },
+      "observed_at": "2024-09-10T08:30:00Z"
+    },
+    {
+      "osm_object_id": "node/4581290125",
+      "osm_object_type": "node",
+      "name": "Baramati Flour Mill & Atta Chakki",
+      "latitude": 18.1510,
+      "longitude": 74.5750,
+      "district_name": "Pune",
+      "state_name": "Maharashtra",
+      "tags": {
+        "craft": "flour_mill",
+        "shop": "general"
+      },
+      "observed_at": "2024-09-10T08:30:00Z"
+    },
+    {
+      "osm_object_id": "node/4581290126",
+      "osm_object_type": "node",
+      "name": "Kisan Agro Processing Unit",
+      "latitude": 18.1720,
+      "longitude": 74.5910,
+      "district_name": "Pune",
+      "state_name": "Maharashtra",
+      "tags": {
+        "industrial": "food_processing",
+        "shop": "agrarian"
+      },
+      "observed_at": "2024-09-10T08:30:00Z"
+    },
+    {
+      "osm_object_id": "node/4581290127",
+      "osm_object_type": "node",
+      "name": "Mahalaxmi Tailoring & Boutique",
+      "latitude": 18.1535,
+      "longitude": 74.5802,
+      "district_name": "Pune",
+      "state_name": "Maharashtra",
+      "tags": {
+        "shop": "tailor",
+        "clothes": "women"
+      },
+      "observed_at": "2024-09-10T08:30:00Z"
+    },
+    {
+      "osm_object_id": "node/4581290128",
+      "osm_object_type": "node",
+      "name": "Om Kirana & General Stores",
+      "latitude": 18.1540,
+      "longitude": 74.5790,
+      "district_name": "Pune",
+      "state_name": "Maharashtra",
+      "tags": {
+        "shop": "convenience"
+      },
+      "observed_at": "2024-09-10T08:30:00Z"
+    },
+    {
+      "osm_object_id": "node/5692014101",
+      "osm_object_type": "node",
+      "name": "Nagda Flour Mill",
+      "latitude": 23.4510,
+      "longitude": 75.4120,
+      "district_name": "Ujjain",
+      "state_name": "Madhya Pradesh",
+      "tags": {
+        "craft": "flour_mill"
+      },
+      "observed_at": "2024-09-10T09:15:00Z"
+    },
+    {
+      "osm_object_id": "node/5692014102",
+      "osm_object_type": "node",
+      "name": "Jai Malhar Spice & Garlic Powder",
+      "latitude": 23.4560,
+      "longitude": 75.4180,
+      "district_name": "Ujjain",
+      "state_name": "Madhya Pradesh",
+      "tags": {
+        "shop": "spices",
+        "industrial": "food_processing"
+      },
+      "observed_at": "2024-09-10T09:15:00Z"
+    },
+    {
+      "osm_object_id": "node/5692014103",
+      "osm_object_type": "node",
+      "name": "Ujjain Fresh Dairy & Sweets",
+      "latitude": 23.1820,
+      "longitude": 75.7760,
+      "district_name": "Ujjain",
+      "state_name": "Madhya Pradesh",
+      "tags": {
+        "shop": "dairy",
+        "amenity": "cafe"
+      },
+      "observed_at": "2024-09-10T09:15:00Z"
+    },
+    {
+      "osm_object_id": "node/6710492101",
+      "osm_object_type": "node",
+      "name": "Kashi Spices & Chutney Center",
+      "latitude": 25.3210,
+      "longitude": 82.9850,
+      "district_name": "Varanasi",
+      "state_name": "Uttar Pradesh",
+      "tags": {
+        "shop": "spices",
+        "craft": "food_processor"
+      },
+      "observed_at": "2024-09-10T10:00:00Z"
+    },
+    {
+      "osm_object_id": "node/6710492102",
+      "osm_object_type": "node",
+      "name": "Banaras Handloom Weaver Studio",
+      "latitude": 25.3340,
+      "longitude": 82.9910,
+      "district_name": "Varanasi",
+      "state_name": "Uttar Pradesh",
+      "tags": {
+        "shop": "fabric",
+        "craft": "weaver"
+      },
+      "observed_at": "2024-09-10T10:00:00Z"
+    }
+  ]
+}

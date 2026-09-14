@@ -2,6 +2,7 @@ from app.services.financial.calculator import FinancialService
 from app.services.geo.market import MockMarketService
 from app.services.schemes.matcher import SchemeService
 from app.services.recommendation.feasibility import evaluate_feasibility_status
+from app.rules.feasibility_rules import FeasibilityRules
 from app.schemas.business import BusinessProfileBase, LocationSchema
 from app.schemas.financial import FinancialAssumptionsInput
 
@@ -42,7 +43,10 @@ def test_full_domain_service_orchestration():
     })())
     scheme_result = scheme_service.match_schemes(profile, fin_result)
     status = evaluate_feasibility_status(fin_result, market_result)
+    direct_rule_status = FeasibilityRules.determine_status(fin_result, market_result)
 
     assert fin_result.monthly_revenue == 90000.0
     assert scheme_result.eligible_schemes_count >= 1
     assert status.value in ["PROCEED", "VALIDATE_FIRST", "RECONSIDER"]
+    assert status == direct_rule_status
+

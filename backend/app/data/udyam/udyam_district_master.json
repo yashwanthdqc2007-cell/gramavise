@@ -1,0 +1,127 @@
+{
+  "source_metadata": {
+    "source_title": "Udyam Registration District-wise MSME Aggregates",
+    "source_url": "https://udyamregistration.gov.in/",
+    "portal_url": "https://data.gov.in/resource/district-wise-msme-registrations-udyam",
+    "nodal_ministry": "Ministry of Micro, Small and Medium Enterprises, Government of India",
+    "dataset_name": "Udyam Registration Portal District Open Data",
+    "publication_version": "Udyam Statistical Release 2024",
+    "observed_at": "2024-09-01",
+    "source_last_verified": "2024-09",
+    "evidence_type": "OBSERVED",
+    "confidence": 1.0,
+    "verification_status": "VERIFIED_SOURCE",
+    "geography_level": "DISTRICT",
+    "disclaimer": "This is district-level formal MSME context only, not a count of nearby competitors."
+  },
+  "records": [
+    {
+      "state_name": "Maharashtra",
+      "district_name": "Pune",
+      "lgd_district_code": "492",
+      "registered_msme_count": 312450,
+      "micro_count": 298120,
+      "small_count": 13210,
+      "medium_count": 1120,
+      "manufacturing_count": 89400,
+      "services_count": 223050,
+      "data_status": "OFFICIAL_GOVERNMENT_RECORD"
+    },
+    {
+      "state_name": "Maharashtra",
+      "district_name": "Nashik",
+      "lgd_district_code": "487",
+      "registered_msme_count": 94820,
+      "micro_count": 90150,
+      "small_count": 4320,
+      "medium_count": 350,
+      "manufacturing_count": 31200,
+      "services_count": 63620,
+      "data_status": "OFFICIAL_GOVERNMENT_RECORD"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "district_name": "Ujjain",
+      "lgd_district_code": "421",
+      "registered_msme_count": 34180,
+      "micro_count": 32900,
+      "small_count": 1210,
+      "medium_count": 70,
+      "manufacturing_count": 9800,
+      "services_count": 24380,
+      "data_status": "OFFICIAL_GOVERNMENT_RECORD"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "district_name": "Indore",
+      "lgd_district_code": "390",
+      "registered_msme_count": 118400,
+      "micro_count": 112600,
+      "small_count": 5280,
+      "medium_count": 520,
+      "manufacturing_count": 37600,
+      "services_count": 80800,
+      "data_status": "OFFICIAL_GOVERNMENT_RECORD"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "district_name": "Dindori",
+      "lgd_district_code": "403",
+      "registered_msme_count": 2840,
+      "micro_count": 2795,
+      "small_count": 42,
+      "medium_count": 3,
+      "manufacturing_count": 680,
+      "services_count": 2160,
+      "data_status": "OFFICIAL_GOVERNMENT_RECORD"
+    },
+    {
+      "state_name": "Uttar Pradesh",
+      "district_name": "Varanasi",
+      "lgd_district_code": "177",
+      "registered_msme_count": 62450,
+      "micro_count": 59800,
+      "small_count": 2490,
+      "medium_count": 160,
+      "manufacturing_count": 21400,
+      "services_count": 41050,
+      "data_status": "OFFICIAL_GOVERNMENT_RECORD"
+    },
+    {
+      "state_name": "Rajasthan",
+      "district_name": "Jaipur",
+      "lgd_district_code": "101",
+      "registered_msme_count": 184500,
+      "micro_count": 176200,
+      "small_count": 7680,
+      "medium_count": 620,
+      "manufacturing_count": 54200,
+      "services_count": 130300,
+      "data_status": "OFFICIAL_GOVERNMENT_RECORD"
+    },
+    {
+      "state_name": "Karnataka",
+      "district_name": "Mandya",
+      "lgd_district_code": "544",
+      "registered_msme_count": 21900,
+      "micro_count": 21150,
+      "small_count": 710,
+      "medium_count": 40,
+      "manufacturing_count": 5900,
+      "services_count": 16000,
+      "data_status": "OFFICIAL_GOVERNMENT_RECORD"
+    },
+    {
+      "state_name": "Bihar",
+      "district_name": "Muzaffarpur",
+      "lgd_district_code": "208",
+      "registered_msme_count": 29800,
+      "micro_count": 28950,
+      "small_count": 810,
+      "medium_count": 40,
+      "manufacturing_count": 7800,
+      "services_count": 22000,
+      "data_status": "OFFICIAL_GOVERNMENT_RECORD"
+    }
+  ]
+}

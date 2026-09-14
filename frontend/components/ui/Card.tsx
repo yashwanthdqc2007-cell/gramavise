@@ -2,7 +2,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: "default" | "bordered" | "flat";
+  variant?: "default" | "bordered" | "flat" | "compact";
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -12,9 +12,10 @@ export const Card: React.FC<CardProps> = ({
   ...props
 }) => {
   const variants = {
-    default: "bg-white rounded-xl shadow-sm border border-gray-100 p-6",
-    bordered: "bg-white rounded-xl border-2 border-gray-200 p-6",
-    flat: "bg-gray-50 rounded-xl p-6",
+    default: "bg-slate-900/80 rounded-2xl shadow-lg shadow-slate-950/30 border border-slate-800 p-6",
+    bordered: "bg-slate-900/80 rounded-2xl border-2 border-slate-700 p-6",
+    flat: "bg-slate-900/60 rounded-2xl p-6 border border-slate-800",
+    compact: "bg-slate-900/80 rounded-2xl shadow-lg shadow-slate-950/30 border border-slate-800 p-4",
   };
 
   return (
