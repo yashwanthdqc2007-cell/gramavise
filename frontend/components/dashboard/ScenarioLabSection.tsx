@@ -414,31 +414,31 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
   const getDirectionBadge = (dir: ComparisonDirection) => {
     switch (dir) {
       case "IMPROVED":
-        return "bg-emerald-100 text-emerald-800 border-emerald-200";
+        return "bg-emerald-500/15 text-emerald-300 border-emerald-500/30";
       case "WORSENED":
-        return "bg-rose-100 text-rose-800 border-rose-200";
+        return "bg-rose-500/15 text-rose-300 border-rose-500/30";
       case "UNCHANGED":
-        return "bg-stone-100 text-stone-600 border-stone-200";
+        return "bg-slate-700 text-slate-400 border-slate-600";
       default:
-        return "bg-sky-50 text-sky-700 border-sky-200";
+        return "bg-cyan-500/15 text-cyan-300 border-cyan-500/30";
     }
   };
 
   const getVerdictBadge = (status: string) => {
     switch (status) {
       case "PROCEED":
-        return "bg-emerald-100 text-emerald-800 border-emerald-300";
+        return "bg-emerald-500/15 text-emerald-300 border-emerald-500/30";
       case "VALIDATE_FIRST":
-        return "bg-amber-100 text-amber-800 border-amber-300";
+        return "bg-amber-500/15 text-amber-300 border-amber-500/30";
       case "RECONSIDER":
-        return "bg-rose-100 text-rose-800 border-rose-300";
+        return "bg-rose-500/15 text-rose-300 border-rose-500/30";
       default:
-        return "bg-stone-100 text-stone-700 border-stone-300";
+        return "bg-slate-700 text-slate-400 border-slate-600";
     }
   };
 
   return (
-    <section className="bg-white rounded-2xl border border-stone-200/80 shadow-sm overflow-hidden" id="scenario-lab">
+    <section className="bg-[#0B1F2D] rounded-2xl border border-slate-800/80 shadow-xl shadow-slate-950/20 overflow-hidden" id="scenario-lab">
       {/* Header Banner */}
       <div className="bg-slate-900 text-white p-6 md:p-8">
         <div className="flex flex-wrap items-center justify-between gap-4">
@@ -501,7 +501,7 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
       {/* Interactive Editor - Progressively Disclosed */}
       {isOpen && (
         <div className="p-6 md:p-8 space-y-8">
-          <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-stone-100">
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-800">
             <div className="flex items-center gap-2">
               {scenarios.map((s) => (
                 <button
@@ -509,8 +509,8 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                   onClick={() => setActiveScenarioId(s.id)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 ${
                     s.id === activeScenarioId
-                      ? "bg-slate-900 text-white shadow-sm"
-                      : "bg-stone-100 hover:bg-stone-200 text-slate-700"
+                      ? "bg-emerald-600 text-white shadow-sm"
+                      : "bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"
                   }`}
                 >
                   <span>{s.name}</span>
@@ -522,7 +522,7 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
               {scenarios.length < 3 && (
                 <button
                   onClick={handleAddScenario}
-                  className="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-800 flex items-center gap-1"
+                  className="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 flex items-center gap-1"
                   title="Create up to 3 comparison scenarios"
                 >
                   {t("results.scenarioLab.newScenario")}
@@ -532,25 +532,25 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
           </div>
         {/* Scenario Editor Controls */}
         {activeScenario && (
-          <div className="rounded-xl border border-stone-200 bg-stone-50/70 p-6">
+          <div className="rounded-xl border border-slate-700/60 bg-[#0E2635] p-6">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
               <div>
                 <div className="flex items-center gap-2.5">
-                  <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                  <h3 className="text-base font-bold text-white flex items-center gap-2">
                     <span>⚙️</span> {activeScenario.name}
                   </h3>
                   {activeScenario.isSaved ? (
-                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1">
-                      <Check className="w-3 h-3 text-emerald-600" /> {t("results.scenarioLab.savedBadge")}
+                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
+                      <Check className="w-3 h-3 text-emerald-400" /> {t("results.scenarioLab.savedBadge")}
                       {activeScenario.savedAt ? ` • ${new Date(activeScenario.savedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}` : ""}
                     </span>
                   ) : (
-                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1">
+                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30 flex items-center gap-1">
                       ✎ {t("results.scenarioLab.draftBadge")}
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-stone-500 mt-0.5">
+                <p className="text-sm leading-relaxed text-slate-400 mt-1 max-w-xl">
                   Modifying these inputs simulates a new scenario without altering your baseline analysis.
                 </p>
               </div>
@@ -558,7 +558,7 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                 <button
                   type="button"
                   onClick={handleResetScenario}
-                  className="px-3 py-1.5 rounded-lg border border-stone-300 bg-white text-xs font-medium text-stone-700 hover:bg-stone-50"
+                  className="px-3 py-1.5 rounded-lg border border-slate-600 bg-[#102B3A] text-xs font-medium text-slate-300 hover:bg-slate-700"
                 >
                   {t("results.scenarioLab.resetBaseline")}
                 </button>
@@ -566,7 +566,7 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                   <button
                     type="button"
                     onClick={() => handleDeleteScenario(activeScenario.id)}
-                    className="px-3 py-1.5 rounded-lg border border-rose-200 bg-rose-50 text-xs font-medium text-rose-700 hover:bg-rose-100"
+                    className="px-3 py-1.5 rounded-lg border border-rose-500/30 bg-rose-500/10 text-xs font-medium text-rose-300 hover:bg-rose-500/20"
                   >
                     {t("results.scenarioLab.deleteScenario")}
                   </button>
@@ -575,11 +575,11 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                   type="button"
                   onClick={() => handleEvaluateScenario(activeScenario)}
                   disabled={isEvaluating}
-                  className="px-3 py-1.5 rounded-lg border border-indigo-300 bg-indigo-50 text-indigo-700 text-xs font-bold shadow-sm flex items-center gap-1.5 disabled:opacity-50"
+                  className="px-3 py-1.5 rounded-lg border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-xs font-bold shadow-sm flex items-center gap-1.5 disabled:opacity-50"
                 >
                   {isEvaluating ? (
                     <>
-                      <div className="w-3.5 h-3.5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+                      <div className="w-3.5 h-3.5 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
                       <span>{t("common.loading")}</span>
                     </>
                   ) : (
@@ -619,56 +619,60 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
             </div>
 
             {saveSuccessMsg && (
-              <div className="mb-4 p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2">
-                <Check className="w-4 h-4 text-emerald-600" />
+              <div className="mb-4 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
+                <Check className="w-4 h-4 text-emerald-400" />
                 <span>{saveSuccessMsg}</span>
               </div>
             )}
 
             {apiError && (
-              <div className="mb-4 p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+              <div className="mb-4 p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
                 <span>{apiError}</span>
               </div>
             )}
 
             {/* Quick Test Presets */}
             <div className="mb-6 flex flex-wrap items-center gap-2">
-              <span className="text-xs font-semibold text-stone-600">
+              <span className="text-xs font-semibold text-slate-400">
                 {t("results.scenarioLab.presetsTitle")}:
               </span>
               <button
                 type="button"
                 onClick={() => handleApplyPreset("conservative_demand")}
-                className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-white border border-stone-200 text-stone-700 hover:border-indigo-400 transition-colors"
+                className="px-2.5 py-1 rounded-md text-[11px] font-medium min-h-[44px] bg-[#102B3A] border border-slate-600 text-slate-300 hover:border-emerald-500/60 transition-colors"
               >
                 📉 {t("results.scenarioLab.presetConservativeDemand")}
               </button>
               <button
                 type="button"
                 onClick={() => handleApplyPreset("lower_loan")}
-                className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-white border border-stone-200 text-stone-700 hover:border-indigo-400 transition-colors"
+                className="px-2.5 py-1 rounded-md text-[11px] font-medium min-h-[44px] bg-[#102B3A] border border-slate-600 text-slate-300 hover:border-emerald-500/60 transition-colors"
               >
                 🛡️ {t("results.scenarioLab.presetLowerLoan")}
               </button>
               <button
                 type="button"
                 onClick={() => handleApplyPreset("higher_fixed")}
-                className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-white border border-stone-200 text-stone-700 hover:border-indigo-400 transition-colors"
+                className="px-2.5 py-1 rounded-md text-[11px] font-medium min-h-[44px] bg-[#102B3A] border border-slate-600 text-slate-300 hover:border-emerald-500/60 transition-colors"
               >
                 🏢 {t("results.scenarioLab.presetHigherFixed")}
               </button>
             </div>
 
             {/* Input Groups Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <details className="rounded-xl border border-slate-700/60 bg-[#06131F]" open={false}>
+              <summary className="cursor-pointer list-none px-4 py-3 text-sm font-semibold text-slate-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+                {t("results.scenarioLab.advancedInputs")}
+              </summary>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4 pt-1">
               {/* Group 1: Financing Structure */}
-              <div className="rounded-lg border border-stone-200 bg-white p-4 space-y-3 shadow-2xs">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-700">
+              <div className="rounded-lg border border-slate-700/60 bg-[#102B3A] p-4 space-y-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-cyan-400">
                   {t("results.scenarioLab.financingGroup")}
                 </h4>
                 <div>
-                  <label htmlFor="scenario-own-capital" className="block text-xs font-medium text-stone-700 mb-1">
+                  <label htmlFor="scenario-own-capital" className="block text-xs font-medium text-slate-400 mb-1">
                     Own Equity Savings (₹)
                   </label>
                   <input
@@ -677,14 +681,14 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                     min="0"
                     step="5000"
                     aria-label="Own Equity Savings in Rupees"
-                    className="w-full text-xs rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                    className="w-full text-xs rounded-lg border border-slate-600 bg-[#0B1F2D] px-3 py-1.5 text-white placeholder:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                     value={activeScenario.ownCapital}
                     onChange={(e) => updateActiveScenarioField("ownCapital", parseFloat(e.target.value) || 0)}
                   />
-                  <span className="text-[10px] text-stone-500">Baseline: ₹{baselineOwnCapital.toLocaleString()}</span>
+                  <span className="text-[10px] text-slate-600">Baseline: ₹{baselineOwnCapital.toLocaleString()}</span>
                 </div>
                 <div>
-                  <label htmlFor="scenario-desired-loan" className="block text-xs font-medium text-stone-700 mb-1">
+                  <label htmlFor="scenario-desired-loan" className="block text-xs font-medium text-slate-400 mb-1">
                     Desired Bank Loan (₹)
                   </label>
                   <input
@@ -693,15 +697,15 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                     min="0"
                     step="5000"
                     aria-label="Desired Bank Loan in Rupees"
-                    className="w-full text-xs rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                    className="w-full text-xs rounded-lg border border-slate-600 bg-[#0B1F2D] px-3 py-1.5 text-white placeholder:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                     value={activeScenario.desiredLoan}
                     onChange={(e) => updateActiveScenarioField("desiredLoan", parseFloat(e.target.value) || 0)}
                   />
-                  <span className="text-[10px] text-stone-500">Baseline: ₹{baselineDesiredLoan.toLocaleString()}</span>
+                  <span className="text-[10px] text-slate-600">Baseline: ₹{baselineDesiredLoan.toLocaleString()}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label htmlFor="scenario-interest-rate" className="block text-[11px] font-medium text-stone-700 mb-1">
+                    <label htmlFor="scenario-interest-rate" className="block text-[11px] font-medium text-slate-400 mb-1">
                       Interest Rate (%)
                     </label>
                     <input
@@ -711,13 +715,13 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                       max="40"
                       step="0.5"
                       aria-label="Interest Rate Percentage"
-                      className="w-full text-xs rounded-lg border border-stone-300 bg-white px-2 py-1 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                      className="w-full text-xs rounded-lg border border-slate-600 bg-[#0B1F2D] px-2 py-1 text-white placeholder:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                       value={activeScenario.financials.interest_rate_pct}
                       onChange={(e) => updateActiveScenarioField("interest_rate_pct", parseFloat(e.target.value) || 0)}
                     />
                   </div>
                   <div>
-                    <label htmlFor="scenario-loan-tenure" className="block text-[11px] font-medium text-stone-700 mb-1">
+                    <label htmlFor="scenario-loan-tenure" className="block text-[11px] font-medium text-slate-400 mb-1">
                       Tenure (Months)
                     </label>
                     <input
@@ -727,7 +731,7 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                       max="120"
                       step="6"
                       aria-label="Loan Tenure in Months"
-                      className="w-full text-xs rounded-lg border border-stone-300 bg-white px-2 py-1 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                      className="w-full text-xs rounded-lg border border-slate-600 bg-[#0B1F2D] px-2 py-1 text-white placeholder:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                       value={activeScenario.financials.loan_tenure_months}
                       onChange={(e) => updateActiveScenarioField("loan_tenure_months", parseInt(e.target.value) || 36)}
                     />
@@ -736,12 +740,12 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
               </div>
 
               {/* Group 2: Business Costs & Capex */}
-              <div className="rounded-lg border border-stone-200 bg-white p-4 space-y-3 shadow-2xs">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-purple-700">
+              <div className="rounded-lg border border-slate-700/60 bg-[#102B3A] p-4 space-y-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-purple-300">
                   {t("results.scenarioLab.costGroup")}
                 </h4>
                 <div>
-                  <label htmlFor="scenario-equipment-cost" className="block text-xs font-medium text-stone-700 mb-1">
+                  <label htmlFor="scenario-equipment-cost" className="block text-xs font-medium text-slate-400 mb-1">
                     Equipment / Machinery (₹)
                   </label>
                   <input
@@ -750,14 +754,14 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                     min="0"
                     step="5000"
                     aria-label="Equipment and Machinery Cost in Rupees"
-                    className="w-full text-xs rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                    className="w-full text-xs rounded-lg border border-slate-600 bg-[#0B1F2D] px-3 py-1.5 text-white placeholder:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                     value={activeScenario.financials.equipment_cost}
                     onChange={(e) => updateActiveScenarioField("equipment_cost", parseFloat(e.target.value) || 0)}
                   />
-                  <span className="text-[10px] text-stone-500">Baseline: ₹{baselineFin.equipment_cost.toLocaleString()}</span>
+                  <span className="text-[10px] text-slate-600">Baseline: ₹{baselineFin.equipment_cost.toLocaleString()}</span>
                 </div>
                 <div>
-                  <label htmlFor="scenario-monthly-fixed-cost" className="block text-xs font-medium text-stone-700 mb-1">
+                  <label htmlFor="scenario-monthly-fixed-cost" className="block text-xs font-medium text-slate-400 mb-1">
                     Monthly Fixed Overhead (₹)
                   </label>
                   <input
@@ -766,14 +770,14 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                     min="0"
                     step="1000"
                     aria-label="Monthly Fixed Overhead Cost in Rupees"
-                    className="w-full text-xs rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                    className="w-full text-xs rounded-lg border border-slate-600 bg-[#0B1F2D] px-3 py-1.5 text-white placeholder:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                     value={activeScenario.financials.monthly_fixed_cost}
                     onChange={(e) => updateActiveScenarioField("monthly_fixed_cost", parseFloat(e.target.value) || 0)}
                   />
-                  <span className="text-[10px] text-stone-500">Baseline: ₹{baselineFin.monthly_fixed_cost.toLocaleString()}</span>
+                  <span className="text-[10px] text-slate-600">Baseline: ₹{baselineFin.monthly_fixed_cost.toLocaleString()}</span>
                 </div>
                 <div>
-                  <label htmlFor="scenario-variable-cost" className="block text-xs font-medium text-stone-700 mb-1">
+                  <label htmlFor="scenario-variable-cost" className="block text-xs font-medium text-slate-400 mb-1">
                     Variable COGS (%)
                   </label>
                   <input
@@ -783,21 +787,21 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                     max="99"
                     step="5"
                     aria-label="Variable Cost Percentage"
-                    className="w-full text-xs rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                    className="w-full text-xs rounded-lg border border-slate-600 bg-[#0B1F2D] px-3 py-1.5 text-white placeholder:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                     value={activeScenario.financials.variable_cost_pct}
                     onChange={(e) => updateActiveScenarioField("variable_cost_pct", parseFloat(e.target.value) || 0)}
                   />
-                  <span className="text-[10px] text-stone-500">Baseline: {baselineFin.variable_cost_pct}%</span>
+                  <span className="text-[10px] text-slate-600">Baseline: {baselineFin.variable_cost_pct}%</span>
                 </div>
               </div>
 
               {/* Group 3: Demand & Pricing */}
-              <div className="rounded-lg border border-stone-200 bg-white p-4 space-y-3 shadow-2xs">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-teal-700">
+              <div className="rounded-lg border border-slate-700/60 bg-[#102B3A] p-4 space-y-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-teal-300">
                   {t("results.scenarioLab.demandGroup")}
                 </h4>
                 <div>
-                  <label htmlFor="scenario-customers-day" className="block text-xs font-medium text-stone-700 mb-1">
+                  <label htmlFor="scenario-customers-day" className="block text-xs font-medium text-slate-400 mb-1">
                     Expected Daily Footfall
                   </label>
                   <input
@@ -806,14 +810,14 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                     min="1"
                     step="5"
                     aria-label="Expected Daily Footfall in customers per day"
-                    className="w-full text-xs rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                    className="w-full text-xs rounded-lg border border-slate-600 bg-[#0B1F2D] px-3 py-1.5 text-white placeholder:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                     value={activeScenario.financials.customers_per_day}
                     onChange={(e) => updateActiveScenarioField("customers_per_day", parseInt(e.target.value) || 1)}
                   />
-                  <span className="text-[10px] text-stone-500">Baseline: {baselineFin.customers_per_day} orders/day</span>
+                  <span className="text-[10px] text-slate-600">Baseline: {baselineFin.customers_per_day} orders/day</span>
                 </div>
                 <div>
-                  <label htmlFor="scenario-ticket-price" className="block text-xs font-medium text-stone-700 mb-1">
+                  <label htmlFor="scenario-ticket-price" className="block text-xs font-medium text-slate-400 mb-1">
                     Average Ticket Price (₹)
                   </label>
                   <input
@@ -822,14 +826,14 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                     min="1"
                     step="5"
                     aria-label="Average Ticket Price in Rupees"
-                    className="w-full text-xs rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                    className="w-full text-xs rounded-lg border border-slate-600 bg-[#0B1F2D] px-3 py-1.5 text-white placeholder:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                     value={activeScenario.financials.avg_ticket_price}
                     onChange={(e) => updateActiveScenarioField("avg_ticket_price", parseFloat(e.target.value) || 1)}
                   />
-                  <span className="text-[10px] text-stone-500">Baseline: ₹{baselineFin.avg_ticket_price}</span>
+                  <span className="text-[10px] text-slate-600">Baseline: ₹{baselineFin.avg_ticket_price}</span>
                 </div>
                 <div>
-                  <label htmlFor="scenario-working-days" className="block text-xs font-medium text-stone-700 mb-1">
+                  <label htmlFor="scenario-working-days" className="block text-xs font-medium text-slate-400 mb-1">
                     Working Days / Month
                   </label>
                   <input
@@ -839,14 +843,15 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                     max="31"
                     step="1"
                     aria-label="Working Days per Month"
-                    className="w-full text-xs rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                    className="w-full text-xs rounded-lg border border-slate-600 bg-[#0B1F2D] px-3 py-1.5 text-white placeholder:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                     value={activeScenario.financials.working_days_per_month}
                     onChange={(e) => updateActiveScenarioField("working_days_per_month", parseInt(e.target.value) || 26)}
                   />
-                  <span className="text-[10px] text-stone-500">Baseline: {baselineFin.working_days_per_month} days</span>
+                  <span className="text-[10px] text-slate-600">Baseline: {baselineFin.working_days_per_month} days</span>
                 </div>
               </div>
             </div>
+            </details>
           </div>
         )}
 
@@ -854,46 +859,46 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
         {activeScenario?.evaluation && (
           <div className="space-y-6" role="status" aria-live="polite">
             {/* Verdict Comparison Banner */}
-            <div className="rounded-xl border border-indigo-200 bg-indigo-50/70 p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="rounded-xl border border-slate-700/60 bg-[#0E2635] p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <div>
-                <span className="text-xs uppercase tracking-wider text-indigo-700 font-bold block mb-1">
+                <span className="text-xs uppercase tracking-wider text-cyan-400 font-bold block mb-1">
                   Recommendation Outcome
                 </span>
                 <div className="flex items-center gap-3">
                   <span className={`px-3 py-1 text-xs font-bold rounded-full border ${getVerdictBadge(activeScenario.evaluation.baseline_status)}`}>
                     Baseline: {activeScenario.evaluation.baseline_status}
                   </span>
-                  <span className="text-stone-400 text-sm">&rarr;</span>
+                  <span className="text-slate-600 text-sm">&rarr;</span>
                   <span className={`px-3 py-1 text-xs font-bold rounded-full border ${getVerdictBadge(activeScenario.evaluation.scenario_status)}`}>
                     {activeScenario.name}: {activeScenario.evaluation.scenario_status}
                   </span>
                 </div>
-                <p className="text-xs text-stone-700 mt-2">
+                <p className="text-xs text-slate-400 mt-2">
                   {activeScenario.evaluation.recommendation_change.summary}
                 </p>
               </div>
 
               {activeScenario.evaluation.recommendation_change.changed && (
-                <div className="px-3.5 py-2 rounded-lg bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs font-semibold">
+                <div className="px-3.5 py-2 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
                   Rule Trigger Shifted Verdict
                 </div>
               )}
             </div>
 
             {/* Comparison Table */}
-            <div className="rounded-xl border border-stone-200 overflow-hidden shadow-2xs">
-              <div className="bg-stone-50 px-6 py-3 border-b border-stone-200 flex justify-between items-center">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-700">
+            <div className="rounded-xl border border-slate-700/60 overflow-hidden">
+              <div className="bg-[#06131F] px-6 py-3 border-b border-slate-800 flex justify-between items-center">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300">
                   {t("results.scenarioLab.comparisonTableTitle")}
                 </h4>
-                <span className="text-[11px] text-stone-500">
+                <span className="text-[11px] text-slate-500">
                   Computed via authoritative FinancialService
                 </span>
               </div>
 
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-stone-50/80 text-stone-600 uppercase font-mono text-[10px] border-b border-stone-200">
+                  <thead className="bg-[#06131F] text-slate-500 uppercase font-mono text-[10px] border-b border-slate-800">
                     <tr>
                       <th className="px-6 py-3">{t("results.scenarioLab.metricCol")}</th>
                       <th className="px-6 py-3">{t("results.scenarioLab.baselineCol")}</th>
@@ -903,16 +908,16 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                       <th className="px-6 py-3">Effect</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-stone-100 bg-white">
+                  <tbody className="divide-y divide-slate-800 bg-[#0B1F2D]">
                     {activeScenario.evaluation.metric_comparisons.map((m: MetricComparison) => (
-                      <tr key={m.metric_key} className="hover:bg-stone-50/80">
-                        <td className="px-6 py-3 font-semibold text-slate-900">
+                      <tr key={m.metric_key} className="hover:bg-[#0E2635]">
+                        <td className="px-6 py-3 font-semibold text-white">
                           <div className="flex items-center gap-1.5">
                             <span>{m.metric_name}</span>
                             <button
                               type="button"
                               onClick={() => handleInspectMetric(m.metric_key, true)}
-                              className="text-stone-400 hover:text-indigo-600 p-0.5 rounded transition-colors"
+                              className="text-slate-600 hover:text-emerald-400 p-0.5 rounded transition-colors"
                               title={t("results.explainNumber.explainButtonLabel")}
                               aria-label={`${t("results.explainNumber.explainButtonLabel")}: ${m.metric_name}`}
                             >
@@ -920,18 +925,18 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
                             </button>
                           </div>
                         </td>
-                        <td className="px-6 py-3 text-stone-600 font-mono">
+                        <td className="px-6 py-3 text-slate-400 font-mono">
                           {m.unit === "INR" ? `₹${m.baseline_value.toLocaleString()}` : `${m.baseline_value} ${m.unit}`}
                         </td>
-                        <td className="px-6 py-3 text-slate-900 font-mono font-bold">
+                        <td className="px-6 py-3 text-white font-mono font-bold">
                           {m.unit === "INR" ? `₹${m.scenario_value.toLocaleString()}` : `${m.scenario_value} ${m.unit}`}
                         </td>
                         <td className="px-6 py-3 font-mono">
-                          <span className={m.absolute_change > 0 ? "text-emerald-700" : (m.absolute_change < 0 ? "text-rose-700" : "text-stone-400")}>
+                           <span className={m.absolute_change > 0 ? "text-emerald-400" : (m.absolute_change < 0 ? "text-rose-400" : "text-slate-500")}>
                             {m.absolute_change > 0 ? "+" : ""}{m.unit === "INR" ? `₹${m.absolute_change.toLocaleString()}` : `${m.absolute_change} ${m.unit}`}
                           </span>
                         </td>
-                        <td className="px-6 py-3 font-mono text-stone-500">
+                        <td className="px-6 py-3 font-mono text-slate-500">
                           {m.percentage_change !== null && m.percentage_change !== undefined
                             ? `${m.percentage_change > 0 ? "+" : ""}${m.percentage_change}%`
                             : "N/A"}
@@ -951,14 +956,14 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
             {/* "What changed?" & "Why did it change?" Dual Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* What Changed */}
-              <div className="rounded-xl border border-stone-200 bg-stone-50/80 p-5 space-y-3">
-                <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <div className="rounded-xl border border-slate-700/60 bg-[#0E2635] p-5 space-y-3">
+                <h4 className="text-sm font-bold text-white flex items-center gap-2">
                   <span>📊</span> {t("results.scenarioLab.whatChangedTitle")}
                 </h4>
-                <ul className="space-y-2 text-xs text-stone-700">
+                <ul className="space-y-2 text-xs text-slate-400">
                   {activeScenario.evaluation.what_changed.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-2">
-                      <span className="text-stone-400 mt-0.5">&bull;</span>
+                      <span className="text-slate-600 mt-0.5">&bull;</span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -966,14 +971,14 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
               </div>
 
               {/* Why Did It Change */}
-              <div className="rounded-xl border border-stone-200 bg-stone-50/80 p-5 space-y-3">
-                <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <div className="rounded-xl border border-slate-700/60 bg-[#0E2635] p-5 space-y-3">
+                <h4 className="text-sm font-bold text-white flex items-center gap-2">
                   <span>💡</span> {t("results.scenarioLab.whyChangedTitle")}
                 </h4>
-                <ul className="space-y-2 text-xs text-stone-700">
+                <ul className="space-y-2 text-xs text-slate-400">
                   {activeScenario.evaluation.why_it_changed.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-2">
-                      <span className="text-indigo-600 font-bold mt-0.5">&rsaquo;</span>
+                      <span className="text-emerald-500 font-bold mt-0.5">&rsaquo;</span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -982,12 +987,12 @@ export const ScenarioLabSection: React.FC<ScenarioLabSectionProps> = ({
             </div>
 
             {/* Safety & Immutability Disclaimer */}
-            <div className="p-4 bg-stone-100 border border-stone-200 rounded-xl text-stone-600 text-xs flex items-start gap-3">
-              <svg className="w-5 h-5 text-indigo-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="p-4 bg-[#06131F] border border-slate-800 rounded-xl text-slate-400 text-xs flex items-start gap-3">
+              <svg className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <div>
-                <strong>Simulation Notice:</strong> {activeScenario.evaluation.disclaimer} All scenario calculations are exploratory unit economic tests. They do not alter your baseline analysis or external evidence.
+                <strong className="text-slate-300">Simulation Notice:</strong> {activeScenario.evaluation.disclaimer} All scenario calculations are exploratory unit economic tests. They do not alter your baseline analysis or external evidence.
               </div>
             </div>
           </div>

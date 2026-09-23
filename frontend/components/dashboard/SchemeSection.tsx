@@ -91,12 +91,12 @@ export const SchemeSection: React.FC<SchemeSectionProps> = ({ schemeResult }) =>
                       <span className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold block">
                         Subsidy
                       </span>
-                      <span className="font-bold text-emerald-700 text-sm">
+                      <span className="font-bold text-emerald-400 text-sm">
                         {formatCurrencyINR(scheme.subsidy_eligible_amount)}
                       </span>
                     </div>
                     <div>
-                      <span className="text-[10px] uppercase tracking-wider text-stone-500 font-semibold block">
+                      <span className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold block">
                         Your Margin
                       </span>
                       <span className="font-bold text-slate-200 text-sm">
@@ -124,7 +124,7 @@ export const SchemeSection: React.FC<SchemeSectionProps> = ({ schemeResult }) =>
                       <ul className="text-xs text-slate-300 space-y-1">
                         {scheme.reasons.map((reason, rIdx) => (
                           <li key={rIdx} className="flex items-start gap-1.5">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
                             <span>{reason}</span>
                           </li>
                         ))}
@@ -134,12 +134,12 @@ export const SchemeSection: React.FC<SchemeSectionProps> = ({ schemeResult }) =>
 
                   {/* Conditions to Verify */}
                   {scheme.conditions_to_verify && scheme.conditions_to_verify.length > 0 && (
-                    <div className="space-y-1 bg-amber-50/80 p-2.5 rounded-lg border border-amber-200/70">
-                      <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1">
-                        <AlertTriangle className="w-3 h-3 text-amber-700" />
+                    <div className="space-y-1 bg-amber-500/10 p-2.5 rounded-lg border border-amber-500/30">
+                      <span className="text-[10px] font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1">
+                        <AlertTriangle className="w-3 h-3 text-amber-400" />
                         To Verify Before Sanction:
                       </span>
-                      <ul className="text-[11px] text-amber-900 space-y-0.5 pl-4 list-disc">
+                      <ul className="text-[11px] text-amber-200 space-y-0.5 pl-4 list-disc">
                         {scheme.conditions_to_verify.map((cond, cIdx) => (
                           <li key={cIdx}>{cond}</li>
                         ))}

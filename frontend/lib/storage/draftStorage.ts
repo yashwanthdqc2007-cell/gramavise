@@ -23,7 +23,7 @@ export function isValidDraft(data: any): data is OnboardingDraft {
   if (!data || typeof data !== "object") return false;
   if (data.version !== DRAFT_SCHEMA_VERSION) return false;
   if (!data.updated_at || typeof data.updated_at !== "string") return false;
-  if (typeof data.step !== "number" || data.step < 1 || data.step > 4) return false;
+  if (typeof data.step !== "number" || data.step < 1 || data.step > 5) return false;
   if (!data.profile || typeof data.profile !== "object") return false;
   if (!data.financials || typeof data.financials !== "object") return false;
 
@@ -81,7 +81,7 @@ export function saveDraft(
     const draft: OnboardingDraft = {
       version: DRAFT_SCHEMA_VERSION,
       updated_at: new Date().toISOString(),
-      step: Math.min(4, Math.max(1, step)),
+      step: Math.min(5, Math.max(1, step)),
       language: language || "en",
       profile: {
         business_name: profile.business_name || "",

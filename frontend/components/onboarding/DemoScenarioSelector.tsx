@@ -23,7 +23,7 @@ export const DemoScenarioSelector: React.FC<DemoScenarioSelectorProps> = ({
   };
 
   return (
-    <div className="mb-6 rounded-2xl border border-slate-800 bg-[#0B1C29]/95 backdrop-blur-xs p-3.5 shadow-lg shadow-slate-950/20">
+    <div className="mb-4 rounded-2xl border border-slate-800 bg-[#0B1C29]/95 backdrop-blur-xs p-3 shadow-lg shadow-slate-950/20">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-300 text-xs font-bold border border-emerald-500/25">
@@ -36,7 +36,7 @@ export const DemoScenarioSelector: React.FC<DemoScenarioSelectorProps> = ({
                 Evaluation Playbook
               </span>
             </div>
-            <p className="text-[11px] text-slate-400">
+            <p className="hidden sm:block text-[11px] text-slate-400">
               Pre-load verified business input profiles to evaluate deterministic financial & risk outcomes.
             </p>
           </div>

@@ -86,14 +86,14 @@ export const EvidenceDrawer: React.FC<EvidenceDrawerProps> = ({ evidenceList = [
           {/* Indicators List */}
           <div className="space-y-3">
             {filteredList.length === 0 ? (
-              <div className="p-6 text-center border border-dashed border-stone-200 rounded-xl">
-                <p className="text-xs text-stone-500">No evidence items match filter &quot;{filterType}&quot;</p>
+              <div className="p-6 text-center border border-dashed border-slate-700 rounded-xl">
+                <p className="text-xs text-slate-500">No evidence items match filter &quot;{filterType}&quot;</p>
               </div>
             ) : (
               filteredList.map((item, idx) => (
                 <div
                   key={item.evidence_id || idx}
-                  className="p-4 bg-slate-800/60 rounded-xl border border-slate-700 text-xs space-y-2 shadow-2xs"
+                  className="p-4 bg-slate-800/60 rounded-xl border border-slate-700 text-sm space-y-2.5 shadow-2xs"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
@@ -107,24 +107,24 @@ export const EvidenceDrawer: React.FC<EvidenceDrawerProps> = ({ evidenceList = [
                     <EvidenceBadge type={item.evidence_type} confidence={item.confidence} />
                   </div>
 
-                  <div className="text-slate-300 text-xs">
+                  <div className="text-slate-300 text-sm">
                     Recorded Value: <span className="font-mono font-bold text-slate-100">{String(item.value)}</span>{" "}
                     {item.unit && <span className="text-slate-500 font-normal">({item.unit})</span>}
                   </div>
 
                   {item.confidence_explanation && (
-                    <p className="text-[11px] text-slate-300 bg-slate-900/70 p-2 rounded-lg border border-slate-700">
+                    <p className="text-xs leading-relaxed text-slate-300 bg-slate-900/70 p-2.5 rounded-lg border border-slate-700">
                       <strong>Confidence Basis:</strong> {item.confidence_explanation}
                     </p>
                   )}
 
                   {item.notes && (
-                    <p className="text-[11px] text-slate-400 italic">
+                    <p className="text-xs leading-relaxed text-slate-400 italic">
                       {item.notes}
                     </p>
                   )}
 
-                  <div className="flex flex-wrap items-center justify-between gap-3 text-[11px] text-slate-500 pt-2 border-t border-slate-700">
+                  <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500 pt-2 border-t border-slate-700">
                     <div className="flex items-center gap-3">
                       {item.source && (
                         <span>Source: <strong className="text-slate-300">{item.source}</strong></span>

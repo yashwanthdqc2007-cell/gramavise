@@ -33,18 +33,18 @@ export const DraftRecoveryBanner: React.FC<DraftRecoveryBannerProps> = ({
       <div
         role="region"
         aria-label={t("draft.bannerTitle")}
-        className="mb-6 bg-gradient-to-r from-emerald-950/60 via-[#0B1C29] to-cyan-950/40 border border-emerald-500/30 rounded-xl p-4 sm:p-5 shadow-lg shadow-slate-950/20"
+        className="mb-4 bg-gradient-to-r from-emerald-950/60 via-[#0B1C29] to-cyan-950/40 border border-emerald-500/30 rounded-xl p-3 sm:p-4 shadow-lg shadow-slate-950/20"
       >
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-start gap-3">
-            <div className="w-9 h-9 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <FileText className="w-5 h-5" aria-hidden="true" />
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <FileText className="w-4 h-4" aria-hidden="true" />
             </div>
             <div>
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
                 {t("draft.bannerTitle")}
                 <span className="text-[11px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25 px-2 py-0.5 rounded">
-                  Step {draft.step} of 4
+                  Step {draft.step} of 5
                 </span>
               </h3>
               <p className="text-xs sm:text-sm text-slate-300 mt-0.5">{bannerText}</p>

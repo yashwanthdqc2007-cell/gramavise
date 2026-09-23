@@ -19,24 +19,24 @@ export const FeasibilityCard: React.FC<FeasibilityCardProps> = ({
 }) => {
   const { t } = useTranslation();
   const borderColors: Record<RecommendationStatus, string> = {
-    PROCEED: "border-l-emerald-500 bg-emerald-50/20",
-    VALIDATE_FIRST: "border-l-amber-500 bg-amber-50/20",
-    RECONSIDER: "border-l-rose-500 bg-rose-50/20",
+    PROCEED: "border-l-emerald-500 bg-emerald-500/8",
+    VALIDATE_FIRST: "border-l-amber-500 bg-amber-500/8",
+    RECONSIDER: "border-l-rose-500 bg-rose-500/8",
   };
 
-  const currentStyle = borderColors[status] || "border-l-stone-400 bg-white";
+  const currentStyle = borderColors[status] || "border-l-slate-600 bg-[#0B1F2D]";
 
   return (
     <Card className={`border-l-4 shadow-sm ${currentStyle}`}>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-1">
+          <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">
             {t("results.feasibility.title")}
           </span>
           <div>
             <AnalysisStatus status={status} confidence={confidence} />
           </div>
-          {summary && <p className="mt-2.5 text-sm text-gray-700 leading-relaxed">{summary}</p>}
+          {summary && <p className="mt-2.5 text-sm text-slate-300 leading-relaxed">{summary}</p>}
         </div>
       </div>
     </Card>

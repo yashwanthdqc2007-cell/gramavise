@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Scenario Lab Snapshot</title></head>
+<body>
+<iframe id="appFrame" src="/history/ba7cac4c-fe57-45b6-b1a3-11bf2d911e58" style="width:1280px;height:2400px;border:none;"></iframe>
+<script>
+  window.onload = () => {
+    setTimeout(() => {
+      const doc = document.getElementById('appFrame').contentWindow.document;
+      const el = doc.getElementById('scenario-lab') || doc.querySelector('[id*="scenario"]');
+      if (el) el.scrollIntoView({ behavior: 'instant' });
+    }, 4000);
+  };
+</script>
+</body>
+</html>

@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Any, List, Optional
-import hashlib
 from app.schemas.market import (
     MarketResultResponse,
     CompetitorInfo,
@@ -17,7 +16,8 @@ from app.schemas.market import (
     DemographicObservation,
     UdyamDistrictContext,
     CompetitorRelationship,
-    CoverageConfidenceLevel
+    CoverageConfidenceLevel,
+    GeocodingResult
 )
 from app.schemas.analysis import EvidenceType
 from app.providers.geo import GeoDataProvider
@@ -25,6 +25,7 @@ from app.providers.demographics import DemographicDataProvider
 from app.providers.price import PriceDataProvider
 from app.providers.competitor import OSMCompetitorProvider
 from app.providers.udyam import UdyamContextProvider
+from app.services.geo.geocoder import LocationResolver, validate_coordinates
 
 
 class MarketServiceInterface(ABC):
@@ -63,33 +64,23 @@ class MockMarketService(MarketServiceInterface):
         demographics_provider: Optional[DemographicDataProvider] = None,
         price_provider: Optional[PriceDataProvider] = None,
         competitor_provider: Optional[OSMCompetitorProvider] = None,
-        udyam_provider: Optional[UdyamContextProvider] = None
+        udyam_provider: Optional[UdyamContextProvider] = None,
+        location_resolver: Optional[LocationResolver] = None
     ):
         self._geo_provider = geo_provider or GeoDataProvider()
         self._demographics_provider = demographics_provider or DemographicDataProvider()
         self._price_provider = price_provider or PriceDataProvider()
         self._competitor_provider = competitor_provider or OSMCompetitorProvider()
         self._udyam_provider = udyam_provider or UdyamContextProvider()
+        self._location_resolver = location_resolver or LocationResolver()
 
     def get_location(self, state: str, district: str, village: str) -> Dict[str, float]:
-        """Deterministic coordinates lookup based on test districts or hash."""
-        # Known coordinates for snapshot testing centers
-        dist_clean = district.lower().strip()
-        if "pune" in dist_clean:
-            return {"latitude": 18.1550, "longitude": 74.5780}
-        elif "ujjain" in dist_clean:
-            return {"latitude": 23.1800, "longitude": 75.7800}
-        elif "varanasi" in dist_clean:
-            return {"latitude": 25.3200, "longitude": 82.9800}
-        elif "patna" in dist_clean:
-            return {"latitude": 25.6000, "longitude": 85.1200}
-        elif "nashik" in dist_clean:
-            return {"latitude": 19.9975, "longitude": 73.7898}
-
-        hash_val = int(hashlib.md5(f"{village}{district}{state}".encode('utf-8')).hexdigest()[:8], 16)
-        lat = 18.0 + (hash_val % 1000) / 100.0
-        lon = 73.0 + ((hash_val // 1000) % 1000) / 100.0
-        return {"latitude": round(lat, 4), "longitude": round(lon, 4)}
+        """Multi-tier location resolution returning latitude and longitude dictionary."""
+        geo_res = self._location_resolver.resolve(state, district, village, allow_demo_fallback=True)
+        if geo_res.latitude is not None and geo_res.longitude is not None:
+            return {"latitude": geo_res.latitude, "longitude": geo_res.longitude}
+        # Fallback to standard baseline if completely unresolved
+        return {"latitude": 18.1550, "longitude": 74.5780}
 
     def get_local_businesses(self, lat: float, lon: float, category: str, radius_km: float) -> List[CompetitorDetail]:
         """Fetch nearby commercial POIs from OpenStreetMap provider."""
@@ -106,13 +97,27 @@ class MockMarketService(MarketServiceInterface):
         vill_val = getattr(query, "village", "")
         rad_val = getattr(query, "radius_km", 5.0)
 
-        # Geocode if coordinates not provided
-        lat_val = getattr(query, "latitude", None)
-        lon_val = getattr(query, "longitude", None)
-        if lat_val is None or lon_val is None:
-            coords = self.get_location(st_val, dist_val, vill_val)
-            lat_val = coords["latitude"]
-            lon_val = coords["longitude"]
+        # Coordinate Validation and Resolution
+        query_lat = getattr(query, "latitude", None)
+        query_lon = getattr(query, "longitude", None)
+        is_valid_coords, _ = validate_coordinates(query_lat, query_lon)
+
+        if is_valid_coords and query_lat is not None and query_lon is not None:
+            lat_val: Optional[float] = query_lat
+            lon_val: Optional[float] = query_lon
+            geocoding_res = GeocodingResult(
+                latitude=query_lat,
+                longitude=query_lon,
+                resolution_source="USER_PROVIDED",
+                verification_status="USER_PROVIDED",
+                confidence=1.0,
+                is_verified=True,
+                notes="Coordinates explicitly provided in request query."
+            )
+        else:
+            geocoding_res = self._location_resolver.resolve(st_val, dist_val, vill_val, allow_demo_fallback=True)
+            lat_val = geocoding_res.latitude
+            lon_val = geocoding_res.longitude
 
         # 1. OpenStreetMap Competitor & POI Evidence
         competitor_details, coverage_conf, coverage_warning = self._competitor_provider.get_competitors(
@@ -152,6 +157,10 @@ class MockMarketService(MarketServiceInterface):
             sub_district_lgd_code=geo_payload.get("sub_district_lgd_code"),
             village_name=geo_payload.get("village_name") or vill_val,
             village_lgd_code=geo_payload.get("village_lgd_code"),
+            latitude=lat_val,
+            longitude=lon_val,
+            resolution_source=geocoding_res.resolution_source,
+            is_geocoded=geocoding_res.is_verified,
             verification_status=geo_payload.get("verification_status", "NEEDS_VERIFICATION"),
             source=geo_payload.get("source"),
             source_url=geo_payload.get("source_url")
@@ -272,7 +281,17 @@ class MockMarketService(MarketServiceInterface):
 
         # 7. Conservative Market Risk Signals
         market_signals: List[MarketRiskSignal] = []
-        if direct_count == 0:
+        is_loc_verified = geocoding_res.is_verified and lat_val is not None and lon_val is not None
+
+        if not is_loc_verified:
+            # Unverified or synthetic fallback coordinates must never assert low competition certainty
+            market_signals.append(MarketRiskSignal.DATA_INSUFFICIENT)
+            market_signals.append(MarketRiskSignal.DEMAND_UNCERTAIN)
+            if direct_count > 2:
+                market_signals.append(MarketRiskSignal.HIGH_COMPETITION)
+            elif direct_count > 0:
+                market_signals.append(MarketRiskSignal.MODERATE_COMPETITION)
+        elif direct_count == 0:
             market_signals.append(MarketRiskSignal.LOW_COMPETITION)
             market_signals.append(MarketRiskSignal.DEMAND_UNCERTAIN)
         elif direct_count <= 2:
@@ -282,7 +301,7 @@ class MockMarketService(MarketServiceInterface):
 
         if not price_obs_list:
             market_signals.append(MarketRiskSignal.PRICE_UNCERTAIN)
-        if coverage_conf == CoverageConfidenceLevel.LOW.value:
+        if (coverage_conf == CoverageConfidenceLevel.LOW.value or not is_loc_verified) and MarketRiskSignal.DATA_INSUFFICIENT not in market_signals:
             market_signals.append(MarketRiskSignal.DATA_INSUFFICIENT)
 
         # 8. Structured Indicators
@@ -402,3 +421,4 @@ class MockMarketService(MarketServiceInterface):
             confidence_level=MarketConfidenceLevel.MEDIUM if direct_count > 0 else MarketConfidenceLevel.LOW,
             notes="Catchment competitor evidence from OpenStreetMap; district MSME context from Udyam OGD."
         )
+

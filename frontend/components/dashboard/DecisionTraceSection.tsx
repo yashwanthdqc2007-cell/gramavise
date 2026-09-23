@@ -39,11 +39,11 @@ export const DecisionTraceSection: React.FC<DecisionTraceSectionProps> = ({
   const getVerdictBadge = (st: RecommendationStatus) => {
     switch (st) {
       case "PROCEED":
-        return <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">PROCEED · RECOMMENDED</span>;
+        return <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">PROCEED · RECOMMENDED</span>;
       case "VALIDATE_FIRST":
-        return <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">VALIDATE FIRST · GROUND CHECKS NEEDED</span>;
+        return <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">VALIDATE FIRST · GROUND CHECKS NEEDED</span>;
       case "RECONSIDER":
-        return <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-300">RECONSIDER · HIGH FINANCIAL RISK</span>;
+        return <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-rose-500/15 text-rose-300 border border-rose-500/30">RECONSIDER · HIGH FINANCIAL RISK</span>;
       default:
         return <Badge variant="neutral">{st}</Badge>;
     }
@@ -92,33 +92,33 @@ export const DecisionTraceSection: React.FC<DecisionTraceSectionProps> = ({
                 key={rule.rule_id || idx}
                 className={`p-3 rounded-lg border text-xs space-y-1.5 transition-all ${
                   rule.result === "PASS"
-                    ? "bg-emerald-50/30 border-emerald-200/80 text-emerald-950"
+                    ? "bg-emerald-500/8 border-emerald-500/25 text-emerald-200"
                     : rule.result === "FAIL"
-                    ? "bg-rose-50/30 border-rose-200/80 text-rose-950"
-                    : "bg-amber-50/30 border-amber-200/80 text-amber-950"
+                    ? "bg-rose-500/8 border-rose-500/25 text-rose-200"
+                    : "bg-amber-500/8 border-amber-500/25 text-amber-200"
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-bold flex items-center gap-1">
+                  <span className="font-bold flex items-center gap-1 text-white">
                     {rule.result === "PASS" ? "✓" : rule.result === "FAIL" ? "✕" : "⚠"}{" "}
                     {rule.rule_name}
                   </span>
                   <span
                     className={`text-[9px] font-bold font-mono px-1.5 py-0.2 rounded uppercase ${
                       rule.result === "PASS"
-                        ? "bg-emerald-200/60 text-emerald-900"
+                        ? "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
                         : rule.result === "FAIL"
-                        ? "bg-rose-200/60 text-rose-900"
-                        : "bg-amber-200/60 text-amber-900"
+                        ? "bg-rose-500/15 text-rose-300 border border-rose-500/30"
+                        : "bg-amber-500/15 text-amber-300 border border-amber-500/30"
                     }`}
                   >
                     {rule.result}
                   </span>
                 </div>
-                <div className="text-[10px] text-slate-400 font-mono">
-                Condition: <code className="bg-slate-800 px-1 py-0.2 rounded text-slate-300">{rule.condition}</code>
+                <div className="text-[10px] text-slate-500 font-mono">
+                Condition: <code className="bg-slate-900 px-1 py-0.2 rounded text-slate-300">{rule.condition}</code>
                 </div>
-                <p className="text-[11px] leading-relaxed opacity-90">{rule.explanation}</p>
+                <p className="text-[11px] leading-relaxed text-slate-400">{rule.explanation}</p>
               </div>
             ))}
           </div>
@@ -132,7 +132,7 @@ export const DecisionTraceSection: React.FC<DecisionTraceSectionProps> = ({
             <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
               <span>📋</span> Pre-Borrowing Verification Checklist ({verificationChecklist.length} tasks)
             </h4>
-            <span className="text-[10px] text-amber-800 font-semibold bg-amber-100 px-2 py-0.5 rounded">
+            <span className="text-[10px] text-amber-300 font-semibold bg-amber-500/15 px-2 py-0.5 rounded border border-amber-500/30">
               Derived from Unresolved Evidence
             </span>
           </div>
@@ -181,9 +181,9 @@ export const DecisionTraceSection: React.FC<DecisionTraceSectionProps> = ({
       )}
 
       {/* 4. Structured Evidence Ledger */}
-      <div className="pt-3 border-t border-gray-100 space-y-3">
+      <div className="pt-3 border-t border-slate-800 space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <h4 className="text-xs font-bold text-gray-800 uppercase tracking-wider flex items-center gap-1.5">
+          <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
             <span>📚</span> Structured Evidence Ledger ({evidenceLedger.length} items)
           </h4>
           
@@ -195,8 +195,8 @@ export const DecisionTraceSection: React.FC<DecisionTraceSectionProps> = ({
                 onClick={() => setActiveEvidenceFilter(f)}
                 className={`px-2 py-0.5 rounded font-medium transition-colors ${
                   activeEvidenceFilter === f
-                    ? "bg-indigo-600 text-white font-bold"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    ? "bg-emerald-600 text-white font-bold"
+                    : "bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-200"
                 }`}
               >
                 {f.replace(/_/g, " ")}
@@ -209,13 +209,13 @@ export const DecisionTraceSection: React.FC<DecisionTraceSectionProps> = ({
           {filteredEvidence.map((item, idx) => (
             <div
               key={item.evidence_id || idx}
-              className="p-3 bg-white rounded-lg border border-gray-200/80 text-xs space-y-2 shadow-sm hover:border-indigo-200 transition-colors"
+              className="p-3 bg-[#0E2635] rounded-lg border border-slate-700/60 text-xs space-y-2 hover:border-emerald-500/30 transition-colors"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
                 <div>
-                  <span className="font-bold text-gray-900 text-sm">{item.claim || item.indicator}</span>
+                  <span className="font-bold text-white text-sm">{item.claim || item.indicator}</span>
                   {item.evidence_id && (
-                    <span className="text-[10px] text-gray-400 font-mono ml-2">[{item.evidence_id}]</span>
+                    <span className="text-[10px] text-slate-500 font-mono ml-2">[{item.evidence_id}]</span>
                   )}
                 </div>
                 <EvidenceBadge
@@ -225,30 +225,30 @@ export const DecisionTraceSection: React.FC<DecisionTraceSectionProps> = ({
                 />
               </div>
 
-              <div className="flex items-center gap-2 text-gray-800 font-medium">
+              <div className="flex items-center gap-2 text-slate-400 font-medium">
                 <span>Value:</span>
-                <strong className="text-indigo-950 font-bold bg-indigo-50/50 px-2 py-0.5 rounded border border-indigo-100">
+                <strong className="text-white font-bold bg-slate-900/70 px-2 py-0.5 rounded border border-slate-700">
                   {item.value}
                 </strong>
-                {item.unit && <span className="text-gray-500 font-normal text-[11px]">({item.unit})</span>}
+                {item.unit && <span className="text-slate-600 font-normal text-[11px]">({item.unit})</span>}
               </div>
 
               {item.confidence_explanation && (
-                <div className="text-[11px] text-gray-600 bg-gray-50 p-2 rounded border border-gray-100">
-                  <strong>Confidence Basis:</strong> {item.confidence_explanation}
+                <div className="text-[11px] text-slate-400 bg-[#06131F] p-2 rounded border border-slate-800">
+                  <strong className="text-slate-300">Confidence Basis:</strong> {item.confidence_explanation}
                 </div>
               )}
 
               {item.limitations && (
-                <p className="text-[10px] text-amber-900 bg-amber-50/50 p-1.5 rounded border border-amber-200/40 italic">
+                <p className="text-[10px] text-amber-300 bg-amber-500/10 p-1.5 rounded border border-amber-500/25 italic">
                   * Limitation: {item.limitations}
                 </p>
               )}
 
-              <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] text-gray-400 pt-1.5 border-t border-gray-100">
+              <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] text-slate-600 pt-1.5 border-t border-slate-800">
                 {item.source && (
                   <span>
-                    Source: <strong className="text-gray-600">{item.source_title || item.source}</strong>
+                    Source: <strong className="text-slate-400">{item.source_title || item.source}</strong>
                   </span>
                 )}
                 {item.source_url ? (
@@ -256,7 +256,7 @@ export const DecisionTraceSection: React.FC<DecisionTraceSectionProps> = ({
                     href={item.source_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-indigo-600 hover:text-indigo-800 underline font-medium"
+                    className="text-emerald-400 hover:text-emerald-300 underline font-medium"
                   >
                     View Official Source ↗
                   </a>

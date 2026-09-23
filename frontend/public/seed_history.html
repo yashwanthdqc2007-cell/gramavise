@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Seeding</title></head>
+<body>
+<script>
+  const historyList = [
+    {
+      analysis_id: "ba7cac4c-fe57-45b6-b1a3-11bf2d911e58",
+      business_name: "Kisan Flour Mill",
+      business_category: "Flour & Spice Milling (Atta Chakki)",
+      recommendation_status: "PROCEED",
+      created_at: "2026-09-20T15:35:35.000Z"
+    }
+  ];
+  localStorage.setItem('gramavise_history_v1', JSON.stringify(historyList));
+  window.location.href = '/history';
+</script>
+</body>
+</html>

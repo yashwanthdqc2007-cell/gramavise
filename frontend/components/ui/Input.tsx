@@ -26,9 +26,9 @@ export const Input: React.FC<InputProps> = ({
   const describedBy = [errorId, helperId].filter(Boolean).join(" ") || undefined;
 
   return (
-    <div className="w-full space-y-1">
+    <div className="w-full space-y-1.5">
       {label && (
-        <label htmlFor={inputId} className="block text-sm font-medium text-slate-200">
+        <label htmlFor={inputId} className="block text-xs font-semibold text-slate-200">
           {label}
           {required && <span className="text-red-400 ml-1" aria-hidden="true">*</span>}
         </label>
@@ -41,8 +41,10 @@ export const Input: React.FC<InputProps> = ({
           aria-invalid={Boolean(error)}
           aria-describedby={describedBy}
           className={cn(
-            "w-full px-3 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-100 text-sm bg-slate-900/80 placeholder:text-slate-400",
-            error ? "border-red-500 focus:ring-red-500 focus:border-red-500" : "border-slate-700",
+            "w-full px-3.5 py-2.5 border rounded-xl shadow-xs focus:outline-none focus:ring-2 focus:ring-[#19D98B] focus:border-[#19D98B] text-white text-sm bg-[#102B3A] placeholder:text-slate-500 transition-colors min-h-[44px]",
+            error
+              ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+              : "border-slate-700/80 hover:border-slate-600",
             className
           )}
           {...props}
@@ -50,8 +52,8 @@ export const Input: React.FC<InputProps> = ({
         {rightElement}
       </div>
       {error && (
-        <p id={errorId} className="text-xs text-red-400 mt-1" role="alert">
-          {error}
+        <p id={errorId} className="text-xs text-red-400 mt-1 flex items-center gap-1" role="alert">
+          <span>⚠</span> {error}
         </p>
       )}
       {helperText && !error && (
@@ -62,5 +64,6 @@ export const Input: React.FC<InputProps> = ({
     </div>
   );
 };
+
 
 

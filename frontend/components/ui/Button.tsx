@@ -15,25 +15,29 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseStyles =
-    "inline-flex items-center justify-center font-medium rounded-xl transition-colors focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-offset-[#050E17]";
+    "inline-flex items-center justify-center font-bold rounded-xl transition-all duration-150 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-offset-[#06131F]";
 
   const variants = {
-    // Primary CTA — emerald (success/proceed action)
-    primary: "bg-emerald-500 text-slate-950 hover:bg-emerald-400 focus-visible:ring-emerald-400 shadow-lg shadow-emerald-500/20",
-    // Secondary neutral — dark surface with subtle borders 
-    secondary: "bg-slate-800 border border-slate-700 text-slate-100 hover:bg-slate-700 focus-visible:ring-emerald-500",
-    // Outline — emerald bordered (secondary CTA with brand presence)
-    outline: "border border-emerald-500/70 text-emerald-300 hover:bg-emerald-500/10 focus-visible:ring-emerald-500",
-    // Ghost — low-priority actions
-    ghost: "text-slate-200 hover:bg-slate-800 focus-visible:ring-slate-600",
-    // Danger — red (destructive/irreversible actions only)
-    danger: "bg-red-500 text-white hover:bg-red-400 focus-visible:ring-red-500",
+    // Primary CTA — GramaVise Emerald #19D98B with crisp dark text #06131F
+    primary:
+      "bg-[#19D98B] hover:bg-[#16C784] text-[#06131F] font-bold focus-visible:ring-[#19D98B] shadow-md shadow-emerald-500/20 hover:shadow-emerald-500/30 active:scale-[0.99]",
+    // Secondary neutral — nested dark surface #0E2635 / #102B3A with subtle border
+    secondary:
+      "bg-[#0E2635] border border-slate-700/80 text-slate-100 hover:bg-[#102B3A] hover:border-slate-600 focus-visible:ring-[#19D98B] active:scale-[0.99]",
+    // Outline — emerald-tinted border with dark inner
+    outline:
+      "border border-[#19D98B]/60 text-emerald-300 hover:bg-[#19D98B]/10 hover:border-[#19D98B] focus-visible:ring-[#19D98B]",
+    // Ghost — transparent with hover surface
+    ghost: "text-slate-200 hover:bg-[#0E2635] hover:text-white focus-visible:ring-slate-600",
+    // Danger — clear red for destructive actions
+    danger:
+      "bg-red-600 text-white hover:bg-red-500 focus-visible:ring-red-500 shadow-md shadow-red-600/20 active:scale-[0.99]",
   };
 
   const sizes = {
-    sm: "px-3 py-1.5 text-sm min-h-[36px]",
-    md: "px-4 py-2 text-base min-h-[44px]",
-    lg: "px-6 py-3 text-lg min-h-[48px]",
+    sm: "px-3.5 py-2 text-xs min-h-[38px] sm:min-h-[36px]",
+    md: "px-4 py-2.5 text-sm min-h-[44px]",
+    lg: "px-6 py-3.5 text-base min-h-[48px]",
   };
 
   return (
@@ -47,4 +51,5 @@ export const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
+
 

@@ -20,6 +20,24 @@ export interface TranslationDictionary {
     history: string;
     selectLanguage: string;
     getStarted: string;
+    dashboard: string;
+    help: string;
+    settings: string;
+  };
+  dashboard: {
+    welcomeBack: string;
+    noAnalysisYet: string;
+    latestAnalysis: string;
+    viewReport: string;
+    runScenarioLab: string;
+    startAdvisory: string;
+    recentAnalyses: string;
+    newAdvisoryDesc: string;
+    latestResultPrefix: string;
+    emptyTitle: string;
+    emptySubtitle: string;
+    quickActions: string;
+    allReports: string;
   };
   landing: {
     badge: string;
@@ -82,6 +100,8 @@ export interface TranslationDictionary {
     step3Sub: string;
     step4Title: string;
     step4Sub: string;
+    step5Title: string;
+    step5Sub: string;
     profile: {
       fullName: string;
       fullNamePlaceholder: string;
@@ -116,6 +136,7 @@ export interface TranslationDictionary {
       latitude: string;
       longitude: string;
       locationHelp: string;
+      explanation: string;
     };
     business: {
       category: string;
@@ -156,6 +177,23 @@ export interface TranslationDictionary {
       sectionInitialCapex: string;
       sectionDailySales: string;
       sectionMonthlyOverheads: string;
+      whyAskMoney: string;
+      whyAskSales: string;
+      dscrNote: string;
+      dscrExplain: string;
+    };
+    review: {
+      title: string;
+      subtitle: string;
+      edit: string;
+      sectionLocation: string;
+      sectionBusiness: string;
+      sectionMoney: string;
+      sectionSales: string;
+      readyHeading: string;
+      readyDesc: string;
+      disclaimer: string;
+      totalCapex: string;
     };
     errors: {
       fullNameRequired: string;
@@ -187,6 +225,7 @@ export interface TranslationDictionary {
       next: string;
       previous: string;
       runAnalysis: string;
+      checkMyBusiness: string;
       recalculate: string;
       saving: string;
     };
@@ -210,6 +249,34 @@ export interface TranslationDictionary {
       historicalBadge: string;
       historicalNotice: string;
       decisionBriefing: string;
+    };
+    tabs: {
+      overview: string;
+      financials: string;
+      market: string;
+      risks: string;
+      schemes: string;
+      actionPlan: string;
+      scenarioLab: string;
+    };
+    swot: {
+      title: string;
+      subtitle: string;
+      badge: string;
+      strengths: string;
+      weaknesses: string;
+      opportunities: string;
+      threats: string;
+      strengthsSub: string;
+      weaknessesSub: string;
+      opportunitiesSub: string;
+      threatsSub: string;
+      emptyState: string;
+      emptyQuadrant: string;
+      viewEvidence: string;
+      confidence: string;
+      needsVerification: string;
+      needsVerificationDesc: string;
     };
     empty: {
       title: string;
@@ -369,6 +436,7 @@ export interface TranslationDictionary {
       demandGroup: string;
       costGroup: string;
       presetsTitle: string;
+      advancedInputs: string;
       presetConservativeDemand: string;
       presetLowerLoan: string;
       presetHigherFixed: string;
@@ -591,6 +659,37 @@ export interface TranslationDictionary {
     notFoundDesc: string;
     removeStaleEntry: string;
     historyLimitNotice: string;
+  };
+  help: {
+    title: string;
+    subtitle: string;
+    decisionGuideTitle: string;
+    decisionGuideDesc: string;
+    proceedDesc: string;
+    validateDesc: string;
+    reconsiderDesc: string;
+    dscrTitle: string;
+    dscrDesc: string;
+    evidenceTitle: string;
+    evidenceDesc: string;
+    howToReadTitle: string;
+    howToReadDesc: string;
+    beforeBorrowTitle: string;
+    beforeBorrowDesc: string;
+  };
+  settings: {
+    title: string;
+    subtitle: string;
+    languageTitle: string;
+    languageDesc: string;
+    dataTitle: string;
+    dataDesc: string;
+    clearDataBtn: string;
+    clearDataConfirmTitle: string;
+    clearDataConfirmDesc: string;
+    clearDataSuccess: string;
+    accessibilityTitle: string;
+    accessibilityDesc: string;
   };
 }
 

@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { ProfileForm } from "@/components/onboarding/ProfileForm";
 import { LocationForm } from "@/components/onboarding/LocationForm";
 import { BusinessForm } from "@/components/onboarding/BusinessForm";
 import { FinancialForm } from "@/components/onboarding/FinancialForm";
+import { SalesAssumptionsForm } from "@/components/onboarding/SalesAssumptionsForm";
+import { ReviewSummary } from "@/components/onboarding/ReviewSummary";
 import { DraftRecoveryBanner } from "@/components/onboarding/DraftRecoveryBanner";
 import { DemoScenarioSelector } from "@/components/onboarding/DemoScenarioSelector";
 import { DemoScenario } from "@/lib/demo/demoScenarios";
@@ -16,7 +17,7 @@ import { FinancialAssumptions } from "@/lib/types";
 import { useTranslation } from "@/lib/i18n";
 import { loadDraft, saveDraft, clearDraft, OnboardingDraft } from "@/lib/storage/draftStorage";
 import { useNetworkStatus } from "@/hooks/useNetworkStatus";
-import { WifiOff } from "lucide-react";
+import { WifiOff, AlertTriangle, ArrowRight, ArrowLeft, CheckCircle2 } from "lucide-react";
 
 const defaultFinancials: FinancialAssumptions = {
   startup_cost: 15000,
@@ -77,6 +78,7 @@ export default function OnboardingPage() {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [validationSummary, setValidationSummary] = useState<string | null>(null);
 
   // Check for saved draft on initial mount
   useEffect(() => {
@@ -137,6 +139,7 @@ export default function OnboardingPage() {
     setStep(1);
     setExistingDraft(null);
     setErrors({});
+    setValidationSummary(null);
 
     if (typeof window !== "undefined") {
       try {
@@ -154,6 +157,7 @@ export default function OnboardingPage() {
     { step: 2, title: t("onboarding.step2Title"), subtitle: t("onboarding.step2Sub") },
     { step: 3, title: t("onboarding.step3Title"), subtitle: t("onboarding.step3Sub") },
     { step: 4, title: t("onboarding.step4Title"), subtitle: t("onboarding.step4Sub") },
+    { step: 5, title: t("onboarding.step5Title"), subtitle: t("onboarding.step5Sub") },
   ];
 
   // Save financial changes
@@ -168,26 +172,8 @@ export default function OnboardingPage() {
     }
   };
 
-  // Step 1 validation
+  // Step 1: Location validation
   const validateStep1 = (): boolean => {
-    const errs: Record<string, string> = {};
-    if (!fullName.trim()) {
-      errs.full_name = t("onboarding.errors.fullNameRequired");
-    }
-    const cleanPhone = phoneNumber.replace(/\D/g, "");
-    if (!cleanPhone || cleanPhone.length !== 10) {
-      errs.phone_number = t("onboarding.errors.phoneInvalid");
-    }
-    if (profile.experience_years === undefined || profile.experience_years < 0 || isNaN(profile.experience_years)) {
-      errs.experience_years = t("onboarding.errors.experienceRequired");
-    }
-
-    setErrors(errs);
-    return Object.keys(errs).length === 0;
-  };
-
-  // Step 2 validation
-  const validateStep2 = (): boolean => {
     const errs: Record<string, string> = {};
     if (!profile.location.state?.trim()) {
       errs.state = t("onboarding.errors.stateRequired");
@@ -203,8 +189,8 @@ export default function OnboardingPage() {
     return Object.keys(errs).length === 0;
   };
 
-  // Step 3 validation
-  const validateStep3 = (): boolean => {
+  // Step 2: Business & Entrepreneur validation
+  const validateStep2 = (): boolean => {
     const errs: Record<string, string> = {};
     if (!profile.business_name?.trim()) {
       errs.business_name = t("onboarding.errors.businessNameRequired");
@@ -215,38 +201,54 @@ export default function OnboardingPage() {
     if (!profile.description?.trim()) {
       errs.description = t("onboarding.errors.descriptionRequired");
     }
+    if (!fullName.trim()) {
+      errs.full_name = t("onboarding.errors.fullNameRequired");
+    }
+    const cleanPhone = phoneNumber.replace(/\D/g, "");
+    if (!cleanPhone || cleanPhone.length !== 10) {
+      errs.phone_number = t("onboarding.errors.phoneInvalid");
+    }
+    if (profile.experience_years === undefined || profile.experience_years < 0 || isNaN(profile.experience_years)) {
+      errs.experience_years = t("onboarding.errors.experienceRequired");
+    }
 
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
 
-  // Step 4 validation
-  const validateStep4 = (): boolean => {
+  // Step 3: Capital & Money validation
+  const validateStep3 = (): boolean => {
     const errs: Record<string, string> = {};
 
     if (profile.own_capital === undefined || profile.own_capital < 0 || isNaN(profile.own_capital)) {
-      errs.own_capital = "Own investment must be 0 or greater.";
+      errs.own_capital = t("onboarding.errors.ownCapitalInvalid");
     }
     if (profile.desired_loan === undefined || profile.desired_loan < 0 || isNaN(profile.desired_loan)) {
-      errs.desired_loan = "Desired loan must be 0 or greater.";
+      errs.desired_loan = t("onboarding.errors.desiredLoanInvalid");
     }
     if (financials.startup_cost === undefined || financials.startup_cost < 0 || isNaN(financials.startup_cost)) {
-      errs.startup_cost = "Startup cost cannot be negative.";
+      errs.startup_cost = t("onboarding.errors.startupCostInvalid");
     }
     if (financials.equipment_cost === undefined || financials.equipment_cost < 0 || isNaN(financials.equipment_cost)) {
-      errs.equipment_cost = "Equipment cost cannot be negative.";
+      errs.equipment_cost = t("onboarding.errors.equipmentCostInvalid");
     }
     if (financials.inventory_cost === undefined || financials.inventory_cost < 0 || isNaN(financials.inventory_cost)) {
-      errs.inventory_cost = "Inventory cost cannot be negative.";
+      errs.inventory_cost = t("onboarding.errors.inventoryCostInvalid");
     }
-    if (financials.monthly_fixed_cost === undefined || financials.monthly_fixed_cost < 0 || isNaN(financials.monthly_fixed_cost)) {
-      errs.monthly_fixed_cost = "Monthly fixed cost cannot be negative.";
-    }
+
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
+
+  // Step 4: Expected Sales & Unit Economics validation
+  const validateStep4 = (): boolean => {
+    const errs: Record<string, string> = {};
+
     if (financials.customers_per_day === undefined || financials.customers_per_day <= 0 || isNaN(financials.customers_per_day)) {
-      errs.customers_per_day = "Estimated daily customers must be greater than 0.";
+      errs.customers_per_day = t("onboarding.errors.customersPerDayInvalid");
     }
     if (financials.avg_ticket_price === undefined || financials.avg_ticket_price <= 0 || isNaN(financials.avg_ticket_price)) {
-      errs.avg_ticket_price = "Average sale price must be greater than ₹0.";
+      errs.avg_ticket_price = t("onboarding.errors.avgTicketPriceInvalid");
     }
     if (
       financials.working_days_per_month === undefined ||
@@ -254,7 +256,7 @@ export default function OnboardingPage() {
       financials.working_days_per_month > 31 ||
       isNaN(financials.working_days_per_month)
     ) {
-      errs.working_days_per_month = "Working days must be between 1 and 31.";
+      errs.working_days_per_month = t("onboarding.errors.workingDaysInvalid");
     }
     if (
       financials.variable_cost_pct === undefined ||
@@ -262,7 +264,10 @@ export default function OnboardingPage() {
       financials.variable_cost_pct >= 100 ||
       isNaN(financials.variable_cost_pct)
     ) {
-      errs.variable_cost_pct = "Variable cost percentage must be between 0% and 99.9%.";
+      errs.variable_cost_pct = t("onboarding.errors.variableCostPctInvalid");
+    }
+    if (financials.monthly_fixed_cost === undefined || financials.monthly_fixed_cost < 0 || isNaN(financials.monthly_fixed_cost)) {
+      errs.monthly_fixed_cost = t("onboarding.errors.monthlyFixedCostInvalid");
     }
     if (
       financials.interest_rate_pct === undefined ||
@@ -270,7 +275,7 @@ export default function OnboardingPage() {
       financials.interest_rate_pct > 40 ||
       isNaN(financials.interest_rate_pct)
     ) {
-      errs.interest_rate_pct = "Interest rate must be between 0% and 40%.";
+      errs.interest_rate_pct = t("onboarding.errors.interestRateInvalid");
     }
     if (
       financials.loan_tenure_months === undefined ||
@@ -278,7 +283,7 @@ export default function OnboardingPage() {
       financials.loan_tenure_months > 120 ||
       isNaN(financials.loan_tenure_months)
     ) {
-      errs.loan_tenure_months = "Loan tenure must be between 1 and 120 months.";
+      errs.loan_tenure_months = t("onboarding.errors.loanTenureInvalid");
     }
 
     setErrors(errs);
@@ -291,6 +296,7 @@ export default function OnboardingPage() {
     else if (step === 2) isValid = validateStep2();
     else if (step === 3) isValid = validateStep3();
     else if (step === 4) isValid = validateStep4();
+    else if (step === 5) isValid = true;
 
     if (!isValid) {
       setValidationSummary(t("onboarding.validationErrorSummary"));
@@ -299,11 +305,11 @@ export default function OnboardingPage() {
 
     setValidationSummary(null);
 
-    if (step < 4) {
+    if (step < 5) {
       setErrors({});
       setStep(step + 1);
     } else {
-      // Check online connectivity before navigating to analysis execution
+      // Step 5: Submit analysis
       if (!isOnline && typeof navigator !== "undefined" && !navigator.onLine) {
         setErrors({
           submit: t("network.offlineDesc"),
@@ -313,7 +319,7 @@ export default function OnboardingPage() {
 
       setIsSubmitting(true);
 
-      // Save all information before navigating
+      // Save all information to sessionStorage before navigating to analysis loading
       if (typeof window !== "undefined") {
         try {
           sessionStorage.setItem("gramavise_profile", JSON.stringify(profile));
@@ -331,14 +337,18 @@ export default function OnboardingPage() {
     }
   };
 
-  const [validationSummary, setValidationSummary] = useState<string | null>(null);
-
   const handlePrev = () => {
     if (step > 1) {
       setErrors({});
       setValidationSummary(null);
       setStep(step - 1);
     }
+  };
+
+  const handleJumpToStep = (targetStep: number) => {
+    setErrors({});
+    setValidationSummary(null);
+    setStep(targetStep);
   };
 
   const handleSelectDemoScenario = (scenario: DemoScenario) => {
@@ -392,44 +402,49 @@ export default function OnboardingPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-300 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/30 inline-block mb-2">
-              Business Assessment
+              Business Feasibility Check
             </span>
             <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
               Tell us about your business
             </h1>
             <p className="text-xs sm:text-sm text-slate-400 mt-1">
-              Step {step} of 4: <span className="font-semibold text-white">{STEP_TITLES[step - 1].title}</span> — {STEP_TITLES[step - 1].subtitle}
+              Step {step} of 5: <span className="font-semibold text-white">{STEP_TITLES[step - 1].title}</span> — {STEP_TITLES[step - 1].subtitle}
             </p>
           </div>
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 self-start sm:self-auto shadow-2xs">
-              {Math.round((step / 4) * 100)}% Complete
+              {Math.round((step / 5) * 100)}% Complete
             </span>
           </div>
         </div>
 
         {/* Stepper Semantic Navigation */}
         <nav aria-label={t("onboarding.stepNav")}>
-          <ol className="grid grid-cols-4 gap-2.5 pt-1 list-none p-0 m-0">
+          <ol className="grid grid-cols-5 gap-2 pt-1 list-none p-0 m-0">
             {STEP_TITLES.map((s) => (
               <li
                 key={s.step}
-                className="space-y-1.5"
+                className="space-y-1.5 cursor-pointer"
+                onClick={() => {
+                  if (s.step < step) {
+                    handleJumpToStep(s.step);
+                  }
+                }}
                 aria-current={s.step === step ? "step" : undefined}
               >
                 <div
                   className={`h-2 rounded-full transition-all duration-300 ${
-                    s.step <= step ? "bg-emerald-500 shadow-2xs" : "bg-slate-700"
+                    s.step <= step ? "bg-emerald-500 shadow-2xs" : "bg-slate-800"
                   }`}
                   aria-hidden="true"
                 />
                 <span
-                  className={`text-[11px] hidden sm:block font-medium truncate ${
+                  className={`text-[10px] hidden sm:block font-medium truncate ${
                     s.step === step ? "text-emerald-300 font-bold" : s.step < step ? "text-slate-300" : "text-slate-500"
                   }`}
                 >
                   <span className="sr-only">Step {s.step}: </span>
-                  {s.title}
+                  {s.step}. {s.title}
                 </span>
               </li>
             ))}
@@ -441,21 +456,40 @@ export default function OnboardingPage() {
       {validationSummary && (
         <div
           role="alert"
-          className="mb-6 p-4 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800 flex items-start gap-2.5 animate-in fade-in duration-200 shadow-2xs"
+          className="mb-6 p-4 bg-rose-950/40 border border-rose-500/40 rounded-xl text-xs sm:text-sm text-rose-200 flex items-start gap-2.5 animate-in fade-in duration-200 shadow-2xs"
         >
-          <span aria-hidden="true" className="font-bold text-sm">⚠️</span>
+          <AlertTriangle className="w-4 h-4 text-rose-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
           <span>{validationSummary}</span>
         </div>
       )}
 
-      <Card className="p-6 sm:p-8 shadow-sm border border-slate-800 rounded-2xl">
+      <Card className="p-5 sm:p-8 shadow-xl border border-slate-800 bg-[#0B1F2D] rounded-2xl">
+        {/* Step 1: Location */}
         {step === 1 && (
-          <ProfileForm
+          <LocationForm
+            location={profile.location}
+            errors={errors}
+            onChange={(loc) => updateProfile({ location: loc })}
+          />
+        )}
+
+        {/* Step 2: Business & Entrepreneur */}
+        {step === 2 && (
+          <BusinessForm
+            businessName={profile.business_name}
+            category={profile.category}
+            description={profile.description}
+            isNewBusiness={profile.is_new_business}
             fullName={fullName}
             phoneNumber={phoneNumber}
             experienceYears={profile.experience_years}
             errors={errors}
             onChange={(fields) => {
+              if (fields.business_name !== undefined) updateProfile({ business_name: fields.business_name });
+              if (fields.category !== undefined) updateProfile({ category: fields.category });
+              if (fields.description !== undefined) updateProfile({ description: fields.description });
+              if (fields.is_new_business !== undefined) updateProfile({ is_new_business: fields.is_new_business });
+              if (fields.experience_years !== undefined) updateProfile({ experience_years: fields.experience_years });
               if (fields.full_name !== undefined) {
                 setFullName(fields.full_name);
                 if (typeof window !== "undefined") {
@@ -482,33 +516,12 @@ export default function OnboardingPage() {
                   }
                 }
               }
-              if (fields.experience_years !== undefined) {
-                updateProfile({ experience_years: fields.experience_years });
-              }
             }}
           />
         )}
 
-        {step === 2 && (
-          <LocationForm
-            location={profile.location}
-            errors={errors}
-            onChange={(loc) => updateProfile({ location: loc })}
-          />
-        )}
-
+        {/* Step 3: Your Money */}
         {step === 3 && (
-          <BusinessForm
-            businessName={profile.business_name}
-            category={profile.category}
-            description={profile.description}
-            isNewBusiness={profile.is_new_business}
-            errors={errors}
-            onChange={(fields) => updateProfile(fields)}
-          />
-        )}
-
-        {step === 4 && (
           <FinancialForm
             financials={financials}
             ownCapital={profile.own_capital}
@@ -519,24 +532,64 @@ export default function OnboardingPage() {
           />
         )}
 
+        {/* Step 4: Expected Sales */}
+        {step === 4 && (
+          <SalesAssumptionsForm
+            financials={financials}
+            errors={errors}
+            onChangeFinancials={handleFinancialChange}
+          />
+        )}
+
+        {/* Step 5: Review & Check */}
+        {step === 5 && (
+          <ReviewSummary
+            profile={profile}
+            financials={financials}
+            fullName={fullName}
+            phoneNumber={phoneNumber}
+            onEditStep={handleJumpToStep}
+          />
+        )}
+
         {/* Offline warning banner if trying to submit while offline */}
         {errors.submit && (
-          <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-2.5 text-xs text-amber-800">
-            <WifiOff className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+          <div className="mt-4 p-3 bg-amber-950/40 border border-amber-500/40 rounded-lg flex items-start gap-2.5 text-xs text-amber-200">
+            <WifiOff className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
             <span>{errors.submit}</span>
           </div>
         )}
 
+        {/* Navigation Action Buttons */}
         <div className="flex justify-between items-center mt-8 pt-6 border-t border-slate-800">
-          <Button variant="secondary" onClick={handlePrev} disabled={step === 1 || isSubmitting} className="min-h-[44px]">
-            {t("onboarding.actions.previous")}
+          <Button
+            variant="secondary"
+            onClick={handlePrev}
+            disabled={step === 1 || isSubmitting}
+            className="min-h-[44px] flex items-center gap-1.5"
+          >
+            <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+            <span>{t("onboarding.actions.previous")}</span>
           </Button>
-          <Button onClick={handleNext} disabled={isSubmitting} className="min-h-[44px] font-bold">
-            {isSubmitting
-              ? t("common.loading")
-              : step === 4
-              ? t("onboarding.actions.runAnalysis")
-              : t("onboarding.actions.next")}
+
+          <Button
+            onClick={handleNext}
+            disabled={isSubmitting}
+            className="min-h-[44px] font-bold px-5 flex items-center gap-1.5"
+          >
+            {isSubmitting ? (
+              <span>{t("common.loading")}</span>
+            ) : step === 5 ? (
+              <>
+                <span>{t("onboarding.actions.checkMyBusiness")}</span>
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </>
+            ) : (
+              <>
+                <span>{t("onboarding.actions.next")}</span>
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </>
+            )}
           </Button>
         </div>
       </Card>

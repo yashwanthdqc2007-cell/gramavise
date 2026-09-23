@@ -24,7 +24,6 @@ export const FinancialSummary: React.FC<FinancialSummaryProps> = ({
   onViewEvidence,
 }) => {
   const { t } = useTranslation();
-  // Default to Simple View as mandated
   const [viewMode, setViewMode] = useState<"SIMPLE" | "DETAILED">("SIMPLE");
   const [activeExplanation, setActiveExplanation] = useState<NumberExplanation | null>(null);
 
@@ -46,29 +45,29 @@ export const FinancialSummary: React.FC<FinancialSummaryProps> = ({
     <>
       <Card className="space-y-6" data-testid="financial-summary-container">
         {/* Top View Mode Switcher Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-100 pb-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
           <div>
-            <h3 className="text-xl font-black text-slate-900 tracking-tight">{t("results.financialPicture.title")}</h3>
-            <p className="text-xs md:text-sm text-slate-600 mt-0.5">
+            <h3 className="text-xl font-black text-white tracking-tight">{t("results.financialPicture.title")}</h3>
+            <p className="text-xs md:text-sm text-slate-400 mt-0.5">
               {t("results.financialPicture.subtitle")}
             </p>
           </div>
 
-          {/* View Mode Toggle: [ Simple View ] [ Detailed View ] */}
+          {/* View Mode Toggle */}
           <div
             role="tablist"
             aria-label={t("results.financial.viewToggleLabel")}
-            className="inline-flex items-center p-1 bg-gray-100 rounded-lg self-start sm:self-auto border border-gray-200"
+            className="inline-flex items-center p-1 bg-[#06131F] rounded-lg self-start sm:self-auto border border-slate-800"
           >
             <button
               type="button"
               role="tab"
               aria-selected={viewMode === "SIMPLE"}
               onClick={() => setViewMode("SIMPLE")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-all duration-150 ease-out select-none active:scale-[0.99] focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#19D98B]/60 focus-visible:outline-offset-1 motion-reduce:transition-none motion-reduce:transform-none ${
                 viewMode === "SIMPLE"
-                  ? "bg-white text-indigo-700 shadow-sm font-bold"
-                  : "text-gray-600 hover:text-gray-900"
+                  ? "bg-[#19D98B]/10 text-[#19D98B] shadow-sm font-bold border border-[#19D98B]/40 active:bg-[#19D98B]/15"
+                  : "text-slate-400 hover:text-slate-200 hover:bg-[#19D98B]/[0.05] border border-transparent active:bg-[#0E2635]"
               }`}
             >
               <Sparkles className="w-3.5 h-3.5" />
@@ -79,10 +78,10 @@ export const FinancialSummary: React.FC<FinancialSummaryProps> = ({
               role="tab"
               aria-selected={viewMode === "DETAILED"}
               onClick={() => setViewMode("DETAILED")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-all duration-150 ease-out select-none active:scale-[0.99] focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#19D98B]/60 focus-visible:outline-offset-1 motion-reduce:transition-none motion-reduce:transform-none ${
                 viewMode === "DETAILED"
-                  ? "bg-white text-indigo-700 shadow-sm font-bold"
-                  : "text-gray-600 hover:text-gray-900"
+                  ? "bg-[#19D98B]/10 text-[#19D98B] shadow-sm font-bold border border-[#19D98B]/40 active:bg-[#19D98B]/15"
+                  : "text-slate-400 hover:text-slate-200 hover:bg-[#19D98B]/[0.05] border border-transparent active:bg-[#0E2635]"
               }`}
             >
               <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -91,7 +90,7 @@ export const FinancialSummary: React.FC<FinancialSummaryProps> = ({
           </div>
         </div>
 
-        {/* Mode 1: Simple View (Low-Literacy Plain-Language Summaries & Visual Break-Even) */}
+        {/* Mode 1: Simple View */}
         {viewMode === "SIMPLE" ? (
           <PlainLanguageSummary
             financials={financials}
@@ -100,17 +99,17 @@ export const FinancialSummary: React.FC<FinancialSummaryProps> = ({
             onExplainMetric={handleExplain}
           />
         ) : (
-          /* Mode 2: Detailed View (Technical Financial Metrics & Breakdown Table) */
+          /* Mode 2: Detailed View */
           <div className="space-y-6" data-testid="detailed-financial-view">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                 {t("results.financial.detailedView")}
               </span>
               <span
                 className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
                   financials.is_financially_viable
-                    ? "bg-emerald-100 text-emerald-800"
-                    : "bg-rose-100 text-rose-800"
+                    ? "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
+                    : "bg-rose-500/15 text-rose-300 border border-rose-500/30"
                 }`}
               >
                 {financials.is_financially_viable
@@ -154,131 +153,40 @@ export const FinancialSummary: React.FC<FinancialSummaryProps> = ({
             </div>
 
             {/* Detailed Financial Breakdown Table */}
-            <div className="bg-gray-50/70 rounded-xl p-4 border border-gray-100 space-y-3">
-              <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+            <div className="bg-[#06131F] rounded-xl p-4 border border-slate-800 space-y-3">
+              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                 {t("results.financial.breakdownTitle")}
               </h4>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs">
-                <div className="space-y-1.5 p-2 bg-white rounded-lg border border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-500">{t("results.financial.requiredLoan")}:</span>
-                    {financials.explanations?.required_loan_amount && (
-                      <button
-                        type="button"
-                        onClick={() => handleExplain("required_loan_amount")}
-                        className="text-gray-400 hover:text-indigo-600 p-0.5 rounded transition-colors"
-                        title={t("results.explainNumber.explainButtonLabel")}
-                        aria-label={`${t("results.explainNumber.explainButtonLabel")}: ${t("results.financial.requiredLoan")}`}
-                      >
-                        <HelpCircle className="w-3.5 h-3.5" />
-                      </button>
-                    )}
+                {[
+                  { labelKey: "results.financial.requiredLoan", explainKey: "required_loan_amount", value: formatCurrencyINR(financials.required_loan_amount), color: "text-white" },
+                  { labelKey: "results.financial.variableCosts", explainKey: "monthly_variable_cost", value: formatCurrencyINR(financials.monthly_variable_cost), color: "text-white" },
+                  { labelKey: "results.financial.grossProfit", explainKey: "monthly_gross_profit", value: formatCurrencyINR(financials.monthly_gross_profit), color: "text-emerald-300" },
+                  { labelKey: "results.financial.fixedCosts", explainKey: "monthly_fixed_cost", value: formatCurrencyINR(financials.monthly_fixed_cost), color: "text-white" },
+                  { labelKey: "results.financial.monthlyEmi", explainKey: "monthly_emi", value: formatCurrencyINR(financials.monthly_emi), color: "text-white" },
+                  { labelKey: "results.financial.breakEvenMonthly", explainKey: "break_even_revenue_monthly", value: formatCurrencyINR(financials.break_even_revenue_monthly), color: "text-amber-300" },
+                ].map(({ labelKey, explainKey, value, color }) => (
+                  <div key={explainKey} className="space-y-1.5 p-2 bg-[#0E2635] rounded-lg border border-slate-700/60">
+                    <div className="flex items-center justify-between">
+                      <span className="text-slate-500">{t(labelKey as Parameters<typeof t>[0])}:</span>
+                      {Boolean((financials.explanations as Record<string, unknown>)?.[explainKey]) && (
+                        <button
+                          type="button"
+                          onClick={() => handleExplain(explainKey)}
+                          className="text-slate-600 hover:text-emerald-400 p-0.5 rounded transition-colors"
+                          title={t("results.explainNumber.explainButtonLabel")}
+                          aria-label={`${t("results.explainNumber.explainButtonLabel")}: ${t(labelKey as Parameters<typeof t>[0])}`}
+                        >
+                          <HelpCircle className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
+                    <span className={`font-semibold text-sm block ${color}`}>
+                      {value}
+                    </span>
                   </div>
-                  <span className="font-semibold text-gray-900 text-sm block">
-                    {formatCurrencyINR(financials.required_loan_amount)}
-                  </span>
-                </div>
-
-                <div className="space-y-1.5 p-2 bg-white rounded-lg border border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-500">{t("results.financial.variableCosts")}:</span>
-                    {financials.explanations?.monthly_variable_cost && (
-                      <button
-                        type="button"
-                        onClick={() => handleExplain("monthly_variable_cost")}
-                        className="text-gray-400 hover:text-indigo-600 p-0.5 rounded transition-colors"
-                        title={t("results.explainNumber.explainButtonLabel")}
-                        aria-label={`${t("results.explainNumber.explainButtonLabel")}: ${t("results.financial.variableCosts")}`}
-                      >
-                        <HelpCircle className="w-3.5 h-3.5" />
-                      </button>
-                    )}
-                  </div>
-                  <span className="font-semibold text-gray-900 text-sm block">
-                    {formatCurrencyINR(financials.monthly_variable_cost)}
-                  </span>
-                </div>
-
-                <div className="space-y-1.5 p-2 bg-white rounded-lg border border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-500">{t("results.financial.grossProfit")}:</span>
-                    {financials.explanations?.monthly_gross_profit && (
-                      <button
-                        type="button"
-                        onClick={() => handleExplain("monthly_gross_profit")}
-                        className="text-gray-400 hover:text-indigo-600 p-0.5 rounded transition-colors"
-                        title={t("results.explainNumber.explainButtonLabel")}
-                        aria-label={`${t("results.explainNumber.explainButtonLabel")}: ${t("results.financial.grossProfit")}`}
-                      >
-                        <HelpCircle className="w-3.5 h-3.5" />
-                      </button>
-                    )}
-                  </div>
-                  <span className="font-semibold text-emerald-700 text-sm block">
-                    {formatCurrencyINR(financials.monthly_gross_profit)}
-                  </span>
-                </div>
-
-                <div className="space-y-1.5 p-2 bg-white rounded-lg border border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-500">{t("results.financial.fixedCosts")}:</span>
-                    {financials.explanations?.monthly_fixed_cost && (
-                      <button
-                        type="button"
-                        onClick={() => handleExplain("monthly_fixed_cost")}
-                        className="text-gray-400 hover:text-indigo-600 p-0.5 rounded transition-colors"
-                        title={t("results.explainNumber.explainButtonLabel")}
-                        aria-label={`${t("results.explainNumber.explainButtonLabel")}: ${t("results.financial.fixedCosts")}`}
-                      >
-                        <HelpCircle className="w-3.5 h-3.5" />
-                      </button>
-                    )}
-                  </div>
-                  <span className="font-semibold text-gray-900 text-sm block">
-                    {formatCurrencyINR(financials.monthly_fixed_cost)}
-                  </span>
-                </div>
-
-                <div className="space-y-1.5 p-2 bg-white rounded-lg border border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-500">{t("results.financial.monthlyEmi")}:</span>
-                    {financials.explanations?.monthly_emi && (
-                      <button
-                        type="button"
-                        onClick={() => handleExplain("monthly_emi")}
-                        className="text-gray-400 hover:text-indigo-600 p-0.5 rounded transition-colors"
-                        title={t("results.explainNumber.explainButtonLabel")}
-                        aria-label={`${t("results.explainNumber.explainButtonLabel")}: ${t("results.financial.monthlyEmi")}`}
-                      >
-                        <HelpCircle className="w-3.5 h-3.5" />
-                      </button>
-                    )}
-                  </div>
-                  <span className="font-semibold text-gray-900 text-sm block">
-                    {formatCurrencyINR(financials.monthly_emi)}
-                  </span>
-                </div>
-
-                <div className="space-y-1.5 p-2 bg-white rounded-lg border border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-500">{t("results.financial.breakEvenMonthly")}:</span>
-                    {financials.explanations?.break_even_revenue_monthly && (
-                      <button
-                        type="button"
-                        onClick={() => handleExplain("break_even_revenue_monthly")}
-                        className="text-gray-400 hover:text-indigo-600 p-0.5 rounded transition-colors"
-                        title={t("results.explainNumber.explainButtonLabel")}
-                        aria-label={`${t("results.explainNumber.explainButtonLabel")}: ${t("results.financial.breakEvenMonthly")}`}
-                      >
-                        <HelpCircle className="w-3.5 h-3.5" />
-                      </button>
-                    )}
-                  </div>
-                  <span className="font-semibold text-gray-900 text-sm block">
-                    {formatCurrencyINR(financials.break_even_revenue_monthly)}
-                  </span>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -295,4 +203,3 @@ export const FinancialSummary: React.FC<FinancialSummaryProps> = ({
     </>
   );
 };
-

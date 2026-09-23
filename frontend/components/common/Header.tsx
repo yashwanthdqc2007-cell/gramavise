@@ -1,145 +1,131 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Landmark, History, PlusCircle, ArrowRight, Sprout } from "lucide-react";
+import { Menu, PlusCircle, ArrowRight } from "lucide-react";
 import { LanguageToggle } from "@/components/common/LanguageToggle";
 import { useTranslation } from "@/lib/i18n";
 import { NetworkStatusBar } from "@/components/common/NetworkStatusBar";
+import { GramaViseIcon } from "@/components/common/GramaViseLogo";
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+  onOpenMobileMenu?: () => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({ onOpenMobileMenu }) => {
   const { t } = useTranslation();
   const pathname = usePathname();
-  const isLanding = pathname === "/";
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const getPageInfo = () => {
+    if (pathname === "/") {
+      return {
+        title: t("nav.dashboard") || "Dashboard",
+        subtitle: "Hyper-Local Feasibility & Financial Structuring Workspace",
+      };
+    }
+    if (pathname === "/onboarding") {
+      return {
+        title: t("onboarding.pageTitle") || "New Advisory Assessment",
+        subtitle: "Step-by-step business feasibility & loan sizing",
+      };
+    }
+    if (pathname === "/schemes") {
+      return {
+        title: t("nav.schemesDirectory") || "Schemes Directory",
+        subtitle: "Government-supported financial & credit subsidy programs",
+      };
+    }
+    if (pathname === "/history") {
+      return {
+        title: t("nav.history") || "My Reports & History",
+        subtitle: "Saved business assessments and deterministic decision traces",
+      };
+    }
+    if (pathname.startsWith("/history/")) {
+      return {
+        title: "Feasibility Advisory Report",
+        subtitle: "Detailed business breakdown, sensitivity analysis & action plan",
+      };
+    }
+    if (pathname === "/help") {
+      return {
+        title: t("nav.help") || "Help & Guidance",
+        subtitle: "Advisory definitions, financial principles & verification checklists",
+      };
+    }
+    if (pathname === "/settings") {
+      return {
+        title: t("nav.settings") || "Settings",
+        subtitle: "Application preferences and local device storage management",
+      };
+    }
+    if (pathname === "/results") {
+      return {
+        title: "Feasibility Advisory Report",
+        subtitle: "Live analysis results and interactive scenario simulator",
+      };
+    }
+    return {
+      title: "GramaVise",
+      subtitle: "Rural Micro-Enterprise Advisory Platform",
+    };
+  };
+
+  const pageInfo = getPageInfo();
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-colors duration-200 bg-[#06131F]/90 backdrop-blur-md border-b border-slate-800/80 text-white`}
-    >
+    <header className="sticky top-0 z-30 bg-[#06131F]/90 backdrop-blur-md border-b border-slate-800/80 text-white transition-colors duration-200">
       <NetworkStatusBar />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Brand & Subtle Hackathon Identifier */}
-        <div className="flex min-w-0 items-center space-x-2 sm:space-x-3">
-          <Link href="/" className="flex min-w-0 items-center space-x-2.5 group">
-            {/* Emerald Nature/Growth Inspired Emblem */}
-            <div
-              className="w-9 h-9 rounded-xl flex items-center justify-center font-black text-lg shadow-sm transition-all bg-gradient-to-br from-emerald-400 to-teal-600 text-slate-950 shadow-emerald-500/20 group-hover:scale-105"
-            >
-              <Sprout className="w-5 h-5" aria-hidden="true" />
-            </div>
-            <span className="text-xl sm:text-2xl font-black tracking-tight transition-colors text-white group-hover:text-emerald-400 truncate">
-              {t("nav.brand")}
-            </span>
-          </Link>
-          <span className="hidden sm:inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider text-slate-400 bg-slate-800/80 border border-slate-700/60">
-            {t("nav.hackathonBadge")}
-          </span>
-        </div>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
-          <nav className="flex items-center space-x-7 text-sm font-medium text-slate-300">
-            <Link href="/onboarding" className="inline-flex items-center gap-1.5 transition-colors hover:text-emerald-400">
-              <PlusCircle className="w-4 h-4 text-emerald-400" aria-hidden="true" />
-              <span>{t("nav.newAdvisory")}</span>
-            </Link>
-            <Link href="/schemes" className="inline-flex items-center gap-1.5 transition-colors hover:text-emerald-400">
-              <Landmark className="w-4 h-4 text-slate-400" aria-hidden="true" />
-              <span>{t("nav.schemesDirectory")}</span>
-            </Link>
-            <Link href="/history" className="inline-flex items-center gap-1.5 transition-colors hover:text-emerald-400">
-              <History className="w-4 h-4 text-slate-400" aria-hidden="true" />
-              <span>{t("nav.history")}</span>
-            </Link>
-          </nav>
-
-          <div className="h-5 w-[1px] bg-slate-800" aria-hidden="true" />
-
-          <div className="flex items-center gap-3">
-            <LanguageToggle isDark />
-
-            <Link href="/onboarding">
-              <button
-                type="button"
-                className="bg-[#19D98B] hover:bg-[#16C784] text-slate-950 font-bold px-4 py-2 rounded-xl text-xs sm:text-sm shadow-md shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all inline-flex items-center gap-1"
-              >
-                <span>{t("nav.getStarted")}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </Link>
-          </div>
-        </div>
-
-        {/* Mobile Nav Trigger & Compact Language Toggle */}
-        <div className="flex shrink-0 md:hidden items-center space-x-1 sm:space-x-2">
-          <LanguageToggle isDark />
+      <div className="px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        {/* Left: Mobile hamburger + Page Title / Breadcrumb */}
+        <div className="flex items-center gap-3 min-w-0">
+          {/* Mobile hamburger button */}
           <button
             type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg focus:outline-none focus:ring-2 text-slate-300 hover:text-white hover:bg-slate-800 focus:ring-emerald-500"
-            aria-expanded={mobileMenuOpen}
-            aria-label="Toggle navigation menu"
+            onClick={onOpenMobileMenu}
+            className="lg:hidden p-2 rounded-xl border border-slate-700/80 bg-[#0E2635] text-slate-200 hover:text-white hover:bg-[#102B3A] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#19D98B] min-h-[40px] min-w-[40px] flex items-center justify-center transition-colors shrink-0"
+            aria-label="Open navigation menu"
           >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6 text-white" aria-hidden="true" />
-            ) : (
-              <Menu className="w-6 h-6 text-white" aria-hidden="true" />
-            )}
+            <Menu className="w-5 h-5 text-white" aria-hidden="true" />
           </button>
-        </div>
-      </div>
 
-      {/* Mobile Drawer Navigation */}
-      {mobileMenuOpen && (
-        <div
-        className="md:hidden border-t border-slate-800 bg-[#071827] text-white px-4 pt-3 pb-5 space-y-2 animate-in fade-in duration-150"
-        >
-          <div className="flex items-center justify-between py-1 px-3 mb-2">
-            <span className="text-xs font-medium text-slate-400">
-              {t("nav.hackathonBadge")}
-            </span>
+          {/* Mobile brand (shown only on small screens next to menu) */}
+          <div className="flex lg:hidden items-center gap-2 shrink-0">
+            <GramaViseIcon size={28} />
           </div>
-          <Link
-            href="/onboarding"
-            onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-semibold text-emerald-300 bg-emerald-950/40 border border-emerald-800/50 hover:bg-emerald-950/60 transition-colors"
-          >
-            <PlusCircle className="w-4 h-4 text-emerald-400" aria-hidden="true" />
-            <span>{t("nav.newAdvisory")}</span>
-          </Link>
-          <Link
-            href="/schemes"
-            onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800/60 hover:text-white transition-colors"
-          >
-            <Landmark className="w-4 h-4 text-slate-400" aria-hidden="true" />
-            <span>{t("nav.schemesDirectory")}</span>
-          </Link>
-          <Link
-            href="/history"
-            onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800/60 hover:text-white transition-colors"
-          >
-            <History className="w-4 h-4 text-slate-400" aria-hidden="true" />
-            <span>{t("nav.history")}</span>
-          </Link>
 
-          {isLanding && (
-            <div className="pt-2">
-              <Link
-                href="/onboarding"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full bg-[#19D98B] hover:bg-[#16C784] text-slate-950 font-bold px-4 py-2.5 rounded-xl text-sm shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center gap-1.5"
+          {/* Page Context Title */}
+          <div className="flex flex-col min-w-0">
+            <h1 className="text-sm sm:text-base font-bold text-white tracking-tight truncate leading-snug">
+              {pageInfo.title}
+            </h1>
+            <p className="hidden md:block text-[11px] text-slate-400 truncate leading-none mt-0.5">
+              {pageInfo.subtitle}
+            </p>
+          </div>
+        </div>
+
+        {/* Right: Actions */}
+        <div className="flex items-center gap-3 shrink-0">
+          <div className="hidden sm:block">
+            <LanguageToggle isDark />
+          </div>
+
+          {pathname !== "/onboarding" && (
+            <Link href="/onboarding" className="hidden lg:block">
+              <button
+                type="button"
+                className="bg-[#19D98B] hover:bg-[#16C784] text-[#06131F] font-bold px-3 sm:px-4 py-2 rounded-xl text-xs shadow-sm shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all inline-flex items-center gap-1.5 active:scale-[0.98] min-h-[36px]"
               >
-                <span>{t("nav.getStarted")}</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+                <PlusCircle className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">{t("nav.newAdvisory")}</span>
+                <span className="sm:hidden">New</span>
+              </button>
+            </Link>
           )}
         </div>
-      )}
+      </div>
     </header>
   );
 };

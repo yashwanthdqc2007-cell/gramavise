@@ -171,6 +171,23 @@ class MarketIndicatorItem(BaseModel):
     verification_status: str
 
 
+class GeocodingResult(BaseModel):
+    """Structured result of location coordinate resolution with explicit provenance."""
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
+    resolution_source: str = Field(
+        "UNRESOLVED",
+        description="TRUSTED_LOCAL_REGISTRY, CACHE, EXTERNAL_GEOCODER, DEMO_HASH_FALLBACK, UNRESOLVED, USER_PROVIDED"
+    )
+    verification_status: str = Field(
+        "NEEDS_VERIFICATION",
+        description="VERIFIED_SOURCE, EXTERNAL_GEOCODER, NEEDS_VERIFICATION"
+    )
+    confidence: float = Field(0.0, ge=0.0, le=1.0)
+    is_verified: bool = False
+    notes: Optional[str] = None
+
+
 class GeographyIdentity(BaseModel):
     """Verified administrative entity identity and official LGD codes."""
     state_name: Optional[str] = None
@@ -181,9 +198,14 @@ class GeographyIdentity(BaseModel):
     sub_district_lgd_code: Optional[str] = None
     village_name: Optional[str] = None
     village_lgd_code: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
+    resolution_source: Optional[str] = None
+    is_geocoded: bool = False
     verification_status: str = "NEEDS_VERIFICATION"
     source: Optional[str] = "Ministry of Panchayati Raj / Local Government Directory (LGD)"
     source_url: Optional[str] = "https://lgdirectory.gov.in/"
+
 
 
 class DemographicObservation(BaseModel):
@@ -212,6 +234,82 @@ class MarketEvidenceQuery(BaseModel):
     radius_km: float = Field(5.0, description="Search radius in kilometers")
 
 
+class SWOTItem(BaseModel):
+    """Structured, evidence-backed SWOT element."""
+    id: str = Field(..., description="Unique element identifier (e.g. STR-001, WKN-001)")
+    title: str = Field(..., description="Short descriptive title of the factor")
+    explanation: str = Field(..., description="Detailed factual explanation grounded in analysis")
+    category: Optional[str] = Field(None, description="FINANCIAL, MARKET, OPERATIONAL, REGULATORY, LOCAL_DEMAND")
+    importance: Optional[str] = Field(None, description="CRITICAL, HIGH, MEDIUM, LOW")
+    evidence_ids: List[str] = Field(default_factory=list, description="IDs of backing evidence items in the Evidence Ledger")
+    evidence_type: EvidenceType = Field(EvidenceType.OBSERVED, description="Classification of underlying evidence")
+    confidence: float = Field(1.0, ge=0.0, le=1.0)
+    source: Optional[str] = None
+
+
+class SWOTAnalysis(BaseModel):
+    """Structured, evidence-backed SWOT matrix for rural enterprise viability."""
+    strengths: List[SWOTItem] = Field(default_factory=list)
+    weaknesses: List[SWOTItem] = Field(default_factory=list)
+    opportunities: List[SWOTItem] = Field(default_factory=list)
+    threats: List[SWOTItem] = Field(default_factory=list)
+    evidence_type: EvidenceType = Field(EvidenceType.CALCULATED)
+    confidence: float = Field(1.0, ge=0.0, le=1.0)
+    verification_status: str = "DERIVED"
+    notes: Optional[str] = None
+
+
+class PurchasingPowerIndex(BaseModel):
+    """Purchasing power and local product affordability index contract."""
+    purchasing_power_level: Optional[str] = Field(None, description="HIGH, MODERATE, LOW, VERY_LOW, UNKNOWN")
+    affordability_level: Optional[str] = Field(None, description="AFFORDABLE, STRETCHED, UNFAVORABLE, UNKNOWN")
+    target_price: Optional[float] = Field(None, description="Proposed average ticket price (INR)")
+    reference_income_or_proxy: Optional[float] = Field(None, description="Reference district or rural proxy income baseline (INR/month)")
+    affordability_ratio: Optional[float] = Field(None, description="Target price as a percentage of estimated discretionary daily income")
+    evidence_ids: List[str] = Field(default_factory=list)
+    methodology: Optional[str] = None
+    limitations: Optional[str] = None
+    evidence_type: EvidenceType = Field(EvidenceType.NEEDS_VERIFICATION)
+    confidence: float = Field(0.0, ge=0.0, le=1.0)
+    verification_status: str = "NEEDS_VERIFICATION"
+    notes: Optional[str] = None
+
+
+class SeasonalThreatDetail(BaseModel):
+    """Seasonal and climatic threat vector contract."""
+    threat_id: str = Field(..., description="Unique threat vector ID (e.g. THR-SEA-001)")
+    threat_type: str = Field(..., description="SEASONAL_DEMAND, MONSOON, RAW_MATERIAL, TRANSPORT, SUPPLY_SHORTAGE, PRICE_VOLATILITY, OTHER")
+    title: str
+    explanation: str
+    affected_period: Optional[str] = Field(None, description="Months or season affected (e.g. Jul-Sep, Post-Harvest)")
+    severity: str = Field("MEDIUM", description="CRITICAL, HIGH, MEDIUM, LOW")
+    likelihood: Optional[str] = Field(None, description="HIGH, MEDIUM, LOW")
+    evidence_ids: List[str] = Field(default_factory=list)
+    evidence_type: EvidenceType = Field(EvidenceType.NEEDS_VERIFICATION)
+    confidence: float = Field(0.5, ge=0.0, le=1.0)
+    mitigation_hint: Optional[str] = None
+    verification_required: bool = True
+    verification_status: str = "NEEDS_VERIFICATION"
+
+
+class SupplyChainRiskDetail(BaseModel):
+    """Hyper-local raw material and supply chain vulnerability contract."""
+    risk_id: Optional[str] = None
+    input_material: str = Field(..., description="Key raw material or input commodity")
+    source_location: Optional[str] = Field(None, description="Procurement market or supplier location")
+    supplier_dependency: Optional[str] = Field(None, description="SINGLE_SOURCE, LOCAL_MARKET, DISTANT_WHOLESALER, MULTI_SOURCE")
+    estimated_distance_km: Optional[float] = Field(None, description="Estimated distance to supplier/market in km")
+    availability_status: Optional[str] = Field(None, description="STABLE, SEASONAL_SCARCITY, VOLATILE, UNKNOWN")
+    price_volatility: Optional[str] = Field(None, description="LOW, MODERATE, HIGH, EXTREME")
+    logistics_concern: Optional[str] = None
+    evidence_ids: List[str] = Field(default_factory=list)
+    evidence_type: EvidenceType = Field(EvidenceType.NEEDS_VERIFICATION)
+    confidence: float = Field(0.5, ge=0.0, le=1.0)
+    verification_required: bool = True
+    verification_status: str = "NEEDS_VERIFICATION"
+    notes: Optional[str] = None
+
+
 class MarketResultResponse(BaseModel):
     location_summary: str
     competitor_count: int = 0
@@ -234,3 +332,9 @@ class MarketResultResponse(BaseModel):
     indicators: List[MarketIndicatorItem] = Field(default_factory=list)
     confidence_level: MarketConfidenceLevel = MarketConfidenceLevel.LOW
     notes: Optional[str] = None
+    # Phase 2B Optional Schema Extensions
+    swot: Optional[SWOTAnalysis] = None
+    purchasing_power: Optional[PurchasingPowerIndex] = None
+    seasonal_threats: List[SeasonalThreatDetail] = Field(default_factory=list)
+    supply_chain: List[SupplyChainRiskDetail] = Field(default_factory=list)
+

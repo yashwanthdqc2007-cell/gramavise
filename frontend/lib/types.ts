@@ -158,6 +158,16 @@ export interface CatchmentData {
   verification_status: string;
 }
 
+export interface GeocodingResult {
+  latitude?: number;
+  longitude?: number;
+  resolution_source: "TRUSTED_LOCAL_REGISTRY" | "CACHE" | "EXTERNAL_GEOCODER" | "DEMO_HASH_FALLBACK" | "UNRESOLVED" | "USER_PROVIDED" | string;
+  verification_status: "VERIFIED_SOURCE" | "EXTERNAL_GEOCODER" | "NEEDS_VERIFICATION" | string;
+  confidence: number;
+  is_verified: boolean;
+  notes?: string;
+}
+
 export interface GeographyIdentity {
   state_name?: string;
   state_lgd_code?: string;
@@ -167,10 +177,15 @@ export interface GeographyIdentity {
   sub_district_lgd_code?: string;
   village_name?: string;
   village_lgd_code?: string;
+  latitude?: number;
+  longitude?: number;
+  resolution_source?: string;
+  is_geocoded?: boolean;
   verification_status?: string;
   source?: string;
   source_url?: string;
 }
+
 
 export interface DemographicObservation {
   population?: number;
@@ -227,6 +242,77 @@ export interface PriceBenchmark {
   notes?: string;
 }
 
+export interface SWOTItem {
+  id: string;
+  title: string;
+  explanation: string;
+  category?: string;
+  importance?: "CRITICAL" | "HIGH" | "MEDIUM" | "LOW" | string;
+  evidence_ids?: string[];
+  evidence_type?: EvidenceType;
+  confidence?: number;
+  source?: string;
+}
+
+export interface SWOTAnalysis {
+  strengths: SWOTItem[];
+  weaknesses: SWOTItem[];
+  opportunities: SWOTItem[];
+  threats: SWOTItem[];
+  evidence_type?: EvidenceType;
+  confidence?: number;
+  verification_status?: string;
+  notes?: string;
+}
+
+export interface PurchasingPowerIndex {
+  purchasing_power_level?: "HIGH" | "MODERATE" | "LOW" | "VERY_LOW" | "UNKNOWN" | string;
+  affordability_level?: "AFFORDABLE" | "STRETCHED" | "UNFAVORABLE" | "UNKNOWN" | string;
+  target_price?: number;
+  reference_income_or_proxy?: number;
+  affordability_ratio?: number;
+  evidence_ids?: string[];
+  methodology?: string;
+  limitations?: string;
+  evidence_type?: EvidenceType;
+  confidence?: number;
+  verification_status?: string;
+  notes?: string;
+}
+
+export interface SeasonalThreatDetail {
+  threat_id: string;
+  threat_type: "SEASONAL_DEMAND" | "MONSOON" | "RAW_MATERIAL" | "TRANSPORT" | "SUPPLY_SHORTAGE" | "PRICE_VOLATILITY" | "OTHER" | string;
+  title: string;
+  explanation: string;
+  affected_period?: string;
+  severity: "CRITICAL" | "HIGH" | "MEDIUM" | "LOW" | string;
+  likelihood?: "HIGH" | "MEDIUM" | "LOW" | string;
+  evidence_ids?: string[];
+  evidence_type?: EvidenceType;
+  confidence?: number;
+  mitigation_hint?: string;
+  verification_required?: boolean;
+  verification_status?: string;
+}
+
+export interface SupplyChainRiskDetail {
+  risk_id?: string;
+  input_material: string;
+  source_location?: string;
+  supplier_dependency?: "SINGLE_SOURCE" | "LOCAL_MARKET" | "DISTANT_WHOLESALER" | "MULTI_SOURCE" | string;
+  estimated_distance_km?: number;
+  availability_status?: "STABLE" | "SEASONAL_SCARCITY" | "VOLATILE" | "UNKNOWN" | string;
+  price_volatility?: "LOW" | "MODERATE" | "HIGH" | "EXTREME" | string;
+  logistics_concern?: string;
+  evidence_ids?: string[];
+  evidence_type?: EvidenceType;
+  confidence?: number;
+  verification_required?: boolean;
+  verification_status?: string;
+  notes?: string;
+}
+
 export interface MarketResult {
   location_summary: string;
   competitor_count: number;
@@ -249,7 +335,13 @@ export interface MarketResult {
   indicators?: any[];
   confidence_level?: "HIGH" | "MEDIUM" | "LOW" | "UNKNOWN";
   notes?: string;
+  // Phase 2B Optional Schema Extensions
+  swot?: SWOTAnalysis;
+  purchasing_power?: PurchasingPowerIndex;
+  seasonal_threats?: SeasonalThreatDetail[];
+  supply_chain?: SupplyChainRiskDetail[];
 }
+
 
 export interface MatchedScheme {
   scheme_code: string;

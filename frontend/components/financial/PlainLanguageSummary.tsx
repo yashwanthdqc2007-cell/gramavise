@@ -27,12 +27,7 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
   const expectedCustomers = assumptions?.customers_per_day;
   const breakEvenCustomers = financials.break_even_units_daily;
 
-  // Maximum scale for accessible CSS visual bar representation
-  const maxCustomerRef = Math.max(
-    expectedCustomers || 0,
-    breakEvenCustomers,
-    1
-  );
+  const maxCustomerRef = Math.max(expectedCustomers || 0, breakEvenCustomers, 1);
   const expectedBarPct = expectedCustomers
     ? Math.min(100, Math.max(10, Math.round((expectedCustomers / maxCustomerRef) * 100)))
     : 0;
@@ -44,12 +39,12 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
   return (
     <div className="space-y-6" data-testid="plain-language-summary">
       {/* Header & Viability State */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
         <div>
-          <h3 className="text-lg font-bold text-gray-900">
+          <h3 className="text-lg font-bold text-white">
             {t("results.financial.plainSummaryTitle")}
           </h3>
-          <p className="text-xs text-gray-500 mt-0.5">
+          <p className="text-xs text-slate-500 mt-0.5">
             {t("results.financial.plainSummarySubtitle")}
           </p>
         </div>
@@ -71,8 +66,8 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
           <span
             className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
               financials.is_financially_viable
-                ? "bg-emerald-100 text-emerald-800"
-                : "bg-rose-100 text-rose-800"
+                ? "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
+                : "bg-rose-500/15 text-rose-300 border border-rose-500/30"
             }`}
           >
             {financials.is_financially_viable
@@ -83,13 +78,13 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
       </div>
 
       {/* Break-Even Daily Customer Visual Comparison */}
-      <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-4">
+      <div className="p-4 bg-[#06131F] border border-slate-800 rounded-xl space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h4 className="text-sm font-bold text-gray-900">
+            <h4 className="text-sm font-bold text-white">
               {t("results.financial.breakEvenComparisonTitle")}
             </h4>
-            <p className="text-xs text-gray-500 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               {t("results.financial.breakEvenComparisonSubtitle")}
             </p>
           </div>
@@ -97,7 +92,7 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
             <button
               type="button"
               onClick={() => onExplainMetric("break_even_units_daily")}
-              className="inline-flex items-center gap-1 text-xs text-indigo-700 hover:text-indigo-900 bg-white border border-indigo-200 px-2.5 py-1 rounded-lg font-medium shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="inline-flex items-center gap-1 text-xs text-emerald-400 hover:text-emerald-300 bg-[#0B1F2D] border border-slate-700 px-2.5 py-1 rounded-lg font-medium shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500"
               title={t("results.explainNumber.explainButtonLabel")}
             >
               <HelpCircle className="w-3.5 h-3.5" />
@@ -112,16 +107,16 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
           {expectedCustomers !== undefined && (
             <div className="space-y-1">
               <div className="flex justify-between text-xs font-medium">
-                <span className="text-gray-700 flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-indigo-600 inline-block" />
+                <span className="text-slate-400 flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 inline-block" />
                   {t("results.financial.expectedCustomersLabel")}:
                 </span>
-                <span className="font-bold text-gray-900">
+                <span className="font-bold text-white">
                   {expectedCustomers} / day
                 </span>
               </div>
               <div
-                className="w-full bg-gray-200 h-3 rounded-full overflow-hidden"
+                className="w-full bg-slate-800 h-3 rounded-full overflow-hidden"
                 role="progressbar"
                 aria-valuenow={expectedCustomers}
                 aria-valuemin={0}
@@ -129,7 +124,7 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
                 aria-label={t("results.financial.expectedCustomersLabel")}
               >
                 <div
-                  className="bg-indigo-600 h-full rounded-full transition-all duration-500"
+                  className="bg-cyan-500 h-full rounded-full transition-all duration-500"
                   style={{ width: `${expectedBarPct}%` }}
                 />
               </div>
@@ -139,16 +134,16 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
           {/* Break-Even Customers Bar */}
           <div className="space-y-1">
             <div className="flex justify-between text-xs font-medium">
-              <span className="text-gray-700 flex items-center gap-1.5">
+              <span className="text-slate-400 flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block" />
                 {t("results.financial.breakEvenCustomersLabel")}:
               </span>
-              <span className="font-bold text-gray-900">
+              <span className="font-bold text-white">
                 {breakEvenCustomers} / day
               </span>
             </div>
             <div
-              className="w-full bg-gray-200 h-3 rounded-full overflow-hidden"
+              className="w-full bg-slate-800 h-3 rounded-full overflow-hidden"
               role="progressbar"
               aria-valuenow={breakEvenCustomers}
               aria-valuemin={0}
@@ -167,14 +162,14 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
         <div
           className={`p-3 rounded-lg flex items-start gap-2.5 text-xs font-medium ${
             expectedCustomers !== undefined && expectedCustomers >= breakEvenCustomers
-              ? "bg-emerald-50 text-emerald-900 border border-emerald-200"
-              : "bg-amber-50 text-amber-900 border border-amber-200"
+              ? "bg-emerald-500/10 text-emerald-200 border border-emerald-500/25"
+              : "bg-amber-500/10 text-amber-200 border border-amber-500/25"
           }`}
         >
           {expectedCustomers !== undefined && expectedCustomers >= breakEvenCustomers ? (
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
           ) : (
-            <AlertTriangle className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+            <AlertTriangle className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
           )}
           <div>
             {expectedCustomers !== undefined && expectedCustomers > breakEvenCustomers && (
@@ -193,23 +188,23 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
       {/* Everyday Plain-Language Concept Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* A. Monthly Revenue */}
-        <div className="p-4 bg-white border border-gray-200 rounded-xl space-y-2">
+        <div className="p-4 bg-[#0E2635] border border-slate-700/60 rounded-xl space-y-2">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-indigo-700">
+            <div className="flex items-center gap-2 text-emerald-400">
               <TrendingUp className="w-4 h-4" />
               <h4 className="text-xs font-bold uppercase tracking-wider">
                 {t("results.financial.monthlyMoneyInTitle")}
               </h4>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-mono px-1.5 py-0.5 bg-blue-50 text-blue-700 rounded font-semibold">
+              <span className="text-[10px] font-mono px-1.5 py-0.5 bg-cyan-500/15 text-cyan-300 rounded font-semibold border border-cyan-500/25">
                 CALCULATED
               </span>
               {onExplainMetric && (
                 <button
                   type="button"
                   onClick={() => onExplainMetric("monthly_revenue")}
-                  className="text-gray-400 hover:text-indigo-600 p-0.5 rounded transition-colors"
+                  className="text-slate-600 hover:text-emerald-400 p-0.5 rounded transition-colors"
                   title={t("results.explainNumber.explainButtonLabel")}
                 >
                   <HelpCircle className="w-3.5 h-3.5" />
@@ -217,10 +212,10 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
               )}
             </div>
           </div>
-          <div className="text-2xl font-black text-gray-900">
+          <div className="text-2xl font-black text-white">
             {formatCurrencyINR(financials.monthly_revenue)}
           </div>
-          <p className="text-xs text-gray-600 leading-relaxed">
+          <p className="text-xs text-slate-400 leading-relaxed">
             {t("results.financial.monthlyMoneyInDesc", {
               amount: formatCurrencyINR(financials.monthly_revenue),
             })}
@@ -228,23 +223,23 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
         </div>
 
         {/* B. Net Profit */}
-        <div className="p-4 bg-white border border-gray-200 rounded-xl space-y-2">
+        <div className="p-4 bg-[#0E2635] border border-slate-700/60 rounded-xl space-y-2">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-emerald-700">
+            <div className="flex items-center gap-2 text-emerald-400">
               <Wallet className="w-4 h-4" />
               <h4 className="text-xs font-bold uppercase tracking-wider">
                 {t("results.financial.monthlyProfitTitle")}
               </h4>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-mono px-1.5 py-0.5 bg-blue-50 text-blue-700 rounded font-semibold">
+              <span className="text-[10px] font-mono px-1.5 py-0.5 bg-cyan-500/15 text-cyan-300 rounded font-semibold border border-cyan-500/25">
                 CALCULATED
               </span>
               {onExplainMetric && (
                 <button
                   type="button"
                   onClick={() => onExplainMetric("monthly_net_profit")}
-                  className="text-gray-400 hover:text-indigo-600 p-0.5 rounded transition-colors"
+                  className="text-slate-600 hover:text-emerald-400 p-0.5 rounded transition-colors"
                   title={t("results.explainNumber.explainButtonLabel")}
                 >
                   <HelpCircle className="w-3.5 h-3.5" />
@@ -254,14 +249,12 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
           </div>
           <div
             className={`text-2xl font-black ${
-              financials.monthly_net_profit >= 0
-                ? "text-emerald-700"
-                : "text-rose-600"
+              financials.monthly_net_profit >= 0 ? "text-emerald-300" : "text-rose-400"
             }`}
           >
             {formatCurrencyINR(financials.monthly_net_profit)}
           </div>
-          <p className="text-xs text-gray-600 leading-relaxed">
+          <p className="text-xs text-slate-400 leading-relaxed">
             {t("results.financial.monthlyProfitDesc", {
               amount: formatCurrencyINR(financials.monthly_net_profit),
             })}
@@ -269,23 +262,23 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
         </div>
 
         {/* C. Loan Repayment Cushion (DSCR) */}
-        <div className="p-4 bg-white border border-gray-200 rounded-xl space-y-2">
+        <div className="p-4 bg-[#0E2635] border border-slate-700/60 rounded-xl space-y-2">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-blue-700">
+            <div className="flex items-center gap-2 text-cyan-400">
               <ShieldCheck className="w-4 h-4" />
               <h4 className="text-xs font-bold uppercase tracking-wider">
                 {t("results.financial.loanCushionTitle")}
               </h4>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-mono px-1.5 py-0.5 bg-blue-50 text-blue-700 rounded font-semibold">
+              <span className="text-[10px] font-mono px-1.5 py-0.5 bg-cyan-500/15 text-cyan-300 rounded font-semibold border border-cyan-500/25">
                 CALCULATED
               </span>
               {onExplainMetric && (
                 <button
                   type="button"
                   onClick={() => onExplainMetric("dscr")}
-                  className="text-gray-400 hover:text-indigo-600 p-0.5 rounded transition-colors"
+                  className="text-slate-600 hover:text-emerald-400 p-0.5 rounded transition-colors"
                   title={t("results.explainNumber.explainButtonLabel")}
                 >
                   <HelpCircle className="w-3.5 h-3.5" />
@@ -293,12 +286,12 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
               )}
             </div>
           </div>
-          <div className="text-2xl font-black text-gray-900">
+          <div className="text-2xl font-black text-white">
             {isDebtFree
               ? t("results.financial.loanCushionDebtFree")
               : `${financials.dscr.toFixed(2)}x`}
           </div>
-          <p className="text-xs text-gray-600 leading-relaxed">
+          <p className="text-xs text-slate-400 leading-relaxed">
             {isDebtFree
               ? t("results.financial.loanCushionDebtFreeDesc")
               : t("results.financial.loanCushionDesc", {
@@ -308,23 +301,23 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
         </div>
 
         {/* D. Variable Cost (COGS) */}
-        <div className="p-4 bg-white border border-gray-200 rounded-xl space-y-2">
+        <div className="p-4 bg-[#0E2635] border border-slate-700/60 rounded-xl space-y-2">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-amber-700">
+            <div className="flex items-center gap-2 text-amber-400">
               <ShoppingBag className="w-4 h-4" />
               <h4 className="text-xs font-bold uppercase tracking-wider">
                 {t("results.financial.variableCostTitle")}
               </h4>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-mono px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded font-semibold">
+              <span className="text-[10px] font-mono px-1.5 py-0.5 bg-slate-700 text-slate-300 rounded font-semibold border border-slate-600">
                 {assumptions?.variable_cost_pct !== undefined ? "ASSUMED" : "CALCULATED"}
               </span>
               {onExplainMetric && (
                 <button
                   type="button"
                   onClick={() => onExplainMetric("variable_cost_pct")}
-                  className="text-gray-400 hover:text-indigo-600 p-0.5 rounded transition-colors"
+                  className="text-slate-600 hover:text-emerald-400 p-0.5 rounded transition-colors"
                   title={t("results.explainNumber.explainButtonLabel")}
                 >
                   <HelpCircle className="w-3.5 h-3.5" />
@@ -332,12 +325,12 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
               )}
             </div>
           </div>
-          <div className="text-2xl font-black text-gray-900">
+          <div className="text-2xl font-black text-white">
             {assumptions?.variable_cost_pct !== undefined
               ? `${assumptions.variable_cost_pct}%`
               : formatCurrencyINR(financials.monthly_variable_cost)}
           </div>
-          <p className="text-xs text-gray-600 leading-relaxed">
+          <p className="text-xs text-slate-400 leading-relaxed">
             {assumptions?.variable_cost_pct !== undefined
               ? t("results.financial.variableCostDesc", {
                   pct: assumptions.variable_cost_pct,
@@ -348,7 +341,7 @@ export const PlainLanguageSummary: React.FC<PlainLanguageSummaryProps> = ({
       </div>
 
       {/* Mathematical Interpretation Disclaimer */}
-      <p className="text-[11px] text-gray-500 italic text-center">
+      <p className="text-[11px] text-slate-600 italic text-center">
         {t("results.financial.disclaimerNote")}
       </p>
     </div>

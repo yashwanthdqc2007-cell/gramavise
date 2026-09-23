@@ -24,8 +24,9 @@ export async function apiClient<T>(
 ): Promise<T> {
   const url = `${API_BASE_URL}${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;
 
-  // Check browser online status before initiating request
-  if (typeof navigator !== "undefined" && !navigator.onLine) {
+  // Check browser online status before initiating external request
+  const isLocal = url.includes("localhost") || url.includes("127.0.0.1");
+  if (!isLocal && typeof navigator !== "undefined" && !navigator.onLine) {
     throw new ApiError(
       "No internet connection. You can continue editing your details. Feasibility analysis will run once you reconnect.",
       "OFFLINE"

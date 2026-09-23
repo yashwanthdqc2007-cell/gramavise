@@ -9,7 +9,17 @@ from app.schemas.financial import (
     SensitivityResponse,
     SensitivityScenario
 )
-from app.schemas.market import MarketEvidenceQuery, MarketResultResponse, CompetitorInfo
+from app.schemas.market import (
+    MarketEvidenceQuery,
+    MarketResultResponse,
+    CompetitorInfo,
+    GeocodingResult,
+    SWOTItem,
+    SWOTAnalysis,
+    PurchasingPowerIndex,
+    SeasonalThreatDetail,
+    SupplyChainRiskDetail
+)
 from app.schemas.scheme import SchemeBase, SchemeResponse, SchemeMatchResult, MatchedSchemeDetail
 from app.schemas.ai import AIExplanationRequest, AIExplanationResponse
 from app.schemas.analysis import (
@@ -62,6 +72,12 @@ __all__ = [
     "MarketEvidenceQuery",
     "MarketResultResponse",
     "CompetitorInfo",
+    "GeocodingResult",
+    "SWOTItem",
+    "SWOTAnalysis",
+    "PurchasingPowerIndex",
+    "SeasonalThreatDetail",
+    "SupplyChainRiskDetail",
     "SchemeBase",
     "SchemeResponse",
     "SchemeMatchResult",
@@ -97,5 +113,6 @@ __all__ = [
     "ScenarioEvaluationRequest",
     "ScenarioEvaluationResponse"
 ]
+
 
 

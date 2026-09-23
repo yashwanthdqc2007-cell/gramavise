@@ -126,6 +126,29 @@ async def analyze_business(
     confidence = evidence_collector.calculate_confidence(evidence_items)
     verification_checklist = evidence_collector.generate_verification_checklist(evidence_items)
 
+    # 6B. Deterministic Evidence-Grounded SWOT Analysis
+    from app.services.recommendation.swot import SWOTEngine
+    try:
+        market_res.swot = SWOTEngine.generate_swot(
+            financial_result=financial_res,
+            market_result=market_res,
+            scheme_result=scheme_res,
+            evidence_ledger=evidence_items,
+            decision_trace=decision_trace,
+            customers_per_day=request.financials.customers_per_day,
+            desired_loan=request.profile.desired_loan,
+            category=request.profile.category,
+            state=request.profile.location.state,
+            district=request.profile.location.district,
+            village=request.profile.location.village,
+        )
+    except Exception as e:
+        logger.error(
+            f"SWOT generation failed safely for category '{request.profile.category}' in '{request.profile.location.district}': {e}",
+            exc_info=True
+        )
+        market_res.swot = None
+
     from app.services.financial.explainer import FinancialExplainer
     financial_res.explanations = FinancialExplainer.generate_explanations(
         own_capital=request.profile.own_capital,

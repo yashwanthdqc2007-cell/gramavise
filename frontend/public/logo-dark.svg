@@ -1,0 +1,39 @@
+<svg width="200" height="40" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gv_full_emerald" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#27C7D9" />
+      <stop offset="50%" stop-color="#19D98B" />
+      <stop offset="100%" stop-color="#0E9F6E" />
+    </linearGradient>
+    <filter id="gv_glow" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#19D98B" flood-opacity="0.3" />
+    </filter>
+  </defs>
+
+  <!-- Icon (32x32 centered at y=4) -->
+  <g transform="translate(2, 2)">
+    <path d="M18 3L31 10.5V25.5L18 33L5 25.5V10.5L18 3Z" 
+          fill="#0B2332" 
+          stroke="url(#gv_full_emerald)" 
+          stroke-width="1.75" 
+          stroke-linejoin="round" />
+    <path d="M12 14.5C12 11.5 14.5 9 18 9C21 9 23.5 10.8 24.5 13.5" 
+          stroke="#27C7D9" 
+          stroke-width="2" 
+          stroke-linecap="round" />
+    <path d="M11 19.5L16.5 25L25.5 12" 
+          stroke="#19D98B" 
+          stroke-width="2.75" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+          filter="url(#gv_glow)" />
+    <circle cx="25.5" cy="12" r="2.25" fill="#27C7D9" />
+    <circle cx="25.5" cy="12" r="1" fill="#FFFFFF" />
+    <circle cx="11" cy="19.5" r="1.5" fill="#19D98B" />
+  </g>
+
+  <!-- Wordmark "GRAMAVISE" -->
+  <text x="48" y="26" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="900" letter-spacing="-0.02em">
+    <tspan fill="#F4F8FA">GRAMA</tspan><tspan fill="#19D98B">VISE</tspan>
+  </text>
+</svg>

@@ -41,10 +41,10 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = ({
       title={`${label} (${t(config.labelKey)})`}
       aria-label={`${label}: ${t(config.labelKey)}`}
       data-testid={`voice-btn-${fieldType}`}
-      className={`inline-flex items-center justify-center p-2 rounded-lg border transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 ${
+      className={`inline-flex items-center justify-center p-2 rounded-lg border transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-1 focus:ring-offset-[#102B3A] ${
         isListening
           ? "bg-rose-500 text-white border-rose-600 animate-pulse shadow-md"
-          : "bg-white hover:bg-indigo-50 text-gray-500 hover:text-indigo-600 border-gray-200 shadow-sm"
+          : "bg-[#0B1F2D] hover:bg-[#0E2635] text-slate-400 hover:text-emerald-300 border-slate-700 hover:border-emerald-500/50 shadow-sm"
       } ${disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer"}`}
     >
       <Mic className={`w-4 h-4 ${isListening ? "animate-bounce" : ""}`} />
