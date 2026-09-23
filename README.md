@@ -46,9 +46,14 @@ Evidence  ──>  Calculate  ──>  Explain  ──>  Decide  ──>  Act  �
 * **Break-Even Diagnostics:** Computes break-even monthly revenue, daily unit sales targets, and margin-of-safety buffers.
 * **Built-in Sensitivity Stress Testing:** Simulates 4 stress cases (demand drops by 20%, ticket price compresses by 10%, variable cost inflates by 15%, and combined stress) to rate business resilience (`HIGH`, `MODERATE`, `LOW`).
 
+### 📊 Strategic SWOT Analysis Engine
+* **Automated 4-Quadrant Synthesis:** Evaluates Strengths, Weaknesses, Opportunities, and Threats deterministically by correlating financial ratios, DSCR health, stress resilience, competitor proximity, Mandi pricing, and ODOP product alignments.
+* **Evidence-Linked Source Attribution:** Every SWOT point contains verifiable provenance tags (`FINANCIAL`, `MARKET`, `SCHEME`, `DEMOGRAPHIC`, `SENSITIVITY`).
+* **Visual Quadrant Dashboard:** Color-coded quadrant cards with impact ratings (`HIGH`, `MEDIUM`, `LOW`) and actionable mitigation tips for rural lenders and entrepreneurs.
+
 ### 📍 Hyper-Local Evidence & Multi-Provider Intelligence
-* **OpenStreetMap (OSM) POI Adapter:** Mapped competitor counts with Haversine distance, classified into `DIRECT` and `ADJACENT` competitors within a 5 km catchment.
-* **Local Government Directory (LGD):** Administrative district, sub-district, and village classification with official census identifiers.
+* **OpenStreetMap (OSM) POI Adapter:** Mapped competitor counts with Haversine distance, classified into `DIRECT` and `ADJACENT` competitors within configurable 5 km to 15 km rural catchments.
+* **Local Government Directory (LGD) & Geocoding:** Administrative district, sub-district, and village classification with official census identifiers and geographic boundary bounding.
 * **Census 2011 Demographics:** Baseline village and sub-district population counts and rural indicators.
 * **Agmarknet Mandi Price Adapter:** Wholesale commodity pricing lookup from nearby APMCs (e.g., wheat, paddy, milk, oilseeds) with freshness metadata.
 * **One District One Product (ODOP):** District-level agro-processing specializations aligned with PMFME priorities.
@@ -67,10 +72,12 @@ Evidence  ──>  Calculate  ──>  Explain  ──>  Decide  ──>  Act  �
 * Save up to 3 persistent scenarios per analysis with parent-locked idempotency.
 
 ### 🗣️ Vernacular & Rural-First UX
-* **6 Indic Languages Supported:** English (`en`), Hindi (`hi`), Telugu (`te`), Tamil (`ta`), Marathi (`mr`), and Bengali (`bn`) with 100% dictionary key parity (501 canonical keys).
+* **6 Indic Languages Supported:** English (`en`), Hindi (`hi`), Telugu (`te`), Tamil (`ta`), Marathi (`mr`), and Bengali (`bn`) with 100% dictionary key parity across all screens including SWOT and market diagnostics.
+* **Tabbed Report Workspace:** High-efficiency dashboard tab switching between Executive Summary, Financial Breakdown, Market Intelligence, Government Schemes, and Strategic SWOT Analysis.
 * **Voice-Assisted Numeric Input:** Browser Web Speech API integration in 6 locales (`en-IN`, `hi-IN`, `te-IN`, etc.) with a multilingual numeric parser supporting Indian numbering (lakhs, crores, thousands, percentages). Includes an accessible confirmation modal.
 * **Offline Draft Recovery:** Auto-saves progress to `localStorage` (`gramavise_draft_v1`) with 300 ms debounce and 7-day TTL.
 * **Anonymous History Management:** Browser-scoped history indexing (`gramavise_history_v1`, up to 20 entries) with one-click "Use as Starting Point" advisory cloning.
+* **Dedicated Help & Settings Pages:** Rural vernacular terminology guide, FAQs, audio accessibility controls, and cache management.
 * **Plain-Language Financial Explanations:** "Explain Number" modal converting complex metrics (DSCR, Break-even, Variable Costs) into relatable rural analogies (e.g., daily cups of tea, harvest buffers).
 
 ---
@@ -85,8 +92,9 @@ Evidence  ──>  Calculate  ──>  Explain  ──>  Decide  ──>  Act  �
  ┌───────────────┐                                                 ┌───────────────┐
  │   FRONTEND    │  Next.js 14 App Router (TypeScript + Tailwind)   │  RURAL UX     │
  │               │  • 4-Step Adaptive Onboarding Wizard            │  • 6-Lang i18n │
- │               │  • Decision Hero & Interactive Trace            │  • Voice Input │
- │               │  • Scenario Lab & Break-Even Chart              │  • Draft Cache │
+ │               │  • Tabbed ReportWorkspace & SWOT Matrix         │  • Voice Input │
+ │               │  • Decision Hero & Interactive Trace            │  • Draft Cache │
+ │               │  • Scenario Lab & Break-Even Chart              │  • Help/Config │
  └───────┬───────┘                                                 └───────────────┘
          │ HTTP / JSON (Typed API Client)
          ▼
@@ -99,6 +107,7 @@ Evidence  ──>  Calculate  ──>  Explain  ──>  Decide  ──>  Act  �
  ┌───────┴────────────────────────────────────────────────────────────────┐
  │ SERVICES & ENGINES                                                     │
  │ • FinancialService: Deterministic formulas (Revenue, EMI, DSCR, BEP)   │
+ │ • SWOTEngine: 4-quadrant strategic matrix with source attribution      │
  │ • FeasibilityRules: PROCEED / VALIDATE_FIRST / RECONSIDER verdicts     │
  │ • SchemeMatcher: PMEGP, MUDRA, PMFME versioned rule catalog            │
  │ • EvidenceCollector: 5-Tier Ledger with heuristic confidence scoring   │
@@ -137,7 +146,7 @@ Evidence  ──>  Calculate  ──>  Explain  ──>  Decide  ──>  Act  �
 | | [Uvicorn](https://www.uvicorn.org/) | `>=0.30,<0.31` | ASGI production web server |
 | | [HTTPX](https://www.python-httpx.org/) | `>=0.27,<0.28` | Async HTTP client for provider queries |
 | **Database** | [PostgreSQL](https://www.postgresql.org/) / SQLite | `16` (Docker) / 3 | Persistent relational storage & immutable snapshots |
-| **Testing** | [Pytest](https://pytest.org/) | `>=8.2,<9` | Test suite (30+ backend test modules) |
+| **Testing** | [Pytest](https://pytest.org/) | `>=8.2,<9` | Test suite (35+ backend test modules) |
 
 ---
 
@@ -165,14 +174,14 @@ gramavise/
 │   │   ├── providers/                # Pluggable data provider adapters
 │   │   ├── repositories/             # Repository pattern & Unit of Work (UoW)
 │   │   ├── rules/                    # Deterministic feasibility, financial, and scheme rules
-│   │   ├── schemas/                  # Pydantic request and response schemas
-│   │   ├── services/                 # Domain logic (Financial, Evidence, Geo, Schemes, AI, Scenario)
+│   │   ├── schemas/                  # Pydantic request and response schemas (SWOT, market, geo)
+│   │   ├── services/                 # Domain logic (Financial, Evidence, Geo, Schemes, AI, Scenario, SWOT)
 │   │   ├── utils/                    # Geo distance (Haversine), logging, request fingerprinting
 │   │   ├── config.py                 # Pydantic Settings configuration
 │   │   ├── database.py               # Database engine & sessionmaker
 │   │   └── main.py                   # FastAPI application factory
 │   ├── scripts/                      # Seed scripts (seed_schemes.py)
-│   └── tests/                        # 30+ Pytest modules (unit, integration, resilience, hardening)
+│   └── tests/                        # 35+ Pytest modules (SWOT, geo, market, financial, hardening)
 ├── docs/                             # Architectural specifications and master audit report
 │   ├── API.md                        # Complete REST API reference
 │   ├── ARCHITECTURE.md               # System design & component interactions
@@ -185,20 +194,22 @@ gramavise/
 ├── frontend/
 │   ├── app/                          # Next.js 14 App Router pages
 │   │   ├── analysis/loading/         # Submission loading state & error handler
+│   │   ├── help/                     # Interactive FAQ, terminology guide & rural support
 │   │   ├── history/                  # Local advisory history & historical replay view
 │   │   ├── onboarding/               # 4-step interactive business profile wizard
 │   │   ├── results/                  # Comprehensive advisory results dashboard
 │   │   ├── schemes/                  # Government schemes directory
-│   │   ├── layout.tsx                # Root layout with language context & navbar
+│   │   ├── settings/                 # Accessibility, language, and cache management
+│   │   ├── layout.tsx                # Root layout with language context & AppShell
 │   │   └── page.tsx                  # Landing page
 │   ├── components/                   # Modular React components
-│   │   ├── analysis/                 # Analysis progress bar
-│   │   ├── common/                   # Header, Footer, LanguageToggle, NetworkStatusBar
-│   │   ├── dashboard/                # DecisionHero, DecisionTrace, NumbersAtAGlance, ScenarioLab
+│   │   ├── common/                   # Header, Footer, AppShell, GramaViseLogo, LanguageToggle
+│   │   ├── dashboard/                # ReportWorkspace, DecisionHero, NumbersAtAGlance, ScenarioLab
+│   │   │   └── swot/                 # SWOTSection, SWOTQuadrant, SWOTItemCard
 │   │   ├── evidence/                 # EvidenceBadge, EvidenceDrawer
 │   │   ├── financial/                # BreakEvenChart, MetricCard, ExplainNumberModal
 │   │   ├── market/                   # CompetitorList, MarketSnapshot
-│   │   ├── onboarding/               # ProfileForm, LocationForm, BusinessForm, FinancialForm
+│   │   ├── onboarding/               # BusinessForm, LocationForm, FinancialForm, SalesAssumptionsForm, ReviewSummary
 │   │   ├── ui/                       # Badge, Button, Card, Input primitive components
 │   │   └── voice/                    # VoiceInputButton, VoiceConfirmationModal
 │   ├── hooks/                        # Custom React hooks (useAnalysis, useVoiceInput, useNetworkStatus)
@@ -208,6 +219,7 @@ gramavise/
 │   │   ├── storage/                  # Local storage managers (drafts, history)
 │   │   ├── voice/                    # Multilingual speech-to-number parser
 │   │   └── api.ts                    # Robust fetch client with error classification
+│   ├── public/                       # GramaVise SVG brand marks, icons, and favicons
 │   └── scripts/                      # Frontend evaluation & verification scripts
 ├── docker-compose.yml                # Multi-container orchestration (Postgres + Backend + Frontend)
 ├── start.bat                         # 1-Click Windows development launcher
